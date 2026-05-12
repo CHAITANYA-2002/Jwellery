@@ -1,5 +1,3 @@
-import { Separator } from "@/components/ui/separator";
-
 const footerGroups = [
   {
     title: "The Brand",
@@ -17,38 +15,44 @@ const footerGroups = [
 
 export const FooterSection = (): JSX.Element => {
   return (
-    <footer id="contact" className="w-full border-t-[3px] border-[#1d1c12] bg-[#fef9e9]">
-      <div className="mx-auto max-w-[1280px] px-12 pt-16 pb-10">
-        <div className="grid grid-cols-4 gap-12 mb-16">
+    <footer id="contact" className="w-full bg-[#1d1c12]">
+      <div className="mx-auto max-w-[1280px] px-8 pt-16 pb-10">
 
-          {/* Brand Column */}
+        <div className="grid grid-cols-4 gap-12 pb-14" style={{ borderBottom: "1px solid rgba(254,249,233,0.1)" }}>
+
+          {/* Brand column */}
           <div className="flex flex-col gap-6">
-            <h2 className="[font-family:'Noto_Serif',Helvetica] text-2xl font-normal text-[#1d1c12]">
+            <span
+              className="text-xl font-normal text-[#fef9e9]"
+              style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+            >
               Mani D&apos;Oro
-            </h2>
-            <p className="[font-family:'Manrope',Helvetica] text-sm font-normal leading-[1.8] text-[#43664b]">
+            </span>
+            <p
+              className="text-sm font-normal leading-relaxed text-[#fef9e9]/50 max-w-[220px]"
+              style={{ fontFamily: "'Manrope', sans-serif" }}
+            >
               A digital atelier specializing in heritage-grade jewelry crafted for the modern individual.
             </p>
-            <img
-              src="/figmaAssets/container-1.svg"
-              alt="Mani D'Oro signature"
-              className="h-5 w-auto"
-            />
           </div>
 
-          {/* Nav Columns */}
+          {/* Nav columns */}
           {footerGroups.map((group) => (
-            <nav key={group.title} aria-label={group.title} className="flex flex-col gap-6">
-              <h3 className="[font-family:'Noto_Serif',Helvetica] text-lg font-normal text-[#795900]">
+            <nav key={group.title} aria-label={group.title} className="flex flex-col gap-5">
+              <h3
+                className="text-[11px] font-bold tracking-[0.22em] uppercase text-[#795900]"
+                style={{ fontFamily: "'Manrope', sans-serif" }}
+              >
                 {group.title}
               </h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-3">
                 {group.links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
                       data-testid={`link-footer-${link.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="[font-family:'Manrope',Helvetica] text-sm font-normal tracking-[1.20px] text-[#43664b] hover:text-[#1d1c12] transition-colors uppercase"
+                      className="text-[13px] font-normal tracking-[0.08em] text-[#fef9e9]/55 hover:text-[#fef9e9] transition-colors"
+                      style={{ fontFamily: "'Manrope', sans-serif" }}
                     >
                       {link}
                     </a>
@@ -59,14 +63,18 @@ export const FooterSection = (): JSX.Element => {
           ))}
         </div>
 
-        <Separator className="bg-[#1d1c121a] mb-8" />
-
-        <div className="flex items-center justify-between">
-          <p className="[font-family:'Manrope',Helvetica] text-[10px] font-normal tracking-[2px] text-[#43664b]">
-            © 2024 MANI D&apos;ORO. ALL RIGHTS RESERVED.
+        <div className="flex items-center justify-between pt-8">
+          <p
+            className="text-[10px] font-normal tracking-[0.15em] uppercase text-[#fef9e9]/30"
+            style={{ fontFamily: "'Manrope', sans-serif" }}
+          >
+            © 2024 Mani D&apos;Oro. All rights reserved.
           </p>
-          <p className="[font-family:'Manrope',Helvetica] text-[10px] font-normal tracking-[2px] text-[#43664b]">
-            WEBSITE MANAGED BY HQBLOCKS.IN
+          <p
+            className="text-[10px] font-normal tracking-[0.15em] uppercase text-[#fef9e9]/30"
+            style={{ fontFamily: "'Manrope', sans-serif" }}
+          >
+            Website by hqblocks.in
           </p>
         </div>
       </div>

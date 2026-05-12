@@ -4,9 +4,9 @@ import { FooterSection } from "./sections/FooterSection";
 
 export const ManiDOroHome = (): JSX.Element => {
   return (
-    <div className="w-full min-h-screen bg-[#fef9e9]">
+    <div className="w-full min-h-screen" style={{ background: "#fef9e9" }}>
       <NavbarSection />
-      <div className="pt-[80px]">
+      <div style={{ paddingTop: "80px" }}>
         <MainContentSection />
         <FooterSection />
       </div>

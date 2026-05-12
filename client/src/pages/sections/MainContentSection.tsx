@@ -1,24 +1,25 @@
-import { Heart } from "lucide-react";
-
 const products = [
   {
     id: "aurelius-band",
-    category: "RINGS",
+    category: "Rings",
     name: "Aurelius Band",
+    description: "Hand-hammered 22k gold with a whispered patina of antiquity.",
     price: "$980",
     image: "/figmaAssets2/product-aurelius-band.png",
   },
   {
     id: "mani-link-chain",
-    category: "NECKLACES",
+    category: "Necklaces",
     name: "Mani Link Chain",
+    description: "Each link forged individually, carrying the mark of its maker.",
     price: "$1,240",
     image: "/figmaAssets2/product-mani-link-chain.png",
   },
   {
     id: "gilded-drift-cuff",
-    category: "BRACELETS",
+    category: "Bracelets",
     name: "Gilded Drift Cuff",
+    description: "Molten gold shaped by hand — no two are exactly alike.",
     price: "$740",
     image: "/figmaAssets2/product-gilded-drift-cuff.png",
   },
@@ -35,129 +36,214 @@ export const MainContentSection = (): JSX.Element => {
   return (
     <main className="relative w-full bg-[#fef9e9]">
 
-      {/* ── HERO ───────────────────────────────────────────────── */}
-      <section className="w-full border-b-[3px] border-[#1d1c12]">
-        <div className="mx-auto max-w-[1280px] px-12">
-          <div className="grid grid-cols-12 border-[3px] border-[#1d1c12] bg-[#f8f3e4]">
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="w-full">
+        <div className="mx-auto max-w-[1280px] px-8">
+          <div className="grid grid-cols-12 min-h-[720px] bg-[#f5f0e4]">
 
-            {/* Left: Text */}
-            <div className="col-span-7 flex flex-col justify-center gap-12 border-r-[3px] border-[#1d1c12] px-12 py-16">
-              <div className="flex flex-col">
-                <h1 className="[font-family:'Noto_Serif',Helvetica] text-[108px] font-normal leading-[1.0] tracking-[-5px] text-[#1d1c12]">
+            {/* Left: Text panel */}
+            <div
+              className="col-span-7 flex flex-col justify-center gap-10 px-14 py-20"
+              style={{ borderRight: "1px solid rgba(29,28,18,0.12)" }}
+            >
+              <div className="flex flex-col leading-none">
+                <h1
+                  className="text-[clamp(72px,8vw,112px)] font-normal text-[#1d1c12] tracking-[-0.04em]"
+                  style={{ fontFamily: "'Noto Serif', Georgia, serif", lineHeight: 1.0 }}
+                >
                   Gold In
                 </h1>
-                <h1 className="[font-family:'Noto_Serif',Helvetica] text-[108px] font-normal leading-[1.0] tracking-[-5px] text-[#795900] italic">
+                <h1
+                  className="text-[clamp(72px,8vw,112px)] font-normal text-[#795900] italic tracking-[-0.04em]"
+                  style={{ fontFamily: "'Noto Serif', Georgia, serif", lineHeight: 1.0 }}
+                >
                   Every
                 </h1>
-                <h1 className="[font-family:'Noto_Serif',Helvetica] text-[108px] font-normal leading-[1.0] tracking-[-5px] text-[#795900] italic">
+                <h1
+                  className="text-[clamp(72px,8vw,112px)] font-normal text-[#795900] italic tracking-[-0.04em]"
+                  style={{ fontFamily: "'Noto Serif', Georgia, serif", lineHeight: 1.0 }}
+                >
                   Hand
                 </h1>
               </div>
 
-              <p className="[font-family:'Manrope',Helvetica] text-xl font-normal leading-[1.6] text-[#43664b] max-w-[400px]">
+              <p
+                className="text-lg leading-relaxed text-[#5a6b4e] max-w-[380px]"
+                style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 400 }}
+              >
                 Discover the raw elegance of hand-forged jewelry. Each piece is a testament to the artisan&apos;s touch and the gold&apos;s eternal spirit.
               </p>
 
               <div>
                 <button
                   data-testid="button-explore-collection"
-                  className="[font-family:'Manrope',Helvetica] border-2 border-[#1d1c12] bg-[#795900] px-10 py-5 text-sm font-bold tracking-[1.40px] uppercase text-white hover:bg-[#6d5100] transition-colors"
+                  className="luxury-btn-gold"
                 >
                   Explore Collection
                 </button>
               </div>
             </div>
 
-            {/* Right: Hero image */}
-            <div className="col-span-5 min-h-[660px] overflow-hidden">
+            {/* Right: Hero image — contained, no overflow */}
+            <div className="col-span-5 relative overflow-hidden">
               <img
                 src="/figmaAssets2/hero-right.png"
-                alt="Artisanal gold jewelry"
-                className="h-full w-full object-cover object-center"
+                alt="Artisanal gold jewelry craftsmanship"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+                style={{ filter: "grayscale(15%) contrast(1.05)" }}
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── NEW ARRIVALS ────────────────────────────────────────── */}
-      <section id="collection" className="w-full bg-[#f8f3e4] px-12 py-20">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="flex items-end justify-between mb-16">
-            <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal text-[#1d1c12]">
+      {/* ── THIN GOLD RULE ─────────────────────────────────── */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-40" />
+
+      {/* ── NEW ARRIVALS ────────────────────────────────────── */}
+      <section id="collection" className="w-full py-24 bg-[#fef9e9]">
+        <div className="mx-auto max-w-[1280px] px-8">
+
+          <div className="flex items-baseline justify-between mb-14">
+            <h2
+              className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
+              style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+            >
               New Arrivals
             </h2>
             <a
               href="#"
               data-testid="link-view-all"
-              className="[font-family:'Manrope',Helvetica] text-sm font-bold tracking-[1.40px] text-[#795900] border-b border-[#795900] pb-0.5 hover:text-[#1d1c12] hover:border-[#1d1c12] transition-colors uppercase"
+              className="font-['Manrope',sans-serif] text-[11px] font-bold tracking-[0.18em] uppercase text-[#795900] relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-[#795900] after:origin-left after:transition-transform hover:after:scale-x-0 after:scale-x-100 pb-px"
             >
               View All
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-3 gap-5">
             {products.map((product) => (
               <article
                 key={product.id}
                 data-testid={`card-product-${product.id}`}
-                className="group flex flex-col border-[3px] border-[#1d1c12] bg-[#fef9e9]"
+                className="product-card relative overflow-hidden cursor-pointer"
+                style={{ aspectRatio: "3/4" }}
               >
-                <div className="relative overflow-hidden border-b-[3px] border-[#1d1c12]">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="h-[360px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-col gap-3 p-6">
-                  <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.20px] text-[#43664b] uppercase">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Cinematic hover overlay */}
+                <div className="product-card-overlay" />
+
+                {/* Hover details */}
+                <div className="product-card-details">
+                  <p
+                    className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#c9a84c] mb-2"
+                    style={{ fontFamily: "'Manrope', sans-serif" }}
+                  >
                     {product.category}
                   </p>
+                  <h3
+                    className="text-2xl font-normal text-[#fef9e9] mb-2 leading-snug"
+                    style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                  >
+                    {product.name}
+                  </h3>
+                  <p
+                    className="text-sm text-[#fef9e9]/70 mb-4 leading-relaxed"
+                    style={{ fontFamily: "'Manrope', sans-serif" }}
+                  >
+                    {product.description}
+                  </p>
                   <div className="flex items-center justify-between">
-                    <h3 className="[font-family:'Noto_Serif',Helvetica] text-2xl font-normal text-[#1d1c12]">
-                      {product.name}
-                    </h3>
-                    <button
-                      data-testid={`button-wishlist-${product.id}`}
-                      className="text-[#1d1c12] hover:text-[#795900] transition-colors"
-                      aria-label={`Add ${product.name} to wishlist`}
+                    <span
+                      className="text-lg font-normal text-[#c9a84c]"
+                      style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
                     >
-                      <Heart size={20} />
+                      {product.price}
+                    </span>
+                    <button
+                      data-testid={`button-view-${product.id}`}
+                      className="font-['Manrope',sans-serif] text-[10px] font-bold tracking-[0.2em] uppercase text-[#fef9e9] border border-[#fef9e9]/60 px-4 py-2 hover:bg-[#fef9e9]/10 transition-colors"
+                    >
+                      View Product
                     </button>
                   </div>
-                  <p className="[font-family:'Manrope',Helvetica] text-lg font-normal text-[#795900]">
-                    {product.price}
-                  </p>
+                </div>
+
+                {/* Default: subtle label at bottom */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-5 transition-opacity duration-300"
+                  style={{ opacity: 1 }}
+                >
+                  <div className="flex items-end justify-between" />
                 </div>
               </article>
+            ))}
+          </div>
+
+          {/* Below cards: names always visible */}
+          <div className="grid grid-cols-3 gap-5 mt-0">
+            {products.map((product) => (
+              <div key={`label-${product.id}`} className="pt-4 pb-1" style={{ borderTop: "1px solid rgba(29,28,18,0.1)" }}>
+                <p
+                  className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#43664b] mb-1"
+                  style={{ fontFamily: "'Manrope', sans-serif" }}
+                >
+                  {product.category}
+                </p>
+                <div className="flex items-center justify-between">
+                  <h3
+                    className="text-xl font-normal text-[#1d1c12]"
+                    style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                  >
+                    {product.name}
+                  </h3>
+                  <span
+                    className="text-base font-normal text-[#795900]"
+                    style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                  >
+                    {product.price}
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── BESPOKE SERVICES ────────────────────────────────────── */}
-      <section id="bespoke" className="w-full border-y-[3px] border-[#1d1c12]">
-        <div className="mx-auto max-w-[1280px] px-12">
-          <div className="grid grid-cols-2 border-[3px] border-[#1d1c12]">
+      {/* ── BESPOKE SERVICES ────────────────────────────────── */}
+      <section
+        id="bespoke"
+        className="w-full py-0"
+        style={{ background: "linear-gradient(to bottom, #f5f0e4, #ede8d8)" }}
+      >
+        <div className="mx-auto max-w-[1280px] px-8">
+          <div className="grid grid-cols-2 items-stretch">
 
             {/* Left: Text */}
-            <div className="flex flex-col justify-center gap-8 border-r-[3px] border-[#1d1c12] bg-[#f8f3e4] px-16 py-20">
-              <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[4px] text-[#795900] uppercase">
-                Bespoke Services
-              </p>
-              <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal leading-[1.15] text-[#1d1c12]">
+            <div className="flex flex-col justify-center gap-8 py-20 pr-16">
+              <p className="section-label">Bespoke Services</p>
+              <h2
+                className="text-[clamp(36px,4vw,54px)] font-normal leading-[1.1] text-[#1d1c12]"
+                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+              >
                 Your Story,
                 <br />
                 Our Gold
               </h2>
-              <p className="[font-family:'Manrope',Helvetica] text-lg font-normal leading-[1.7] text-[#43664b] max-w-[400px]">
+              <p
+                className="text-base leading-[1.85] text-[#5a6b4e] max-w-[380px]"
+                style={{ fontFamily: "'Manrope', sans-serif" }}
+              >
                 Commission a singular piece that carries your history, your name, your soul. Our master goldsmiths transform your vision into heirloom-grade artistry.
               </p>
               <div>
                 <button
                   data-testid="button-begin-commission"
-                  className="[font-family:'Manrope',Helvetica] border-2 border-[#1d1c12] bg-transparent px-10 py-5 text-sm font-bold tracking-[1.40px] uppercase text-[#1d1c12] hover:bg-[#1d1c12] hover:text-[#fef9e9] transition-colors"
+                  className="luxury-btn-outline"
                 >
                   Begin a Commission
                 </button>
@@ -165,48 +251,62 @@ export const MainContentSection = (): JSX.Element => {
             </div>
 
             {/* Right: Image */}
-            <div className="overflow-hidden min-h-[580px]">
+            <div className="relative overflow-hidden" style={{ minHeight: "520px" }}>
               <img
                 src="/figmaAssets2/bespoke-services.png"
                 alt="Bespoke jewelry creation"
-                className="h-full w-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
+              <div className="absolute inset-0 bg-[#795900]/10" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FOUNDER ─────────────────────────────────────────────── */}
-      <section id="story" className="w-full bg-[#fef9e9] py-20 px-12">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="grid grid-cols-2 gap-16 items-center">
+      {/* ── FOUNDER / QUOTE ─────────────────────────────────── */}
+      <section id="story" className="w-full py-28 bg-[#ede8d8]">
+        <div className="mx-auto max-w-[1280px] px-8">
+          <div className="grid grid-cols-2 gap-20 items-center">
 
-            {/* Left: Portrait */}
-            <div className="relative border-[3px] border-[#1d1c12] overflow-hidden">
+            {/* Left: Large portrait */}
+            <div className="relative overflow-hidden" style={{ boxShadow: "0 8px 48px rgba(29,28,18,0.12)" }}>
               <img
                 src="/figmaAssets2/founder-portrait.png"
                 alt="Alessandra Oro — Founder"
-                className="w-full h-[640px] object-cover object-top"
+                className="w-full object-cover object-top"
+                style={{ height: "600px" }}
               />
-              <div className="absolute inset-0 bg-[rgba(29,28,18,0.08)]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(29,28,18,0.3)] to-transparent" />
             </div>
 
             {/* Right: Quote */}
-            <div className="flex flex-col gap-10 px-8">
-              <svg width="34" height="24" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 24V14.4C0 10.56 0.746667 7.22667 2.24 4.4C3.73333 1.57333 6.08 0.16 9.28 0.16V4.16C7.68 4.16 6.45333 4.96 5.6 6.56C4.74667 8.10667 4.32 9.97333 4.32 12.16H9.28V24H0ZM19.04 24V14.4C19.04 10.56 19.7867 7.22667 21.28 4.4C22.7733 1.57333 25.12 0.16 28.32 0.16V4.16C26.72 4.16 25.4933 4.96 24.64 6.56C23.7867 8.10667 23.36 9.97333 23.36 12.16H28.32V24H19.04Z" fill="#795900"/>
+            <div className="flex flex-col gap-10">
+              <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
+                <path d="M0 28V16.8C0 12.32 0.873333 8.43111 2.62 5.13333C4.36667 1.83556 7.09333 0.186667 10.8 0.186667V4.85333C8.96 4.85333 7.52667 5.78667 6.53333 7.65333C5.54 9.45778 5.04 11.6356 5.04 14.1867H10.8V28H0ZM22.2 28V16.8C22.2 12.32 23.0733 8.43111 24.82 5.13333C26.5667 1.83556 29.2933 0.186667 33 0.186667V4.85333C31.16 4.85333 29.7267 5.78667 28.7333 7.65333C27.74 9.45778 27.24 11.6356 27.24 14.1867H33V28H22.2Z" fill="#795900" opacity="0.5"/>
               </svg>
 
-              <blockquote className="[font-family:'Noto_Serif',Helvetica] text-3xl font-normal leading-[1.6] text-[#1d1c12]">
-                True luxury isn&apos;t found in the machine&apos;s precision, but in the artisan&apos;s imperfection. We don&apos;t just forge gold; we forge legacy.
+              <blockquote
+                className="text-[clamp(20px,2.5vw,30px)] font-normal leading-[1.65] text-[#1d1c12]"
+                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+              >
+                The beauty of Mani D&apos;Oro lies in the intentional imperfection. We do not chase machine-made precision; we chase the soul of the hand.
               </blockquote>
 
-              <div className="border-l-[3px] border-[#795900] pl-6 flex flex-col gap-1">
-                <p className="[font-family:'Noto_Serif',Helvetica] text-xl font-normal text-[#1d1c12]">
-                  Alessandra Oro
+              <div
+                className="pt-6 flex flex-col gap-1"
+                style={{ borderTop: "1px solid rgba(121,89,0,0.3)" }}
+              >
+                <p
+                  className="text-base font-normal text-[#1d1c12]"
+                  style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                >
+                  Elena Moretti
                 </p>
-                <p className="[font-family:'Manrope',Helvetica] text-sm font-normal tracking-[1px] text-[#43664b] uppercase">
-                  Founder &amp; Master Goldsmith
+                <p
+                  className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#43664b]"
+                  style={{ fontFamily: "'Manrope', sans-serif" }}
+                >
+                  Founder &amp; Creative Director
                 </p>
               </div>
             </div>
@@ -214,14 +314,20 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </section>
 
-      {/* ── THE ARCHIVE ─────────────────────────────────────────── */}
-      <section id="archive" className="w-full bg-[#f8f3e4] border-t-[3px] border-[#1d1c12] px-12 py-20">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="flex flex-col gap-4 mb-16">
-            <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal text-[#1d1c12]">
+      {/* ── THE ARCHIVE ─────────────────────────────────────── */}
+      <section id="archive" className="w-full py-24 bg-[#fef9e9]">
+        <div className="mx-auto max-w-[1280px] px-8">
+          <div className="flex flex-col gap-3 mb-14">
+            <h2
+              className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
+              style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+            >
               The Archive
             </h2>
-            <p className="[font-family:'Manrope',Helvetica] text-base font-normal leading-[1.6] text-[#43664b] max-w-[540px]">
+            <p
+              className="text-sm leading-relaxed text-[#5a6b4e] max-w-[500px]"
+              style={{ fontFamily: "'Manrope', sans-serif" }}
+            >
               A curated collection of past masterpieces and historical iterations that define the Mani D&apos;Oro silhouette.
             </p>
           </div>
@@ -231,15 +337,34 @@ export const MainContentSection = (): JSX.Element => {
               <div
                 key={item.id}
                 data-testid={`card-archive-${item.id}`}
-                className={`group relative overflow-hidden border-2 border-[#7f7663] cursor-pointer ${item.offset ? "mt-20" : ""}`}
+                className="group relative overflow-hidden cursor-pointer"
+                style={{
+                  marginTop: item.offset ? "80px" : "0",
+                  boxShadow: "0 2px 16px rgba(29,28,18,0.06)",
+                }}
               >
                 <img
                   src={item.image}
                   alt={`Archive — ${item.year}`}
-                  className="w-full h-[375px] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  style={{ height: "375px" }}
                 />
-                <div className="absolute inset-0 bg-[rgba(29,28,18,0)] group-hover:bg-[rgba(29,28,18,0.45)] transition-colors duration-300 flex items-center justify-center">
-                  <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.2px] uppercase text-[#fef9e9] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-[rgba(29,28,18,0)] group-hover:bg-[rgba(29,28,18,0.4)] transition-all duration-500 flex items-center justify-center">
+                  <span
+                    className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#fef9e9] opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                    style={{ fontFamily: "'Manrope', sans-serif" }}
+                  >
+                    {item.year}
+                  </span>
+                </div>
+                <div
+                  className="mt-3"
+                  style={{ borderTop: "1px solid rgba(127,118,99,0.3)", paddingTop: "10px" }}
+                >
+                  <p
+                    className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#7f7663]"
+                    style={{ fontFamily: "'Manrope', sans-serif" }}
+                  >
                     {item.year}
                   </p>
                 </div>
@@ -249,7 +374,8 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </section>
 
-      <div className="h-1 w-full bg-[linear-gradient(90deg,rgba(121,89,0,1)_0%,rgba(218,172,69,1)_50%,rgba(121,89,0,1)_100%)]" />
+      {/* ── GOLD RULE ───────────────────────────────────────── */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-60" />
     </main>
   );
 };
