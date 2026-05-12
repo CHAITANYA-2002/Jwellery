@@ -244,18 +244,28 @@ export const MainContentSection = (): JSX.Element => {
         <div className="mx-auto max-w-[1280px] px-8">
           <div className="grid grid-cols-2 gap-20 items-center">
 
-            {/* Left: portrait */}
-            <div
-              className="relative overflow-hidden"
-              style={{ boxShadow: "0 8px 48px rgba(29,28,18,0.1)" }}
-            >
-              <img
-                src="/figmaAssets2/founder-portrait.png"
-                alt="Alessandra Oro — Founder"
-                className="w-full object-cover object-top"
-                style={{ height: "580px", filter: "grayscale(20%) contrast(1.05)" }}
+            {/* Left: portrait with frame */}
+            <div className="relative" style={{ padding: "16px" }}>
+              {/* Outer frame border */}
+              <div
+                className="absolute inset-0"
+                style={{ border: "1px solid rgba(29,28,18,0.18)" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(29,28,18,0.25)] to-transparent" />
+              {/* Inner frame border */}
+              <div
+                className="absolute"
+                style={{ inset: "6px", border: "1px solid rgba(29,28,18,0.08)", pointerEvents: "none", zIndex: 2 }}
+              />
+              {/* Image */}
+              <div className="relative overflow-hidden" style={{ boxShadow: "0 4px 32px rgba(29,28,18,0.12)" }}>
+                <img
+                  src="/figmaAssets2/founder-portrait.png"
+                  alt="Alessandra Oro — Founder"
+                  className="w-full object-cover object-top"
+                  style={{ height: "580px", filter: "grayscale(100%) contrast(1.08) brightness(0.95)", display: "block" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(29,28,18,0.2)] to-transparent" />
+              </div>
             </div>
 
             {/* Right: quote */}
