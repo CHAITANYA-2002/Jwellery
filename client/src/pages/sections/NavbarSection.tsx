@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 
 export const NavbarSection = (): JSX.Element => {
   const [scrolled, setScrolled] = useState(false);
+  const [location] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -9,52 +11,114 @@ export const NavbarSection = (): JSX.Element => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const linkStyle = (active = false) => ({
+    fontFamily: "'Manrope', sans-serif",
+    fontSize: "11px",
+    fontWeight: 700,
+    letterSpacing: "0.18em",
+    textTransform: "uppercase" as const,
+    color: "#1d1c12",
+    textDecoration: "none",
+    opacity: active ? 1 : 0.55,
+    transition: "opacity 0.2s",
+    cursor: "pointer",
+  });
+
+  const isCollection = location === "/collection";
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-16 h-20 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#fef9e9]/95 backdrop-blur-sm shadow-[0_1px_0_rgba(29,28,18,0.08)]"
-          : "bg-[#fef9e9]"
-      }`}
+      style={{
+        position: "fixed",
+        top: 0, left: 0, right: 0,
+        zIndex: 50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 64px",
+        height: "80px",
+        background: scrolled ? "rgba(254,249,233,0.96)" : "#fef9e9",
+        backdropFilter: scrolled ? "blur(8px)" : "none",
+        boxShadow: scrolled ? "0 1px 0 rgba(29,28,18,0.08)" : "none",
+        transition: "all 0.3s",
+      }}
     >
-      <nav className="flex items-center gap-10">
-        {[
-          { label: "Collection", href: "#collection" },
-          { label: "Bespoke", href: "#bespoke" },
-          { label: "The Archive", href: "#archive" },
-        ].map(({ label, href }) => (
-          <a
-            key={label}
-            href={href}
-            data-testid={`link-nav-${label.toLowerCase().replace(/\s+/g, '-')}`}
-            className="font-['Manrope',sans-serif] text-[11px] font-bold tracking-[0.18em] text-[#1d1c12] uppercase opacity-75 hover:opacity-100 transition-opacity"
-          >
-            {label}
-          </a>
-        ))}
+      <nav style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+        <a
+          href="/collection"
+          data-testid="link-nav-collection"
+          style={linkStyle(isCollection)}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = isCollection ? "1" : "0.55")}
+        >
+          Collection
+        </a>
+        <a
+          href="/#bespoke"
+          data-testid="link-nav-bespoke"
+          style={linkStyle()}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+        >
+          Bespoke
+        </a>
+        <a
+          href="/#archive"
+          data-testid="link-nav-archive"
+          style={linkStyle()}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+        >
+          The Archive
+        </a>
       </nav>
 
-      <a href="/" data-testid="link-logo" className="absolute left-1/2 -translate-x-1/2">
-        <span className="font-['Noto_Serif',Georgia,serif] text-[22px] font-normal tracking-[0.02em] text-[#1d1c12]">
-          Mani D&apos;Oro
-        </span>
+      <a
+        href="/"
+        data-testid="link-logo"
+        style={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontFamily: "'Noto Serif', Georgia, serif",
+          fontSize: "22px",
+          fontWeight: 400,
+          letterSpacing: "0.02em",
+          color: "#1d1c12",
+          textDecoration: "none",
+        }}
+      >
+        Mani D&apos;Oro
       </a>
 
-      <nav className="flex items-center gap-10">
-        {[
-          { label: "The Story", href: "#story" },
-          { label: "Journal", href: "#" },
-          { label: "Contact", href: "#contact" },
-        ].map(({ label, href }) => (
-          <a
-            key={label}
-            href={href}
-            data-testid={`link-nav-${label.toLowerCase().replace(/\s+/g, '-')}`}
-            className="font-['Manrope',sans-serif] text-[11px] font-bold tracking-[0.18em] text-[#1d1c12] uppercase opacity-75 hover:opacity-100 transition-opacity"
-          >
-            {label}
-          </a>
-        ))}
+      <nav style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+        <a
+          href="/#story"
+          data-testid="link-nav-the-story"
+          style={linkStyle()}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+        >
+          The Story
+        </a>
+        <a
+          href="#"
+          data-testid="link-nav-journal"
+          style={linkStyle()}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+        >
+          Journal
+        </a>
+        <a
+          href="/#contact"
+          data-testid="link-nav-contact"
+          style={linkStyle()}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+        >
+          Contact
+        </a>
       </nav>
     </header>
   );
