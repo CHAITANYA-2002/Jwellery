@@ -23,7 +23,7 @@ const ALL_PRODUCTS = [
   },
   {
     id: "gilded-drift-cuff",
-    category: "Bracelets",
+    category: "Cuffs & Bangles",
     name: "Gilded Drift Cuff",
     description: "Molten gold shaped by hand — no two are exactly alike.",
     price: "$740",
@@ -41,7 +41,7 @@ const ALL_PRODUCTS = [
   },
   {
     id: "molten-hoops",
-    category: "Earrings",
+    category: "Rings",
     name: "Molten Hoops",
     description: "Textured gold earrings sculpted to capture light in motion.",
     price: "$890",
@@ -49,7 +49,7 @@ const ALL_PRODUCTS = [
     isNew: false,
   },
   {
-    id: "artisanal-close",
+    id: "oro-signet",
     category: "Rings",
     name: "Oro Signet Ring",
     description: "A bold signet with hand-engraved heritage motifs in solid gold.",
@@ -59,7 +59,13 @@ const ALL_PRODUCTS = [
   },
 ];
 
-const CATEGORIES = ["All", "Rings", "Necklaces", "Bracelets", "Earrings"];
+const CATEGORIES = [
+  { label: "All Objects", value: "All" },
+  { label: "Rings", value: "Rings" },
+  { label: "Necklaces", value: "Necklaces" },
+  { label: "Cuffs & Bangles", value: "Cuffs & Bangles" },
+  { label: "Bespoke Commissions", value: "Bespoke Commissions" },
+];
 
 const SORT_OPTIONS = [
   { label: "Featured", value: "featured" },
@@ -93,100 +99,116 @@ export const CollectionPage = (): JSX.Element => {
 
       <div style={{ paddingTop: "80px" }}>
 
-        {/* ── HERO BANNER ────────────────────────────────────── */}
+        {/* ── SELECTED ARTIFACTS HERO ─────────────────────────── */}
         <section
-          className="relative w-full overflow-hidden flex items-end"
-          style={{ minHeight: "360px", background: "#f5f0e4" }}
+          className="w-full"
+          style={{ background: "#fef9e9", borderBottom: "1px solid rgba(29,28,18,0.09)" }}
         >
-          {/* Background texture */}
-          <div
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: "url(/figmaAssets/the-aurelius-chain---detailed-gold-link-necklace.png)",
-              backgroundSize: "cover",
-              backgroundPosition: "center 30%",
-              filter: "grayscale(40%)",
-            }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: "linear-gradient(to top, rgba(245,240,228,1) 30%, rgba(245,240,228,0.6) 70%, rgba(245,240,228,0.2) 100%)" }}
-          />
-
-          <div className="relative mx-auto w-full max-w-[1280px] px-8 pb-16 pt-20">
-            {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 mb-8">
+          <div className="mx-auto max-w-[1280px] px-8">
+            {/* Top row: breadcrumb */}
+            <div
+              className="flex items-center gap-2 pt-10 pb-8"
+              style={{ borderBottom: "1px solid rgba(29,28,18,0.07)" }}
+            >
               <a
                 href="/"
                 data-testid="link-breadcrumb-home"
-                className="opacity-40 hover:opacity-70 transition-opacity"
-                style={{ fontFamily: "'Manrope', sans-serif", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#1d1c12" }}
+                style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1d1c12", opacity: 0.35, textDecoration: "none" }}
               >
-                Home
+                Mani D&apos;Oro Atelier
               </a>
-              <span style={{ color: "#1d1c12", opacity: 0.3, fontSize: "11px" }}>/</span>
-              <span
-                style={{ fontFamily: "'Manrope', sans-serif", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#795900" }}
-              >
-                Collection
+              <span style={{ color: "#1d1c12", opacity: 0.2, fontSize: "11px" }}>/</span>
+              <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1d1c12", opacity: 0.35 }}>
+                Collections
               </span>
-            </nav>
+            </div>
 
-            <div className="flex flex-col gap-4 max-w-2xl">
-              <p
-                className="section-label"
-                style={{ color: "#795900" }}
-              >
-                Mani D&apos;Oro
-              </p>
-              <h1
-                style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "clamp(48px,6vw,80px)", fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.03em", color: "#1d1c12" }}
-              >
-                The Collection
-              </h1>
-              <p
-                style={{ fontFamily: "'Manrope', sans-serif", fontSize: "16px", lineHeight: 1.8, color: "#5a6b4e", maxWidth: "460px" }}
-              >
-                Each piece is a dialogue between material and maker — gold surrendering to the artisan&apos;s will, becoming singular, becoming yours.
-              </p>
+            {/* Split hero row */}
+            <div className="grid grid-cols-2 gap-16 pt-12 pb-14 items-end">
+              {/* Left: heading */}
+              <div>
+                <h1
+                  style={{
+                    fontFamily: "'Noto Serif', Georgia, serif",
+                    fontSize: "clamp(52px,6.5vw,88px)",
+                    fontWeight: 400,
+                    fontStyle: "italic",
+                    lineHeight: 1.0,
+                    letterSpacing: "-0.02em",
+                    color: "#1d1c12",
+                  }}
+                >
+                  Selected
+                  <br />
+                  Artifacts
+                </h1>
+              </div>
+
+              {/* Right: description */}
+              <div className="flex flex-col gap-5 pb-2 pl-8" style={{ borderLeft: "1px solid rgba(29,28,18,0.1)" }}>
+                <p
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "15px",
+                    lineHeight: 1.85,
+                    color: "#1d1c12",
+                    opacity: 0.65,
+                  }}
+                >
+                  A curated assembly of permanent pieces, hand-forged in our Milanese studio. Each artifact is an intersection of ancient goldsmithing techniques and sharp, architectural silhouettes.
+                </p>
+                <p
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "#795900",
+                  }}
+                >
+                  {ALL_PRODUCTS.length} objects
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── THIN GOLD RULE ─────────────────────────────────── */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-40" />
-
         {/* ── FILTERS + SORT BAR ─────────────────────────────── */}
-        <section className="w-full sticky top-[80px] z-40" style={{ background: "rgba(254,249,233,0.96)", backdropFilter: "blur(8px)", borderBottom: "1px solid rgba(29,28,18,0.07)" }}>
+        <section
+          className="w-full sticky top-[80px] z-40"
+          style={{ background: "rgba(254,249,233,0.97)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(29,28,18,0.08)" }}
+        >
           <div className="mx-auto max-w-[1280px] px-8">
             <div className="flex items-center justify-between h-14">
 
               {/* Category filters */}
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0">
                 {CATEGORIES.map((cat) => (
                   <button
-                    key={cat}
-                    data-testid={`filter-${cat.toLowerCase()}`}
-                    onClick={() => setActiveCategory(cat)}
-                    className="relative px-4 py-1.5 transition-colors"
+                    key={cat.value}
+                    data-testid={`filter-${cat.value.toLowerCase().replace(/\s+/g, '-')}`}
+                    onClick={() => setActiveCategory(cat.value)}
+                    className="relative px-4 py-2"
                     style={{
                       fontFamily: "'Manrope', sans-serif",
-                      fontSize: "11px",
+                      fontSize: "10px",
                       fontWeight: 700,
-                      letterSpacing: "0.16em",
+                      letterSpacing: "0.18em",
                       textTransform: "uppercase",
-                      color: activeCategory === cat ? "#1d1c12" : "#1d1c12",
-                      opacity: activeCategory === cat ? 1 : 0.4,
+                      color: "#1d1c12",
+                      opacity: activeCategory === cat.value ? 1 : 0.38,
                       background: "none",
                       border: "none",
                       cursor: "pointer",
+                      transition: "opacity 0.2s",
                     }}
                   >
-                    {cat}
-                    {activeCategory === cat && (
+                    {cat.label}
+                    {activeCategory === cat.value && (
                       <span
-                        className="absolute bottom-0 left-4 right-4 h-px"
-                        style={{ background: "#795900" }}
+                        className="absolute bottom-0 left-3 right-3 h-[1.5px]"
+                        style={{ background: "#1d1c12" }}
                       />
                     )}
                   </button>
@@ -198,18 +220,19 @@ export const CollectionPage = (): JSX.Element => {
                 <button
                   data-testid="button-sort"
                   onClick={() => setSortOpen(!sortOpen)}
-                  className="flex items-center gap-2 py-1"
+                  className="flex items-center gap-2"
                   style={{
                     fontFamily: "'Manrope', sans-serif",
-                    fontSize: "11px",
+                    fontSize: "10px",
                     fontWeight: 700,
-                    letterSpacing: "0.16em",
+                    letterSpacing: "0.18em",
                     textTransform: "uppercase",
                     color: "#1d1c12",
-                    opacity: 0.6,
+                    opacity: 0.55,
                     background: "none",
                     border: "none",
                     cursor: "pointer",
+                    transition: "opacity 0.2s",
                   }}
                 >
                   Sort: {sortLabel}
@@ -220,8 +243,8 @@ export const CollectionPage = (): JSX.Element => {
 
                 {sortOpen && (
                   <div
-                    className="absolute right-0 top-8 w-48 py-2 z-50"
-                    style={{ background: "#fef9e9", boxShadow: "0 8px 32px rgba(29,28,18,0.1)", border: "1px solid rgba(29,28,18,0.08)" }}
+                    className="absolute right-0 top-9 w-48 py-2 z-50"
+                    style={{ background: "#fef9e9", boxShadow: "0 8px 32px rgba(29,28,18,0.12)", border: "1px solid rgba(29,28,18,0.08)" }}
                   >
                     {SORT_OPTIONS.map((opt) => (
                       <button
@@ -231,9 +254,10 @@ export const CollectionPage = (): JSX.Element => {
                         className="w-full text-left px-5 py-2.5 hover:bg-[#f5f0e4] transition-colors"
                         style={{
                           fontFamily: "'Manrope', sans-serif",
-                          fontSize: "11px",
+                          fontSize: "10px",
                           fontWeight: opt.value === sort ? 700 : 400,
-                          letterSpacing: "0.1em",
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
                           color: opt.value === sort ? "#795900" : "#1d1c12",
                           background: "none",
                           border: "none",
@@ -251,211 +275,220 @@ export const CollectionPage = (): JSX.Element => {
         </section>
 
         {/* ── PRODUCT GRID ───────────────────────────────────── */}
-        <section className="w-full py-16">
+        <section className="w-full py-14">
           <div className="mx-auto max-w-[1280px] px-8">
-
-            {/* Count */}
-            <p
-              className="mb-10"
-              style={{ fontFamily: "'Manrope', sans-serif", fontSize: "11px", fontWeight: 400, letterSpacing: "0.1em", color: "#1d1c12", opacity: 0.4 }}
-            >
-              {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
-            </p>
 
             {filtered.length === 0 ? (
               <div className="py-32 flex flex-col items-center gap-4">
-                <p style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "24px", color: "#1d1c12", opacity: 0.4 }}>
+                <p style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "24px", fontStyle: "italic", color: "#1d1c12", opacity: 0.35 }}>
                   No pieces in this category yet.
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-3 gap-x-5 gap-y-14">
-                {filtered.map((product) => (
-                  <article
-                    key={product.id}
-                    data-testid={`card-product-${product.id}`}
-                    className="product-card relative overflow-hidden cursor-pointer"
-                    style={{ aspectRatio: "3/4" }}
-                  >
-                    {/* New badge */}
-                    {product.isNew && (
-                      <div
-                        className="absolute top-4 left-4 z-10 px-3 py-1"
-                        style={{
-                          background: "#795900",
-                          fontFamily: "'Manrope', sans-serif",
-                          fontSize: "9px",
-                          fontWeight: 700,
-                          letterSpacing: "0.2em",
-                          textTransform: "uppercase",
-                          color: "#fef9e9",
-                        }}
-                      >
-                        New
+              <>
+                <div className="grid grid-cols-3 gap-x-5 gap-y-14">
+                  {filtered.map((product) => (
+                    <article
+                      key={product.id}
+                      data-testid={`card-product-${product.id}`}
+                      className="product-card relative overflow-hidden cursor-pointer"
+                      style={{ aspectRatio: "3/4" }}
+                    >
+                      {product.isNew && (
+                        <div
+                          className="absolute top-4 left-4 z-10 px-3 py-1"
+                          style={{
+                            background: "#795900",
+                            fontFamily: "'Manrope', sans-serif",
+                            fontSize: "9px",
+                            fontWeight: 700,
+                            letterSpacing: "0.22em",
+                            textTransform: "uppercase",
+                            color: "#fef9e9",
+                          }}
+                        >
+                          New
+                        </div>
+                      )}
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="product-card-overlay" />
+                      <div className="product-card-details">
+                        <p
+                          className="mb-2"
+                          style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: "#c9a84c" }}
+                        >
+                          {product.category}
+                        </p>
+                        <h3
+                          className="mb-2 leading-snug"
+                          style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "22px", fontStyle: "italic", fontWeight: 400, color: "#fef9e9" }}
+                        >
+                          {product.name}
+                        </h3>
+                        <p
+                          className="mb-5 leading-relaxed"
+                          style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", color: "rgba(254,249,233,0.65)" }}
+                        >
+                          {product.description}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "18px", color: "#c9a84c" }}>
+                            {product.price}
+                          </span>
+                          <button
+                            data-testid={`button-view-${product.id}`}
+                            style={{
+                              fontFamily: "'Manrope', sans-serif",
+                              fontSize: "10px",
+                              fontWeight: 700,
+                              letterSpacing: "0.2em",
+                              textTransform: "uppercase",
+                              color: "#fef9e9",
+                              border: "1px solid rgba(254,249,233,0.45)",
+                              padding: "8px 16px",
+                              background: "none",
+                              cursor: "pointer",
+                            }}
+                          >
+                            View Piece
+                          </button>
+                        </div>
                       </div>
-                    )}
+                    </article>
+                  ))}
+                </div>
 
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-
-                    {/* Cinematic hover overlay */}
-                    <div className="product-card-overlay" />
-
-                    {/* Hover details */}
-                    <div className="product-card-details">
+                {/* Labels below grid */}
+                <div className="grid grid-cols-3 gap-x-5">
+                  {filtered.map((product) => (
+                    <div
+                      key={`label-${product.id}`}
+                      className="pt-4"
+                      style={{ borderTop: "1px solid rgba(29,28,18,0.09)" }}
+                    >
                       <p
-                        className="mb-2"
-                        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: "#c9a84c" }}
+                        className="mb-1"
+                        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#43664b" }}
                       >
                         {product.category}
                       </p>
-                      <h3
-                        className="mb-2 leading-snug"
-                        style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "22px", fontWeight: 400, color: "#fef9e9" }}
-                      >
-                        {product.name}
-                      </h3>
-                      <p
-                        className="mb-5 leading-relaxed"
-                        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", color: "rgba(254,249,233,0.65)" }}
-                      >
-                        {product.description}
-                      </p>
                       <div className="flex items-center justify-between">
-                        <span
-                          style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "18px", color: "#c9a84c" }}
-                        >
+                        <h3 style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "19px", fontWeight: 400, fontStyle: "italic", color: "#1d1c12" }}>
+                          {product.name}
+                        </h3>
+                        <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", fontWeight: 500, color: "#795900" }}>
                           {product.price}
                         </span>
-                        <button
-                          data-testid={`button-view-${product.id}`}
-                          style={{
-                            fontFamily: "'Manrope', sans-serif",
-                            fontSize: "10px",
-                            fontWeight: 700,
-                            letterSpacing: "0.2em",
-                            textTransform: "uppercase",
-                            color: "#fef9e9",
-                            border: "1px solid rgba(254,249,233,0.5)",
-                            padding: "8px 16px",
-                            background: "none",
-                            cursor: "pointer",
-                            transition: "all 0.2s",
-                          }}
-                        >
-                          View Piece
-                        </button>
                       </div>
                     </div>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {/* Static labels below grid */}
-            {filtered.length > 0 && (
-              <div
-                className="grid grid-cols-3 gap-x-5 mt-0"
-                style={{ marginTop: 0 }}
-              >
-                {filtered.map((product) => (
-                  <div
-                    key={`label-${product.id}`}
-                    className="pt-4"
-                    style={{ borderTop: "1px solid rgba(29,28,18,0.1)" }}
-                  >
-                    <p
-                      className="mb-1"
-                      style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#43664b" }}
-                    >
-                      {product.category}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <h3
-                        style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "20px", fontWeight: 400, color: "#1d1c12" }}
-                      >
-                        {product.name}
-                      </h3>
-                      <span
-                        style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "16px", fontWeight: 400, color: "#795900" }}
-                      >
-                        {product.price}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </section>
 
-        {/* ── EDITORIAL PULL QUOTE ──────────────────────────── */}
+        {/* ── THE BESPOKE ALCHEMY ────────────────────────────── */}
         <section
-          className="w-full py-24"
-          style={{ background: "linear-gradient(to bottom, #ede8d8, #f5f0e4)" }}
+          className="w-full"
+          style={{ background: "#232919" }}
         >
           <div className="mx-auto max-w-[1280px] px-8">
-            <div className="flex flex-col items-center text-center gap-8 max-w-[680px] mx-auto">
-              <svg width="32" height="22" viewBox="0 0 40 28" fill="none">
-                <path d="M0 28V16.8C0 12.32 0.873333 8.43111 2.62 5.13333C4.36667 1.83556 7.09333 0.186667 10.8 0.186667V4.85333C8.96 4.85333 7.52667 5.78667 6.53333 7.65333C5.54 9.45778 5.04 11.6356 5.04 14.1867H10.8V28H0ZM22.2 28V16.8C22.2 12.32 23.0733 8.43111 24.82 5.13333C26.5667 1.83556 29.2933 0.186667 33 0.186667V4.85333C31.16 4.85333 29.7267 5.78667 28.7333 7.65333C27.74 9.45778 27.24 11.6356 27.24 14.1867H33V28H22.2Z" fill="#795900" opacity="0.35"/>
-              </svg>
-              <p
-                style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "clamp(22px,2.8vw,32px)", fontWeight: 400, lineHeight: 1.65, color: "#1d1c12" }}
-              >
-                Gold does not hurry. Neither do we. Every piece in this collection was made with the patience of the craft and the intention of legacy.
-              </p>
-              <div
-                className="flex flex-col items-center gap-1 pt-4"
-                style={{ borderTop: "1px solid rgba(121,89,0,0.25)", paddingLeft: "40px", paddingRight: "40px" }}
-              >
-                <p style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "15px", color: "#1d1c12" }}>Elena Moretti</p>
-                <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#43664b" }}>Founder &amp; Creative Director</p>
-              </div>
-            </div>
-          </div>
-        </section>
+            <div className="grid grid-cols-2 gap-0 items-stretch" style={{ minHeight: "400px" }}>
 
-        {/* ── BESPOKE CTA STRIP ─────────────────────────────── */}
-        <section className="w-full py-20" style={{ background: "#1d1c12" }}>
-          <div className="mx-auto max-w-[1280px] px-8">
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col gap-3">
-                <p className="section-label" style={{ color: "#c9a84c" }}>Bespoke Commission</p>
-                <h2
-                  style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 400, color: "#fef9e9", lineHeight: 1.2 }}
+              {/* Left: text content */}
+              <div className="flex flex-col justify-center gap-7 py-16 pr-16">
+                <p
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "#c9a84c",
+                    opacity: 0.8,
+                  }}
                 >
-                  Can&apos;t find your perfect piece?
+                  Bespoke Services
+                </p>
+                <h2
+                  style={{
+                    fontFamily: "'Noto Serif', Georgia, serif",
+                    fontSize: "clamp(32px,3.8vw,52px)",
+                    fontWeight: 400,
+                    fontStyle: "italic",
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.01em",
+                    color: "#fef9e9",
+                  }}
+                >
+                  The Bespoke
                   <br />
-                  Let us make it.
+                  Alchemy
                 </h2>
+                <p
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "14px",
+                    lineHeight: 1.9,
+                    color: "rgba(254,249,233,0.55)",
+                    maxWidth: "400px",
+                  }}
+                >
+                  Mani D&apos;Oro offers a full bespoke commission service — every dimension, alloy, and motif tailored to your vision. A dialogue between artisan and collector, culminating in a piece that exists nowhere else in the world.
+                </p>
+                <a
+                  href="#"
+                  data-testid="link-book-consultation"
+                  className="flex items-center gap-3 w-fit group"
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "#c9a84c",
+                    textDecoration: "none",
+                  }}
+                >
+                  Book a Consultation
+                  <svg
+                    width="24"
+                    height="10"
+                    viewBox="0 0 24 10"
+                    fill="none"
+                    style={{ transition: "transform 0.25s" }}
+                    className="group-hover:translate-x-1"
+                  >
+                    <path d="M0 5H22M18 1L22 5L18 9" stroke="#c9a84c" strokeWidth="1.2" strokeLinecap="round"/>
+                  </svg>
+                </a>
               </div>
-              <a
-                href="/#bespoke"
-                data-testid="link-begin-commission"
-                style={{
-                  fontFamily: "'Manrope', sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "#1d1c12",
-                  background: "#c9a84c",
-                  padding: "18px 40px",
-                  display: "inline-block",
-                  transition: "background 0.3s",
-                  whiteSpace: "nowrap",
-                }}
+
+              {/* Right: jeweler photo */}
+              <div
+                className="relative overflow-hidden"
+                style={{ minHeight: "400px" }}
               >
-                Begin a Commission
-              </a>
+                <img
+                  src="/figmaAssets/jeweler-working-on-a-custom-piece.png"
+                  alt="Jeweler at work"
+                  className="w-full h-full object-cover"
+                  style={{ display: "block" }}
+                />
+                {/* Subtle left-to-right fade from dark bg */}
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(to right, #232919 0%, transparent 28%)" }}
+                />
+              </div>
             </div>
           </div>
         </section>
-
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-30" />
 
         <FooterSection />
       </div>
