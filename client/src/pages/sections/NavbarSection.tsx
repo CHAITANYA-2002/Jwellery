@@ -111,11 +111,11 @@ export const NavbarSection = (): JSX.Element => {
           Journal
         </a>
         <a
-          href="/#contact"
+          href="/contact"
           data-testid="link-nav-contact"
-          style={linkStyle()}
+          style={linkStyle(location === "/contact")}
           onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = location === "/contact" ? "1" : "0.55")}
         >
           Contact
         </a>

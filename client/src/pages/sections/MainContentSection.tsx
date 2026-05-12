@@ -40,8 +40,6 @@ export const MainContentSection = (): JSX.Element => {
       <section className="w-full">
         <div className="mx-auto max-w-[1280px] px-8">
           <div className="grid grid-cols-12 min-h-[720px] bg-[#f5f0e4]">
-
-            {/* Left: Text panel */}
             <div
               className="col-span-7 flex flex-col justify-center gap-10 px-14 py-20"
               style={{ borderRight: "1px solid rgba(29,28,18,0.12)" }}
@@ -75,16 +73,12 @@ export const MainContentSection = (): JSX.Element => {
               </p>
 
               <div>
-                <button
-                  data-testid="button-explore-collection"
-                  className="luxury-btn-gold"
-                >
+                <a href="/collection" data-testid="button-explore-collection" className="luxury-btn-gold" style={{ textDecoration: "none" }}>
                   Explore Collection
-                </button>
+                </a>
               </div>
             </div>
 
-            {/* Right: Hero image — contained, no overflow */}
             <div className="col-span-5 relative overflow-hidden">
               <img
                 src="/figmaAssets2/hero-right.png"
@@ -97,13 +91,11 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </section>
 
-      {/* ── THIN GOLD RULE ─────────────────────────────────── */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-40" />
 
       {/* ── NEW ARRIVALS ────────────────────────────────────── */}
       <section id="collection" className="w-full py-24 bg-[#fef9e9]">
         <div className="mx-auto max-w-[1280px] px-8">
-
           <div className="flex items-baseline justify-between mb-14">
             <h2
               className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
@@ -112,9 +104,10 @@ export const MainContentSection = (): JSX.Element => {
               New Arrivals
             </h2>
             <a
-              href="#"
+              href="/collection"
               data-testid="link-view-all"
               className="font-['Manrope',sans-serif] text-[11px] font-bold tracking-[0.18em] uppercase text-[#795900] relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-[#795900] after:origin-left after:transition-transform hover:after:scale-x-0 after:scale-x-100 pb-px"
+              style={{ textDecoration: "none" }}
             >
               View All
             </a>
@@ -128,85 +121,28 @@ export const MainContentSection = (): JSX.Element => {
                 className="product-card relative overflow-hidden cursor-pointer"
                 style={{ aspectRatio: "3/4" }}
               >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-
-                {/* Cinematic hover overlay */}
+                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                 <div className="product-card-overlay" />
-
-                {/* Hover details */}
                 <div className="product-card-details">
-                  <p
-                    className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#c9a84c] mb-2"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  >
-                    {product.category}
-                  </p>
-                  <h3
-                    className="text-2xl font-normal text-[#fef9e9] mb-2 leading-snug"
-                    style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-                  >
-                    {product.name}
-                  </h3>
-                  <p
-                    className="text-sm text-[#fef9e9]/70 mb-4 leading-relaxed"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  >
-                    {product.description}
-                  </p>
+                  <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#c9a84c] mb-2" style={{ fontFamily: "'Manrope', sans-serif" }}>{product.category}</p>
+                  <h3 className="text-2xl font-normal italic text-[#fef9e9] mb-2 leading-snug" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>{product.name}</h3>
+                  <p className="text-sm text-[#fef9e9]/70 mb-4 leading-relaxed" style={{ fontFamily: "'Manrope', sans-serif" }}>{product.description}</p>
                   <div className="flex items-center justify-between">
-                    <span
-                      className="text-lg font-normal text-[#c9a84c]"
-                      style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-                    >
-                      {product.price}
-                    </span>
-                    <button
-                      data-testid={`button-view-${product.id}`}
-                      className="font-['Manrope',sans-serif] text-[10px] font-bold tracking-[0.2em] uppercase text-[#fef9e9] border border-[#fef9e9]/60 px-4 py-2 hover:bg-[#fef9e9]/10 transition-colors"
-                    >
-                      View Product
-                    </button>
+                    <span className="text-lg font-normal text-[#c9a84c]" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>{product.price}</span>
+                    <button data-testid={`button-view-${product.id}`} className="font-['Manrope',sans-serif] text-[10px] font-bold tracking-[0.2em] uppercase text-[#fef9e9] border border-[#fef9e9]/60 px-4 py-2 hover:bg-[#fef9e9]/10 transition-colors">View Piece</button>
                   </div>
-                </div>
-
-                {/* Default: subtle label at bottom */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-5 transition-opacity duration-300"
-                  style={{ opacity: 1 }}
-                >
-                  <div className="flex items-end justify-between" />
                 </div>
               </article>
             ))}
           </div>
 
-          {/* Below cards: names always visible */}
           <div className="grid grid-cols-3 gap-5 mt-0">
             {products.map((product) => (
-              <div key={`label-${product.id}`} className="pt-4 pb-1" style={{ borderTop: "1px solid rgba(29,28,18,0.1)" }}>
-                <p
-                  className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#43664b] mb-1"
-                  style={{ fontFamily: "'Manrope', sans-serif" }}
-                >
-                  {product.category}
-                </p>
+              <div key={`label-${product.id}`} className="pt-4 pb-1" style={{ borderTop: "1px solid rgba(29,28,18,0.09)" }}>
+                <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#43664b] mb-1" style={{ fontFamily: "'Manrope', sans-serif" }}>{product.category}</p>
                 <div className="flex items-center justify-between">
-                  <h3
-                    className="text-xl font-normal text-[#1d1c12]"
-                    style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-                  >
-                    {product.name}
-                  </h3>
-                  <span
-                    className="text-base font-normal text-[#795900]"
-                    style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-                  >
-                    {product.price}
-                  </span>
+                  <h3 className="text-xl font-normal italic text-[#1d1c12]" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>{product.name}</h3>
+                  <span className="text-base font-normal text-[#795900]" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>{product.price}</span>
                 </div>
               </div>
             ))}
@@ -215,96 +151,169 @@ export const MainContentSection = (): JSX.Element => {
       </section>
 
       {/* ── BESPOKE SERVICES ────────────────────────────────── */}
-      <section
-        id="bespoke"
-        className="w-full py-0"
-        style={{ background: "linear-gradient(to bottom, #f5f0e4, #ede8d8)" }}
-      >
+      <section id="bespoke" className="w-full py-0" style={{ background: "#fef9e9" }}>
         <div className="mx-auto max-w-[1280px] px-8">
           <div className="grid grid-cols-2 items-stretch">
 
-            {/* Left: Text */}
-            <div className="flex flex-col justify-center gap-8 py-20 pr-16">
-              <p className="section-label">Bespoke Services</p>
+            {/* Left: dark olive panel */}
+            <div
+              className="flex flex-col justify-center gap-7 py-16 px-14"
+              style={{ background: "#2a2e1a" }}
+            >
+              <p
+                style={{
+                  fontFamily: "'Manrope', sans-serif",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#c9a84c",
+                  opacity: 0.9,
+                }}
+              >
+                Bespoke Services
+              </p>
               <h2
-                className="text-[clamp(36px,4vw,54px)] font-normal leading-[1.1] text-[#1d1c12]"
-                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                style={{
+                  fontFamily: "'Noto Serif', Georgia, serif",
+                  fontSize: "clamp(36px,4.2vw,58px)",
+                  fontWeight: 400,
+                  fontStyle: "italic",
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.01em",
+                  color: "#fef9e9",
+                }}
               >
                 Your Story,
                 <br />
                 Our Gold
               </h2>
               <p
-                className="text-base leading-[1.85] text-[#5a6b4e] max-w-[380px]"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
+                style={{
+                  fontFamily: "'Manrope', sans-serif",
+                  fontSize: "14px",
+                  lineHeight: 1.9,
+                  color: "rgba(254,249,233,0.52)",
+                  maxWidth: "360px",
+                }}
               >
                 Commission a singular piece that carries your history, your name, your soul. Our master goldsmiths transform your vision into heirloom-grade artistry.
               </p>
-              <div>
-                <button
-                  data-testid="button-begin-commission"
-                  className="luxury-btn-outline"
-                >
-                  Begin a Commission
-                </button>
-              </div>
+              <a
+                href="/contact"
+                data-testid="button-begin-commission"
+                style={{
+                  display: "inline-block",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#fef9e9",
+                  border: "1px solid rgba(254,249,233,0.35)",
+                  padding: "14px 28px",
+                  width: "fit-content",
+                  textDecoration: "none",
+                  transition: "border-color 0.2s, background 0.2s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(254,249,233,0.07)"; e.currentTarget.style.borderColor = "rgba(254,249,233,0.65)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(254,249,233,0.35)"; }}
+              >
+                Start Your Commission
+              </a>
             </div>
 
-            {/* Right: Image */}
+            {/* Right: jeweler photo */}
             <div className="relative overflow-hidden" style={{ minHeight: "520px" }}>
               <img
-                src="/figmaAssets2/bespoke-services.png"
+                src="/figmaAssets/jeweler-working-on-a-custom-piece.png"
                 alt="Bespoke jewelry creation"
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-[#795900]/10" />
+              <div
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(to right, #2a2e1a 0%, transparent 25%)" }}
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* ── FOUNDER / QUOTE ─────────────────────────────────── */}
-      <section id="story" className="w-full py-28 bg-[#ede8d8]">
+      <section id="story" className="w-full py-28" style={{ background: "#fef9e9" }}>
         <div className="mx-auto max-w-[1280px] px-8">
           <div className="grid grid-cols-2 gap-20 items-center">
 
-            {/* Left: Large portrait */}
-            <div className="relative overflow-hidden" style={{ boxShadow: "0 8px 48px rgba(29,28,18,0.12)" }}>
+            {/* Left: portrait */}
+            <div
+              className="relative overflow-hidden"
+              style={{ boxShadow: "0 8px 48px rgba(29,28,18,0.1)" }}
+            >
               <img
                 src="/figmaAssets2/founder-portrait.png"
                 alt="Alessandra Oro — Founder"
                 className="w-full object-cover object-top"
-                style={{ height: "600px" }}
+                style={{ height: "580px", filter: "grayscale(20%) contrast(1.05)" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(29,28,18,0.3)] to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(29,28,18,0.25)] to-transparent" />
             </div>
 
-            {/* Right: Quote */}
-            <div className="flex flex-col gap-10">
-              <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
-                <path d="M0 28V16.8C0 12.32 0.873333 8.43111 2.62 5.13333C4.36667 1.83556 7.09333 0.186667 10.8 0.186667V4.85333C8.96 4.85333 7.52667 5.78667 6.53333 7.65333C5.54 9.45778 5.04 11.6356 5.04 14.1867H10.8V28H0ZM22.2 28V16.8C22.2 12.32 23.0733 8.43111 24.82 5.13333C26.5667 1.83556 29.2933 0.186667 33 0.186667V4.85333C31.16 4.85333 29.7267 5.78667 28.7333 7.65333C27.74 9.45778 27.24 11.6356 27.24 14.1867H33V28H22.2Z" fill="#795900" opacity="0.5"/>
-              </svg>
+            {/* Right: quote */}
+            <div className="flex flex-col gap-9">
+              {/* Large decorative 99 */}
+              <span
+                style={{
+                  fontFamily: "'Noto Serif', Georgia, serif",
+                  fontSize: "72px",
+                  fontWeight: 400,
+                  lineHeight: 1,
+                  color: "#795900",
+                  opacity: 0.55,
+                  letterSpacing: "-0.04em",
+                  display: "block",
+                  marginBottom: "-16px",
+                }}
+              >
+                &ldquo;
+              </span>
 
               <blockquote
-                className="text-[clamp(20px,2.5vw,30px)] font-normal leading-[1.65] text-[#1d1c12]"
-                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                style={{
+                  fontFamily: "'Noto Serif', Georgia, serif",
+                  fontSize: "clamp(20px,2.4vw,28px)",
+                  fontWeight: 400,
+                  fontStyle: "italic",
+                  lineHeight: 1.7,
+                  color: "#1d1c12",
+                  margin: 0,
+                }}
               >
-                The beauty of Mani D&apos;Oro lies in the intentional imperfection. We do not chase machine-made precision; we chase the soul of the hand.
+                True luxury isn&apos;t found in the machine&apos;s precision, but in the artisan&apos;s imperfection. We don&apos;t just forge gold; we forge legacy.
               </blockquote>
 
               <div
                 className="pt-6 flex flex-col gap-1"
-                style={{ borderTop: "1px solid rgba(121,89,0,0.3)" }}
+                style={{ borderTop: "1px solid rgba(121,89,0,0.25)" }}
               >
                 <p
-                  className="text-base font-normal text-[#1d1c12]"
-                  style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                  style={{
+                    fontFamily: "'Noto Serif', Georgia, serif",
+                    fontSize: "15px",
+                    fontWeight: 400,
+                    color: "#1d1c12",
+                  }}
                 >
-                  Elena Moretti
+                  Alessandra Oro
                 </p>
                 <p
-                  className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#43664b]"
-                  style={{ fontFamily: "'Manrope', sans-serif" }}
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "#43664b",
+                  }}
                 >
                   Founder &amp; Creative Director
                 </p>
@@ -315,21 +324,23 @@ export const MainContentSection = (): JSX.Element => {
       </section>
 
       {/* ── THE ARCHIVE ─────────────────────────────────────── */}
-      <section id="archive" className="w-full py-24 bg-[#fef9e9]">
+      <section id="archive" className="w-full py-24" style={{ background: "#f5f0e4" }}>
         <div className="mx-auto max-w-[1280px] px-8">
-          <div className="flex flex-col gap-3 mb-14">
-            <h2
-              className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
-              style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-            >
-              The Archive
-            </h2>
-            <p
-              className="text-sm leading-relaxed text-[#5a6b4e] max-w-[500px]"
-              style={{ fontFamily: "'Manrope', sans-serif" }}
-            >
-              A curated collection of past masterpieces and historical iterations that define the Mani D&apos;Oro silhouette.
-            </p>
+          <div className="flex items-baseline justify-between mb-14">
+            <div className="flex flex-col gap-2">
+              <h2
+                className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
+                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+              >
+                The Archive
+              </h2>
+              <p
+                className="text-sm leading-relaxed text-[#5a6b4e] max-w-[480px]"
+                style={{ fontFamily: "'Manrope', sans-serif" }}
+              >
+                A curated collection of past masterpieces and historical iterations that define the Mani D&apos;Oro silhouette.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-4 gap-4 items-start">
@@ -338,10 +349,7 @@ export const MainContentSection = (): JSX.Element => {
                 key={item.id}
                 data-testid={`card-archive-${item.id}`}
                 className="group relative overflow-hidden cursor-pointer"
-                style={{
-                  marginTop: item.offset ? "80px" : "0",
-                  boxShadow: "0 2px 16px rgba(29,28,18,0.06)",
-                }}
+                style={{ marginTop: item.offset ? "80px" : "0", boxShadow: "0 2px 16px rgba(29,28,18,0.06)" }}
               >
                 <img
                   src={item.image}
@@ -350,23 +358,12 @@ export const MainContentSection = (): JSX.Element => {
                   style={{ height: "375px" }}
                 />
                 <div className="absolute inset-0 bg-[rgba(29,28,18,0)] group-hover:bg-[rgba(29,28,18,0.4)] transition-all duration-500 flex items-center justify-center">
-                  <span
-                    className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#fef9e9] opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  >
+                  <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#fef9e9] opacity-0 group-hover:opacity-100 transition-opacity duration-400" style={{ fontFamily: "'Manrope', sans-serif" }}>
                     {item.year}
                   </span>
                 </div>
-                <div
-                  className="mt-3"
-                  style={{ borderTop: "1px solid rgba(127,118,99,0.3)", paddingTop: "10px" }}
-                >
-                  <p
-                    className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#7f7663]"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  >
-                    {item.year}
-                  </p>
+                <div className="mt-3 pt-3" style={{ borderTop: "1px solid rgba(127,118,99,0.25)" }}>
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#7f7663]" style={{ fontFamily: "'Manrope', sans-serif" }}>{item.year}</p>
                 </div>
               </div>
             ))}
@@ -374,8 +371,7 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </section>
 
-      {/* ── GOLD RULE ───────────────────────────────────────── */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-60" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-50" />
     </main>
   );
 };
