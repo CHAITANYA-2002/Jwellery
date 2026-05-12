@@ -3,44 +3,42 @@ import { Separator } from "@/components/ui/separator";
 const footerGroups = [
   {
     title: "The Brand",
-    links: ["BRAND STORY", "OUR PROCESS", "JOURNAL"],
+    links: ["Brand Story", "Our Process", "Journal"],
   },
   {
     title: "Assistance",
-    links: ["CONTACT", "SHIPPING", "RETURNS"],
+    links: ["Contact", "Shipping", "Returns"],
   },
   {
     title: "Social",
-    links: ["INSTAGRAM", "PINTEREST"],
+    links: ["Instagram", "Pinterest"],
   },
 ];
 
 export const FooterSection = (): JSX.Element => {
   return (
-    <footer id="contact" className="w-full border-t-4 border-[#1d1c12] bg-[#f8f3e4]">
-      <div className="mx-auto w-full max-w-[1600px] px-16 pt-20 pb-10">
+    <footer id="contact" className="w-full border-t-[3px] border-[#1d1c12] bg-[#fef9e9]">
+      <div className="mx-auto max-w-[1280px] px-12 pt-16 pb-10">
+        <div className="grid grid-cols-4 gap-12 mb-16">
 
-        <div className="grid grid-cols-4 gap-16 mb-20">
-          <div className="flex flex-col gap-8">
+          {/* Brand Column */}
+          <div className="flex flex-col gap-6">
             <h2 className="[font-family:'Noto_Serif',Helvetica] text-2xl font-normal text-[#1d1c12]">
               Mani D&apos;Oro
             </h2>
-            <p className="[font-family:'Manrope',Helvetica] text-sm font-normal leading-[1.7] text-[#43664b] max-w-[240px]">
+            <p className="[font-family:'Manrope',Helvetica] text-sm font-normal leading-[1.8] text-[#43664b]">
               A digital atelier specializing in heritage-grade jewelry crafted for the modern individual.
             </p>
             <img
-              className="h-5 w-auto"
-              alt="Mani D'Oro signature"
               src="/figmaAssets/container-1.svg"
+              alt="Mani D'Oro signature"
+              className="h-5 w-auto"
             />
           </div>
 
+          {/* Nav Columns */}
           {footerGroups.map((group) => (
-            <nav
-              key={group.title}
-              aria-label={group.title}
-              className="flex flex-col gap-8"
-            >
+            <nav key={group.title} aria-label={group.title} className="flex flex-col gap-6">
               <h3 className="[font-family:'Noto_Serif',Helvetica] text-lg font-normal text-[#795900]">
                 {group.title}
               </h3>
@@ -50,7 +48,7 @@ export const FooterSection = (): JSX.Element => {
                     <a
                       href="#"
                       data-testid={`link-footer-${link.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="[font-family:'Manrope',Helvetica] text-sm font-normal tracking-[1.40px] text-[#43664b] hover:text-[#1d1c12] transition-colors"
+                      className="[font-family:'Manrope',Helvetica] text-sm font-normal tracking-[1.20px] text-[#43664b] hover:text-[#1d1c12] transition-colors uppercase"
                     >
                       {link}
                     </a>

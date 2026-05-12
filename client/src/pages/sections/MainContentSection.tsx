@@ -1,115 +1,134 @@
-import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
-const featuredArtifacts = [
+const products = [
   {
-    name: "The Aurelius Chain",
+    id: "aurelius-band",
+    category: "RINGS",
+    name: "Aurelius Band",
+    price: "$980",
+    image: "/figmaAssets2/product-aurelius-band.png",
+  },
+  {
+    id: "mani-link-chain",
+    category: "NECKLACES",
+    name: "Mani Link Chain",
     price: "$1,240",
-    material: "SILVER ALLOY | 18K GOLD PLATED",
-    image: "/figmaAssets/the-aurelius-chain---detailed-gold-link-necklace.png",
+    image: "/figmaAssets2/product-mani-link-chain.png",
   },
   {
-    name: "Molten Hoops",
-    price: "$890",
-    material: "SILVER ALLOY | 18K GOLD PLATED",
-    image: "/figmaAssets/molten-hoops---textured-gold-earrings.png",
+    id: "gilded-drift-cuff",
+    category: "BRACELETS",
+    name: "Gilded Drift Cuff",
+    price: "$740",
+    image: "/figmaAssets2/product-gilded-drift-cuff.png",
   },
+];
+
+const archiveItems = [
+  { id: "archive-1", year: "Circa 2012", image: "/figmaAssets2/archive-1.png", offset: false },
+  { id: "archive-2", year: "Circa 2015", image: "/figmaAssets2/archive-2.png", offset: true },
+  { id: "archive-3", year: "Circa 2018", image: "/figmaAssets2/archive-3.png", offset: false },
+  { id: "archive-4", year: "Circa 2021", image: "/figmaAssets2/archive-4.png", offset: true },
 ];
 
 export const MainContentSection = (): JSX.Element => {
   return (
-    <main className="relative w-full">
+    <main className="relative w-full bg-[#fef9e9]">
 
-      {/* HERO */}
-      <section className="relative flex h-screen w-full items-end overflow-hidden border-b-[3px] border-[#1d1c12]">
-        <div className="absolute inset-0">
-          <div className="h-full w-full bg-[url(/figmaAssets/close-up-of-artisanal-gold-jewelry-on-a-person.png)] bg-cover bg-center" />
-          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(29,28,18,0.75)_0%,rgba(29,28,18,0.1)_60%,rgba(29,28,18,0)_100%)]" />
-        </div>
-        <div className="relative z-10 w-full px-16 pb-20">
-          <div className="flex w-full items-end justify-between">
-            <div className="flex flex-col items-start gap-10">
-              <h1 className="[font-family:'Noto_Serif',Helvetica] text-[88px] font-normal leading-[1.0] tracking-[-4px] text-[#fef9e9]">
-                Gold In Every
-                <br />
-                Hand
-              </h1>
-              <div className="flex items-center gap-4">
-                <Button
+      {/* ── HERO ───────────────────────────────────────────────── */}
+      <section className="w-full border-b-[3px] border-[#1d1c12]">
+        <div className="mx-auto max-w-[1280px] px-12">
+          <div className="grid grid-cols-12 border-[3px] border-[#1d1c12] bg-[#f8f3e4]">
+
+            {/* Left: Text */}
+            <div className="col-span-7 flex flex-col justify-center gap-12 border-r-[3px] border-[#1d1c12] px-12 py-16">
+              <div className="flex flex-col">
+                <h1 className="[font-family:'Noto_Serif',Helvetica] text-[108px] font-normal leading-[1.0] tracking-[-5px] text-[#1d1c12]">
+                  Gold In
+                </h1>
+                <h1 className="[font-family:'Noto_Serif',Helvetica] text-[108px] font-normal leading-[1.0] tracking-[-5px] text-[#795900] italic">
+                  Every
+                </h1>
+                <h1 className="[font-family:'Noto_Serif',Helvetica] text-[108px] font-normal leading-[1.0] tracking-[-5px] text-[#795900] italic">
+                  Hand
+                </h1>
+              </div>
+
+              <p className="[font-family:'Manrope',Helvetica] text-xl font-normal leading-[1.6] text-[#43664b] max-w-[400px]">
+                Discover the raw elegance of hand-forged jewelry. Each piece is a testament to the artisan&apos;s touch and the gold&apos;s eternal spirit.
+              </p>
+
+              <div>
+                <button
                   data-testid="button-explore-collection"
-                  className="h-auto rounded-none border-2 border-[#1d1c12] bg-[#795900] px-12 py-5 [font-family:'Manrope',Helvetica] text-sm font-bold leading-5 tracking-[1.40px] text-white hover:bg-[#6d5100]"
+                  className="[font-family:'Manrope',Helvetica] border-2 border-[#1d1c12] bg-[#795900] px-10 py-5 text-sm font-bold tracking-[1.40px] uppercase text-white hover:bg-[#6d5100] transition-colors"
                 >
-                  EXPLORE COLLECTION
-                </Button>
-                <Button
-                  data-testid="button-the-story"
-                  variant="outline"
-                  className="h-auto rounded-none border-2 border-[#fef9e9] bg-transparent px-12 py-5 [font-family:'Manrope',Helvetica] text-sm font-bold leading-5 tracking-[1.40px] text-[#fef9e9] hover:bg-[#fef9e9] hover:text-[#1d1c12]"
-                >
-                  THE STORY
-                </Button>
+                  Explore Collection
+                </button>
               </div>
             </div>
-            <div className="flex flex-col items-end gap-3 text-right">
-              <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[2px] text-[#ffdea0]">
-                HERITAGE GRADE
-              </p>
-              <p className="[font-family:'Noto_Serif',Helvetica] text-lg font-normal text-[#fef9e9cc] max-w-[260px] leading-[1.6]">
-                Handcrafted by master artisans since 1987
-              </p>
+
+            {/* Right: Hero image */}
+            <div className="col-span-5 min-h-[660px] overflow-hidden">
+              <img
+                src="/figmaAssets2/hero-right.png"
+                alt="Artisanal gold jewelry"
+                className="h-full w-full object-cover object-center"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURED ARTIFACTS */}
-      <section id="collection" className="w-full bg-[#f8f3e4] px-16 py-28">
-        <div className="mx-auto w-full max-w-[1600px]">
-          <div className="flex w-full items-end justify-between mb-16">
-            <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal tracking-[0] text-[#1d1c12]">
-              Featured Artifacts
+      {/* ── NEW ARRIVALS ────────────────────────────────────────── */}
+      <section id="collection" className="w-full bg-[#f8f3e4] px-12 py-20">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="flex items-end justify-between mb-16">
+            <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal text-[#1d1c12]">
+              New Arrivals
             </h2>
             <a
               href="#"
               data-testid="link-view-all"
-              className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.40px] text-[#795900] border-b border-[#795900] pb-0.5 hover:text-[#1d1c12] hover:border-[#1d1c12] transition-colors"
+              className="[font-family:'Manrope',Helvetica] text-sm font-bold tracking-[1.40px] text-[#795900] border-b border-[#795900] pb-0.5 hover:text-[#1d1c12] hover:border-[#1d1c12] transition-colors uppercase"
             >
-              VIEW ALL
+              View All
             </a>
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-8">
-            {featuredArtifacts.map((artifact) => (
+          <div className="grid grid-cols-3 gap-6">
+            {products.map((product) => (
               <article
-                key={artifact.name}
-                data-testid={`card-artifact-${artifact.name.replace(/\s+/g, '-').toLowerCase()}`}
-                className="group border-[3px] border-[#1d1c12] bg-white"
+                key={product.id}
+                data-testid={`card-product-${product.id}`}
+                className="group flex flex-col border-[3px] border-[#1d1c12] bg-[#fef9e9]"
               >
-                <div className="overflow-hidden border-b-[3px] border-[#1d1c12]">
-                  <div
-                    className="h-[520px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${artifact.image})` }}
-                    aria-hidden="true"
+                <div className="relative overflow-hidden border-b-[3px] border-[#1d1c12]">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-[360px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
-                <div className="flex flex-col items-start gap-5 p-10">
-                  <div className="flex w-full items-center justify-between">
-                    <h3 className="[font-family:'Noto_Serif',Helvetica] text-3xl font-normal text-[#1d1c12]">
-                      {artifact.name}
-                    </h3>
-                    <p className="[font-family:'Manrope',Helvetica] text-xl font-normal text-[#795900]">
-                      {artifact.price}
-                    </p>
-                  </div>
-                  <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.20px] text-[#43664b]">
-                    {artifact.material}
+                <div className="flex flex-col gap-3 p-6">
+                  <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.20px] text-[#43664b] uppercase">
+                    {product.category}
                   </p>
-                  <Button
-                    data-testid={`button-acquire-${artifact.name.replace(/\s+/g, '-').toLowerCase()}`}
-                    variant="outline"
-                    className="h-auto w-full rounded-none border-2 border-[#1d1c12] bg-transparent px-4 py-4 [font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.20px] text-[#1d1c12] hover:bg-[#1d1c12] hover:text-white transition-colors"
-                  >
-                    ACQUIRE ITEM
-                  </Button>
+                  <div className="flex items-center justify-between">
+                    <h3 className="[font-family:'Noto_Serif',Helvetica] text-2xl font-normal text-[#1d1c12]">
+                      {product.name}
+                    </h3>
+                    <button
+                      data-testid={`button-wishlist-${product.id}`}
+                      className="text-[#1d1c12] hover:text-[#795900] transition-colors"
+                      aria-label={`Add ${product.name} to wishlist`}
+                    >
+                      <Heart size={20} />
+                    </button>
+                  </div>
+                  <p className="[font-family:'Manrope',Helvetica] text-lg font-normal text-[#795900]">
+                    {product.price}
+                  </p>
                 </div>
               </article>
             ))}
@@ -117,68 +136,116 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </section>
 
-      {/* CUSTOMISATION */}
-      <section id="commission" className="w-full border-y-4 border-[#1d1c12] bg-[#43664b]">
-        <div className="mx-auto w-full max-w-[1600px] grid grid-cols-2 items-stretch">
-          <div className="flex flex-col justify-center gap-10 px-16 py-24">
-            <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[4.80px] text-[#ffdea0]">
-              COMMISSIONED WORK
-            </p>
-            <h2 className="[font-family:'Noto_Serif',Helvetica] text-6xl font-normal leading-[1.1] text-[#fef9e9]">
-              Customisation
-              <br />
-              available
-            </h2>
-            <p className="[font-family:'Manrope',Helvetica] text-lg font-normal leading-[1.8] text-[#fef9e9cc] max-w-sm">
-              Every piece tells a unique story. Work directly with our master artisans to create a legacy piece designed exclusively for you.
-            </p>
-            <div>
-              <Button
-                data-testid="button-book-consultation"
-                className="h-auto rounded-none border-2 border-[#fef9e9] bg-[#795900] px-12 py-6 [font-family:'Manrope',Helvetica] text-base font-bold tracking-[1.60px] text-white hover:bg-[#6d5100]"
-              >
-                BOOK CONSULTATION
-              </Button>
-            </div>
-          </div>
+      {/* ── BESPOKE SERVICES ────────────────────────────────────── */}
+      <section id="bespoke" className="w-full border-y-[3px] border-[#1d1c12]">
+        <div className="mx-auto max-w-[1280px] px-12">
+          <div className="grid grid-cols-2 border-[3px] border-[#1d1c12]">
 
-          <div className="relative border-l-4 border-[#1d1c12]">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url(/figmaAssets/jeweler-working-on-a-custom-piece.png)" }}
-            />
-            <div className="absolute inset-0 bg-[#79590015]" />
+            {/* Left: Text */}
+            <div className="flex flex-col justify-center gap-8 border-r-[3px] border-[#1d1c12] bg-[#f8f3e4] px-16 py-20">
+              <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[4px] text-[#795900] uppercase">
+                Bespoke Services
+              </p>
+              <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal leading-[1.15] text-[#1d1c12]">
+                Your Story,
+                <br />
+                Our Gold
+              </h2>
+              <p className="[font-family:'Manrope',Helvetica] text-lg font-normal leading-[1.7] text-[#43664b] max-w-[400px]">
+                Commission a singular piece that carries your history, your name, your soul. Our master goldsmiths transform your vision into heirloom-grade artistry.
+              </p>
+              <div>
+                <button
+                  data-testid="button-begin-commission"
+                  className="[font-family:'Manrope',Helvetica] border-2 border-[#1d1c12] bg-transparent px-10 py-5 text-sm font-bold tracking-[1.40px] uppercase text-[#1d1c12] hover:bg-[#1d1c12] hover:text-[#fef9e9] transition-colors"
+                >
+                  Begin a Commission
+                </button>
+              </div>
+            </div>
+
+            {/* Right: Image */}
+            <div className="overflow-hidden min-h-[580px]">
+              <img
+                src="/figmaAssets2/bespoke-services.png"
+                alt="Bespoke jewelry creation"
+                className="h-full w-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FOUNDER QUOTE */}
-      <section id="story" className="w-full bg-[#e7e2d3] py-32 px-16">
-        <div className="mx-auto w-full max-w-[1600px] flex items-center gap-24">
-          <div className="flex-shrink-0">
-            <div className="relative">
-              <div className="absolute -left-5 -top-5 h-16 w-16 bg-[#795900]" />
-              <div
-                className="relative h-56 w-56 bg-cover bg-center"
-                style={{ backgroundImage: "url(/figmaAssets/the-founder-portrait.png)" }}
+      {/* ── FOUNDER ─────────────────────────────────────────────── */}
+      <section id="story" className="w-full bg-[#fef9e9] py-20 px-12">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="grid grid-cols-2 gap-16 items-center">
+
+            {/* Left: Portrait */}
+            <div className="relative border-[3px] border-[#1d1c12] overflow-hidden">
+              <img
+                src="/figmaAssets2/founder-portrait.png"
+                alt="Alessandra Oro — Founder"
+                className="w-full h-[640px] object-cover object-top"
               />
-              <div className="absolute -bottom-5 -right-5 h-16 w-16 border-2 border-[#1d1c12]" />
+              <div className="absolute inset-0 bg-[rgba(29,28,18,0.08)]" />
+            </div>
+
+            {/* Right: Quote */}
+            <div className="flex flex-col gap-10 px-8">
+              <svg width="34" height="24" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24V14.4C0 10.56 0.746667 7.22667 2.24 4.4C3.73333 1.57333 6.08 0.16 9.28 0.16V4.16C7.68 4.16 6.45333 4.96 5.6 6.56C4.74667 8.10667 4.32 9.97333 4.32 12.16H9.28V24H0ZM19.04 24V14.4C19.04 10.56 19.7867 7.22667 21.28 4.4C22.7733 1.57333 25.12 0.16 28.32 0.16V4.16C26.72 4.16 25.4933 4.96 24.64 6.56C23.7867 8.10667 23.36 9.97333 23.36 12.16H28.32V24H19.04Z" fill="#795900"/>
+              </svg>
+
+              <blockquote className="[font-family:'Noto_Serif',Helvetica] text-3xl font-normal leading-[1.6] text-[#1d1c12]">
+                True luxury isn&apos;t found in the machine&apos;s precision, but in the artisan&apos;s imperfection. We don&apos;t just forge gold; we forge legacy.
+              </blockquote>
+
+              <div className="border-l-[3px] border-[#795900] pl-6 flex flex-col gap-1">
+                <p className="[font-family:'Noto_Serif',Helvetica] text-xl font-normal text-[#1d1c12]">
+                  Alessandra Oro
+                </p>
+                <p className="[font-family:'Manrope',Helvetica] text-sm font-normal tracking-[1px] text-[#43664b] uppercase">
+                  Founder &amp; Master Goldsmith
+                </p>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <figure className="flex flex-col gap-10 max-w-2xl">
-            <blockquote className="[font-family:'Noto_Serif',Helvetica] text-4xl font-normal leading-[1.4] text-[#1d1c12]">
-              &quot;The beauty of Mani D&apos;Oro lies in the intentional imperfection. We do not chase machine-made precision; we chase the soul of the hand.&quot;
-            </blockquote>
-            <figcaption className="flex flex-col gap-1">
-              <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.20px] text-[#795900]">
-                ELENA MORETTI
-              </p>
-              <p className="[font-family:'Manrope',Helvetica] text-[10px] font-normal tracking-[1.00px] text-[#43664b]">
-                FOUNDER &amp; CREATIVE DIRECTOR
-              </p>
-            </figcaption>
-          </figure>
+      {/* ── THE ARCHIVE ─────────────────────────────────────────── */}
+      <section id="archive" className="w-full bg-[#f8f3e4] border-t-[3px] border-[#1d1c12] px-12 py-20">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="flex flex-col gap-4 mb-16">
+            <h2 className="[font-family:'Noto_Serif',Helvetica] text-5xl font-normal text-[#1d1c12]">
+              The Archive
+            </h2>
+            <p className="[font-family:'Manrope',Helvetica] text-base font-normal leading-[1.6] text-[#43664b] max-w-[540px]">
+              A curated collection of past masterpieces and historical iterations that define the Mani D&apos;Oro silhouette.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-4 gap-4 items-start">
+            {archiveItems.map((item) => (
+              <div
+                key={item.id}
+                data-testid={`card-archive-${item.id}`}
+                className={`group relative overflow-hidden border-2 border-[#7f7663] cursor-pointer ${item.offset ? "mt-20" : ""}`}
+              >
+                <img
+                  src={item.image}
+                  alt={`Archive — ${item.year}`}
+                  className="w-full h-[375px] object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-[rgba(29,28,18,0)] group-hover:bg-[rgba(29,28,18,0.45)] transition-colors duration-300 flex items-center justify-center">
+                  <p className="[font-family:'Manrope',Helvetica] text-xs font-bold tracking-[1.2px] uppercase text-[#fef9e9] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {item.year}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
