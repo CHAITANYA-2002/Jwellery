@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
 
-const ALL_PRODUCTS = [
+// Static defaults for failover
+const DEFAULT_PRODUCTS = [
   {
     id: "aurelius-band",
     category: "Rings",
@@ -28,6 +30,33 @@ const ALL_PRODUCTS = [
     description: "Molten gold shaped by hand — no two are exactly alike.",
     price: "$740",
     image: "/figmaAssets2/product-gilded-drift-cuff.png",
+    isNew: true,
+  },
+  {
+    id: "unisex-gold-bracelet",
+    category: "Bracelets",
+    name: "Unisex Gold Bracelet",
+    description: "A timeless unisex statement, meticulously balanced with heavy solid gold links.",
+    price: "$1,420",
+    image: "/products/bracelet-unisex-1.jpg",
+    isNew: true,
+  },
+  {
+    id: "golden-bar-pendant",
+    category: "Pendants",
+    name: "The Golden Bar Pendant",
+    description: "A sleek, architectural vertical gold bar with subtle hand-struck facets.",
+    price: "$850",
+    image: "/products/pendant-bar-1.jpg",
+    isNew: true,
+  },
+  {
+    id: "heritage-fish-pendant",
+    category: "Pendants",
+    name: "Heritage Fish Pendant",
+    description: "A symbolic heritage fish motif, intricately carved with exquisite attention to detail.",
+    price: "$920",
+    image: "/products/pendant-fish-1.jpg",
     isNew: true,
   },
   {
@@ -60,38 +89,127 @@ const ALL_PRODUCTS = [
 ];
 
 const CATEGORIES = [
-  { label: "All Objects", value: "All" },
-  { label: "Rings", value: "Rings" },
-  { label: "Necklaces", value: "Necklaces" },
-  { label: "Cuffs & Bangles", value: "Cuffs & Bangles" },
-  { label: "Bespoke Commissions", value: "Bespoke Commissions" },
+  { value: "All", label: "All Creations" },
+  { value: "Rings", label: "Rings" },
+  { value: "Necklaces", label: "Necklaces" },
+  { value: "Cuffs & Bangles", label: "Cuffs & Bangles" },
+  { value: "Bracelets", label: "Bracelets" },
+  { value: "Pendants", label: "Pendants" },
 ];
 
 const SORT_OPTIONS = [
-  { label: "Featured", value: "featured" },
-  { label: "Price: Low to High", value: "price-asc" },
-  { label: "Price: High to Low", value: "price-desc" },
-  { label: "New Arrivals", value: "new" },
+  { value: "featured", label: "Featured" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "price-desc", label: "Price: High to Low" },
+  { value: "new", label: "Newest Arrivals" },
+];
+
+// Preset images for convenient demo product uploads
+const PRESET_IMAGES = [
+  { label: "Classic Signet", url: "/figmaAssets/close-up-of-artisanal-gold-jewelry-on-a-person.png" },
+  { label: "Heritage Chain", url: "/figmaAssets/the-aurelius-chain---detailed-gold-link-necklace.png" },
+  { label: "Textured Hoops", url: "/figmaAssets/molten-hoops---textured-gold-earrings.png" },
+  { label: "Liquid Cuff", url: "/figmaAssets2/product-gilded-drift-cuff.png" },
+  { label: "Forged Band", url: "/figmaAssets2/product-aurelius-band.png" },
+  { label: "Unisex Bracelet", url: "/products/bracelet-unisex-1.jpg" },
+  { label: "Bar Pendant", url: "/products/pendant-bar-1.jpg" },
+  { label: "Fish Pendant", url: "/products/pendant-fish-1.jpg" },
 ];
 
 function parsePrice(p: string) {
-  return parseInt(p.replace(/[^0-9]/g, ""), 10);
+  return parseInt(p.replace(/[^0-9]/g, ""), 10) || 0;
 }
 
 export const CollectionPage = (): JSX.Element => {
+  const [, setLocation] = useLocation();
+  const [products, setProducts] = useState(DEFAULT_PRODUCTS);
   const [activeCategory, setActiveCategory] = useState("All");
   const [sort, setSort] = useState("featured");
   const [sortOpen, setSortOpen] = useState(false);
 
-  let filtered = ALL_PRODUCTS.filter(
+  // Modal / Drawer state for adding custom product
+  const [modalOpen, setModalOpen] = useState(false);
+  const [formName, setFormName] = useState("");
+  const [formCategory, setFormCategory] = useState("Rings");
+  const [formPrice, setFormPrice] = useState("$1,100");
+  const [formDescription, setFormDescription] = useState("");
+  const [formImage, setFormImage] = useState(PRESET_IMAGES[0].url);
+  const [customImageActive, setCustomImageActive] = useState(false);
+  const [customImageUrl, setCustomImageUrl] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  // Sync state with API on load
+  const loadProducts = async () => {
+    try {
+      const res = await fetch("/api/products");
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setProducts(data);
+        }
+      }
+    } catch (err) {
+      console.error("Failed fetching live products, relying on memory list.", err);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  // Filter & Sort Logic
+  let filtered = products.filter(
     (p) => activeCategory === "All" || p.category === activeCategory
   );
 
   if (sort === "price-asc") filtered = [...filtered].sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
   if (sort === "price-desc") filtered = [...filtered].sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
-  if (sort === "new") filtered = [...filtered].sort((a) => (a.isNew ? -1 : 1));
+  if (sort === "new") filtered = [...filtered].sort((a, b) => (a.isNew === b.isNew ? 0 : a.isNew ? -1 : 1));
 
   const sortLabel = SORT_OPTIONS.find((o) => o.value === sort)?.label ?? "Featured";
+
+  // Add Product Submit
+  const handleAddProductSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formName || !formPrice || !formDescription) return;
+
+    setSubmitting(true);
+    const imageToUse = customImageActive ? customImageUrl : formImage;
+    const cleanId = formName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+    try {
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: cleanId,
+          name: formName,
+          category: formCategory,
+          price: formPrice.startsWith("$") ? formPrice : `$${formPrice}`,
+          description: formDescription,
+          image: imageToUse,
+          isNew: true,
+        }),
+      });
+
+      if (res.ok) {
+        // Success: refresh list, reset inputs, and close drawer
+        await loadProducts();
+        setFormName("");
+        setFormDescription("");
+        setCustomImageUrl("");
+        setCustomImageActive(false);
+        setModalOpen(false);
+      } else {
+        alert("Failed to submit product to server. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting creation details.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen" style={{ background: "#fef9e9" }}>
@@ -105,18 +223,17 @@ export const CollectionPage = (): JSX.Element => {
           style={{ background: "#fef9e9", borderBottom: "1px solid rgba(29,28,18,0.09)" }}
         >
           <div className="mx-auto max-w-[1280px] px-8">
-            {/* Top row: breadcrumb */}
+            {/* Breadcrumb row */}
             <div
               className="flex items-center gap-2 pt-10 pb-8"
               style={{ borderBottom: "1px solid rgba(29,28,18,0.07)" }}
             >
-              <a
-                href="/"
-                data-testid="link-breadcrumb-home"
-                style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1d1c12", opacity: 0.35, textDecoration: "none" }}
+              <span
+                onClick={() => setLocation("/")}
+                style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1d1c12", opacity: 0.35, textDecoration: "none", cursor: "pointer" }}
               >
                 Mani D&apos;Oro Atelier
-              </a>
+              </span>
               <span style={{ color: "#1d1c12", opacity: 0.2, fontSize: "11px" }}>/</span>
               <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1d1c12", opacity: 0.35 }}>
                 Collections
@@ -124,17 +241,16 @@ export const CollectionPage = (): JSX.Element => {
             </div>
 
             {/* Split hero row */}
-            <div className="grid grid-cols-2 gap-16 pt-12 pb-14 items-end">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-12 pb-14 items-end">
               {/* Left: heading */}
               <div>
                 <h1
+                  className="leading-none tracking-[-0.02em]"
                   style={{
                     fontFamily: "'Noto Serif', Georgia, serif",
-                    fontSize: "clamp(52px,6.5vw,88px)",
+                    fontSize: "clamp(44px,6.5vw,88px)",
                     fontWeight: 400,
                     fontStyle: "italic",
-                    lineHeight: 1.0,
-                    letterSpacing: "-0.02em",
                     color: "#1d1c12",
                   }}
                 >
@@ -145,30 +261,40 @@ export const CollectionPage = (): JSX.Element => {
               </div>
 
               {/* Right: description */}
-              <div className="flex flex-col gap-5 pb-2 pl-8" style={{ borderLeft: "1px solid rgba(29,28,18,0.1)" }}>
+              <div className="flex flex-col gap-5 pb-2 pl-0 md:pl-8 border-l-0 md:border-l border-[#1d1c12]/10">
                 <p
+                  className="text-sm md:text-base leading-relaxed"
                   style={{
                     fontFamily: "'Manrope', sans-serif",
-                    fontSize: "15px",
-                    lineHeight: 1.85,
                     color: "#1d1c12",
                     opacity: 0.65,
                   }}
                 >
-                  A curated assembly of permanent pieces, hand-forged in our Milanese studio. Each artifact is an intersection of ancient goldsmithing techniques and sharp, architectural silhouettes.
+                  A curated assembly of permanent pieces, hand-forged in our Milanese studio and Rajasthan foundry. Each artifact is an intersection of ancient goldsmithing techniques and sharp, architectural silhouettes.
                 </p>
-                <p
-                  style={{
-                    fontFamily: "'Manrope', sans-serif",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "#795900",
-                  }}
-                >
-                  {ALL_PRODUCTS.length} objects
-                </p>
+                
+                <div className="flex justify-between items-center">
+                  <p
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      color: "#795900",
+                    }}
+                  >
+                    {filtered.length} objects available
+                  </p>
+                  
+                  {/* Luxury button to add creation */}
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="font-['Manrope',sans-serif] text-[10px] font-bold tracking-widest uppercase border border-[#795900]/30 hover:border-[#795900] text-[#795900] py-2.5 px-5 transition-all bg-transparent cursor-pointer"
+                  >
+                    + Register Custom creation
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -180,47 +306,41 @@ export const CollectionPage = (): JSX.Element => {
           style={{ background: "rgba(254,249,233,0.97)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(29,28,18,0.08)" }}
         >
           <div className="mx-auto max-w-[1280px] px-8">
-            <div className="flex items-center justify-between h-14">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 sm:py-0 sm:h-14 gap-4 sm:gap-0">
 
               {/* Category filters */}
-              <div className="flex items-center gap-0">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-0">
                 {CATEGORIES.map((cat) => (
                   <button
                     key={cat.value}
                     data-testid={`filter-${cat.value.toLowerCase().replace(/\s+/g, '-')}`}
                     onClick={() => setActiveCategory(cat.value)}
-                    className="relative px-4 py-2"
                     style={{
                       fontFamily: "'Manrope', sans-serif",
                       fontSize: "10px",
                       fontWeight: 700,
                       letterSpacing: "0.18em",
                       textTransform: "uppercase",
-                      color: "#1d1c12",
-                      opacity: activeCategory === cat.value ? 1 : 0.38,
-                      background: "none",
+                      color: activeCategory === cat.value ? "#1d1c12" : "rgba(29,28,18,0.45)",
                       border: "none",
+                      background: "none",
+                      padding: "10px 16px",
+                      borderBottom: activeCategory === cat.value ? "2px solid #795900" : "2px solid transparent",
                       cursor: "pointer",
-                      transition: "opacity 0.2s",
+                      transition: "all 0.2s",
                     }}
                   >
                     {cat.label}
-                    {activeCategory === cat.value && (
-                      <span
-                        className="absolute bottom-0 left-3 right-3 h-[1.5px]"
-                        style={{ background: "#1d1c12" }}
-                      />
-                    )}
                   </button>
                 ))}
               </div>
 
-              {/* Sort dropdown */}
-              <div className="relative">
+              {/* Sort selector */}
+              <div className="relative self-end sm:self-auto">
                 <button
-                  data-testid="button-sort"
+                  data-testid="button-sort-trigger"
                   onClick={() => setSortOpen(!sortOpen)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-3"
                   style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: "10px",
@@ -228,15 +348,22 @@ export const CollectionPage = (): JSX.Element => {
                     letterSpacing: "0.18em",
                     textTransform: "uppercase",
                     color: "#1d1c12",
-                    opacity: 0.55,
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    transition: "opacity 0.2s",
                   }}
                 >
-                  Sort: {sortLabel}
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ transform: sortOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
+                  Sort By: <span style={{ color: "#795900" }}>{sortLabel}</span>
+                  <svg
+                    width="10"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    style={{
+                      transform: sortOpen ? "rotate(180deg)" : "rotate(0)",
+                      transition: "transform 0.2s",
+                    }}
+                  >
                     <path d="M1 1L5 5L9 1" stroke="#1d1c12" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </button>
@@ -270,6 +397,7 @@ export const CollectionPage = (): JSX.Element => {
                   </div>
                 )}
               </div>
+
             </div>
           </div>
         </section>
@@ -286,26 +414,19 @@ export const CollectionPage = (): JSX.Element => {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-3 gap-x-5 gap-y-14">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16">
                   {filtered.map((product) => (
                     <article
                       key={product.id}
                       data-testid={`card-product-${product.id}`}
-                      className="product-card relative overflow-hidden cursor-pointer"
+                      onClick={() => setLocation(`/product/${product.id}`)}
+                      className="product-card relative overflow-hidden cursor-pointer group"
                       style={{ aspectRatio: "3/4" }}
                     >
                       {product.isNew && (
                         <div
-                          className="absolute top-4 left-4 z-10 px-3 py-1"
-                          style={{
-                            background: "#795900",
-                            fontFamily: "'Manrope', sans-serif",
-                            fontSize: "9px",
-                            fontWeight: 700,
-                            letterSpacing: "0.22em",
-                            textTransform: "uppercase",
-                            color: "#fef9e9",
-                          }}
+                          className="absolute top-4 left-4 z-10 px-3 py-1 text-[9px] font-bold tracking-widest uppercase text-[#fef9e9]"
+                          style={{ background: "#795900" }}
                         >
                           New
                         </div>
@@ -313,7 +434,7 @@ export const CollectionPage = (): JSX.Element => {
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
                       />
                       <div className="product-card-overlay" />
                       <div className="product-card-details">
@@ -341,6 +462,7 @@ export const CollectionPage = (): JSX.Element => {
                           </span>
                           <button
                             data-testid={`button-view-${product.id}`}
+                            onClick={(e) => { e.stopPropagation(); setLocation(`/product/${product.id}`); }}
                             style={{
                               fontFamily: "'Manrope', sans-serif",
                               fontSize: "10px",
@@ -363,32 +485,29 @@ export const CollectionPage = (): JSX.Element => {
                 </div>
 
                 {/* Labels below grid */}
-                <div className="grid grid-cols-3 gap-x-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 mt-8">
                   {filtered.map((product) => (
                     <div
                       key={`label-${product.id}`}
-                      className="pt-4"
-                      style={{ borderTop: "1px solid rgba(29,28,18,0.09)" }}
+                      className="pt-4 border-t border-[#1d1c12]/10 hidden lg:block"
                     >
-                      <p
-                        className="mb-1"
-                        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#43664b" }}
-                      >
-                        {product.category}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <h3 style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "19px", fontWeight: 400, fontStyle: "italic", color: "#1d1c12" }}>
+                      <div className="flex justify-between items-baseline mb-1">
+                        <h4 style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "14px", fontWeight: 400, color: "#1d1c12" }}>
                           {product.name}
-                        </h3>
-                        <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", fontWeight: 500, color: "#795900" }}>
+                        </h4>
+                        <span style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "13px", color: "#795900" }}>
                           {product.price}
                         </span>
                       </div>
+                      <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "11px", color: "#1d1c12", opacity: 0.45, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        {product.category}
+                      </p>
                     </div>
                   ))}
                 </div>
               </>
             )}
+
           </div>
         </section>
 
@@ -398,23 +517,22 @@ export const CollectionPage = (): JSX.Element => {
           style={{ background: "#232919" }}
         >
           <div className="mx-auto max-w-[1280px] px-8">
-            <div className="grid grid-cols-2 gap-0 items-stretch" style={{ minHeight: "400px" }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch" style={{ minHeight: "400px" }}>
 
               {/* Left: text content */}
-              <div className="flex flex-col justify-center gap-7 py-16 pr-16">
-                <p
+              <div className="flex flex-col justify-center gap-7 py-16 pr-0 md:pr-16">
+                <span
                   style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: "10px",
                     fontWeight: 700,
-                    letterSpacing: "0.22em",
+                    letterSpacing: "0.25em",
                     textTransform: "uppercase",
                     color: "#c9a84c",
-                    opacity: 0.8,
                   }}
                 >
-                  Bespoke Services
-                </p>
+                  Commission &amp; Alchemy
+                </span>
                 <h2
                   style={{
                     fontFamily: "'Noto Serif', Georgia, serif",
@@ -422,29 +540,27 @@ export const CollectionPage = (): JSX.Element => {
                     fontWeight: 400,
                     fontStyle: "italic",
                     lineHeight: 1.15,
-                    letterSpacing: "-0.01em",
                     color: "#fef9e9",
                   }}
                 >
-                  The Bespoke
+                  The Dialogue
                   <br />
-                  Alchemy
+                  With Alessandra Oro
                 </h2>
                 <p
                   style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: "14px",
-                    lineHeight: 1.9,
+                    lineHeight: 1.8,
                     color: "rgba(254,249,233,0.55)",
-                    maxWidth: "400px",
                   }}
                 >
                   Mani D&apos;Oro offers a full bespoke commission service — every dimension, alloy, and motif tailored to your vision. A dialogue between artisan and collector, culminating in a piece that exists nowhere else in the world.
                 </p>
-                <a
-                  href="#"
+                <button
+                  onClick={() => setLocation("/bespoke")}
                   data-testid="link-book-consultation"
-                  className="flex items-center gap-3 w-fit group"
+                  className="flex items-center gap-3 w-fit group border-0 bg-transparent cursor-pointer"
                   style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: "10px",
@@ -452,7 +568,7 @@ export const CollectionPage = (): JSX.Element => {
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
                     color: "#c9a84c",
-                    textDecoration: "none",
+                    padding: 0,
                   }}
                 >
                   Book a Consultation
@@ -466,32 +582,187 @@ export const CollectionPage = (): JSX.Element => {
                   >
                     <path d="M0 5H22M18 1L22 5L18 9" stroke="#c9a84c" strokeWidth="1.2" strokeLinecap="round"/>
                   </svg>
-                </a>
+                </button>
               </div>
 
               {/* Right: jeweler photo */}
               <div
-                className="relative overflow-hidden"
-                style={{ minHeight: "400px" }}
+                className="relative overflow-hidden min-h-[300px] md:min-h-[400px]"
               >
                 <img
                   src="/figmaAssets/jeweler-working-on-a-custom-piece.png"
                   alt="Jeweler at work"
                   className="w-full h-full object-cover"
-                  style={{ display: "block" }}
-                />
-                {/* Subtle left-to-right fade from dark bg */}
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "linear-gradient(to right, #232919 0%, transparent 28%)" }}
                 />
               </div>
+
             </div>
           </div>
         </section>
 
-        <FooterSection />
       </div>
+
+      {/* ── REGISTER DYNAMIC CREATION DRAWER / MODAL ───────────── */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-end" style={{ background: "rgba(21, 23, 16, 0.6)", backdropFilter: "blur(6px)" }}>
+          
+          {/* Modal Background click to close */}
+          <div className="absolute inset-0" onClick={() => setModalOpen(false)} />
+
+          {/* Drawer content (Right side slide-out layout) */}
+          <div className="relative w-full max-w-[550px] h-full bg-[#fef9e9] shadow-2xl p-8 md:p-10 flex flex-col justify-between overflow-y-auto animate-slide-left border-l border-[#c9a84c]/20">
+            <div className="flex flex-col gap-6">
+              
+              {/* Drawer header */}
+              <div className="flex justify-between items-start border-b border-[#1d1c12]/10 pb-5">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[9px] font-bold tracking-[0.25em] text-[#795900] uppercase font-['Manrope',sans-serif]">Register creation</span>
+                  <h3 className="text-2xl font-normal text-[#1d1c12]" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>Forge New Artifact</h3>
+                </div>
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="p-1 border border-[#1d1c12]/20 hover:border-[#1d1c12] text-[#1d1c12] bg-transparent cursor-pointer"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Form elements */}
+              <form onSubmit={handleAddProductSubmit} className="flex flex-col gap-5">
+                
+                {/* Product Name */}
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="prod-name" className="text-[9px] font-bold tracking-widest text-[#795900] uppercase font-['Manrope',sans-serif]">Creation Name</label>
+                  <input
+                    id="prod-name"
+                    type="text"
+                    required
+                    placeholder="e.g. Aurelius Medallion"
+                    value={formName}
+                    onChange={e => setFormName(e.target.value)}
+                    className="w-full bg-[#f8f3e4] border border-[#1d1c12]/15 py-3 px-4 font-['Manrope',sans-serif] text-xs text-[#1d1c12] outline-none focus:border-[#795900]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Category select */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="prod-cat" className="text-[9px] font-bold tracking-widest text-[#795900] uppercase font-['Manrope',sans-serif]">Category Group</label>
+                    <select
+                      id="prod-cat"
+                      value={formCategory}
+                      onChange={e => setFormCategory(e.target.value)}
+                      className="w-full bg-[#f8f3e4] border border-[#1d1c12]/15 py-3 px-3 font-['Manrope',sans-serif] text-xs text-[#1d1c12] outline-none"
+                    >
+                      <option value="Rings">Rings</option>
+                      <option value="Necklaces">Necklaces</option>
+                      <option value="Cuffs & Bangles">Cuffs &amp; Bangles</option>
+                      <option value="Bracelets">Bracelets</option>
+                      <option value="Pendants">Pendants</option>
+                    </select>
+                  </div>
+                  {/* Price */}
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="prod-price" className="text-[9px] font-bold tracking-widest text-[#795900] uppercase font-['Manrope',sans-serif]">Estimate Price (USD)</label>
+                    <input
+                      id="prod-price"
+                      type="text"
+                      required
+                      placeholder="e.g. $1,400"
+                      value={formPrice}
+                      onChange={e => setFormPrice(e.target.value)}
+                      className="w-full bg-[#f8f3e4] border border-[#1d1c12]/15 py-3 px-4 font-['Manrope',sans-serif] text-xs text-[#1d1c12] outline-none focus:border-[#795900]"
+                    />
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="prod-desc" className="text-[9px] font-bold tracking-widest text-[#795900] uppercase font-['Manrope',sans-serif]">Artisanal Narrative description</label>
+                  <textarea
+                    id="prod-desc"
+                    required
+                    placeholder="Recount the gold forging technique, specific cuts, and story of this artifact..."
+                    rows={4}
+                    value={formDescription}
+                    onChange={e => setFormDescription(e.target.value)}
+                    className="w-full bg-[#f8f3e4] border border-[#1d1c12]/15 py-3 px-4 font-['Manrope',sans-serif] text-xs text-[#1d1c12] leading-relaxed outline-none resize-none focus:border-[#795900]"
+                  />
+                </div>
+
+                {/* Custom or Preset Image selection */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[9px] font-bold tracking-widest text-[#795900] uppercase font-['Manrope',sans-serif]">creation Portrait</span>
+                    
+                    {/* Toggle button */}
+                    <button
+                      type="button"
+                      onClick={() => setCustomImageActive(!customImageActive)}
+                      className="text-[9px] font-bold tracking-widest uppercase text-[#795900] underline bg-transparent border-none cursor-pointer"
+                    >
+                      {customImageActive ? "Use Preset Imagery" : "Specify Custom Image URL"}
+                    </button>
+                  </div>
+
+                  {customImageActive ? (
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. https://domain.com/image.jpg"
+                      value={customImageUrl}
+                      onChange={e => setCustomImageUrl(e.target.value)}
+                      className="w-full bg-[#f8f3e4] border border-[#1d1c12]/15 py-3 px-4 font-['Manrope',sans-serif] text-xs text-[#1d1c12] outline-none focus:border-[#795900]"
+                    />
+                  ) : (
+                    <div className="flex flex-col gap-3 bg-[#f8f3e4] p-4 border border-[#1d1c12]/10">
+                      <span className="text-[9px] font-bold tracking-wider uppercase text-[#1d1c12]/40 font-['Manrope',sans-serif]">Select Preset Studio Portrait:</span>
+                      <div className="flex gap-2 flex-wrap">
+                        {PRESET_IMAGES.map((img) => (
+                          <button
+                            key={img.label}
+                            type="button"
+                            onClick={() => setFormImage(img.url)}
+                            className={`py-2 px-3 text-[10px] font-bold tracking-wider uppercase border transition-all ${
+                              formImage === img.url
+                                ? "bg-[#795900] text-[#fef9e9] border-[#795900]"
+                                : "bg-[#fef9e9] text-[#1d1c12]/70 border-[#1d1c12]/15 hover:border-[#1d1c12]/40"
+                            }`}
+                          >
+                            {img.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-4 flex flex-col gap-2">
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full bg-[#795900] hover:bg-[#634900] text-[#fef9e9] font-['Manrope',sans-serif] text-[11px] font-bold tracking-widest uppercase py-4 border-none transition-colors cursor-pointer"
+                  >
+                    {submitting ? "Forging Creation in Forge..." : "Forge Artifact into Catalog"}
+                  </button>
+                  <p className="text-[9px] text-[#1d1c12]/40 text-center uppercase font-['Manrope',sans-serif]">
+                    Registered creations are held in temporary memory storage.
+                  </p>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* Footer */}
+      <FooterSection />
     </div>
   );
 };

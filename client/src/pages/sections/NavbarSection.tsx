@@ -25,6 +25,7 @@ export const NavbarSection = (): JSX.Element => {
   });
 
   const isCollection = location === "/collection";
+  const isBespoke = location === "/bespoke";
 
   return (
     <header
@@ -54,11 +55,11 @@ export const NavbarSection = (): JSX.Element => {
           Collection
         </a>
         <a
-          href="/#bespoke"
+          href="/bespoke"
           data-testid="link-nav-bespoke"
-          style={linkStyle()}
+          style={linkStyle(isBespoke)}
           onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-          onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = isBespoke ? "1" : "0.55")}
         >
           Bespoke
         </a>
@@ -80,15 +81,57 @@ export const NavbarSection = (): JSX.Element => {
           position: "absolute",
           left: "50%",
           transform: "translateX(-50%)",
-          fontFamily: "'Noto Serif', Georgia, serif",
-          fontSize: "22px",
-          fontWeight: 400,
-          letterSpacing: "0.02em",
-          color: "#1d1c12",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "14px",
+          height: "100%",
           textDecoration: "none",
+          transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.transform = "translateX(-50%) scale(1.04)";
+          const img = e.currentTarget.querySelector("img");
+          const span = e.currentTarget.querySelector("span");
+          if (img) img.style.boxShadow = "0px 6px 20px rgba(168, 132, 44, 0.28)";
+          if (span) span.style.textShadow = "0px 2px 6px rgba(168, 132, 44, 0.25)";
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = "translateX(-50%) scale(1)";
+          const img = e.currentTarget.querySelector("img");
+          const span = e.currentTarget.querySelector("span");
+          if (img) img.style.boxShadow = "0px 4px 14px rgba(168, 132, 44, 0.16)";
+          if (span) span.style.textShadow = "0px 1px 3px rgba(168, 132, 44, 0.15)";
         }}
       >
-        Mani D&apos;Oro
+        <img
+          src="/logo.png"
+          alt="Mani D'Oro Monogram"
+          style={{
+            height: "50px",
+            width: "50px",
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: "1px solid rgba(168, 132, 44, 0.55)",
+            boxShadow: "0px 4px 14px rgba(168, 132, 44, 0.16)",
+            transition: "box-shadow 0.3s ease",
+          }}
+        />
+        <span
+          style={{
+            fontFamily: "'Noto Serif', Georgia, serif",
+            fontSize: "22px",
+            fontWeight: 400,
+            letterSpacing: "0.03em",
+            color: "#1d1c12",
+            lineHeight: 1,
+            textShadow: "0px 1px 3px rgba(168, 132, 44, 0.15)",
+            transition: "text-shadow 0.3s ease",
+          }}
+        >
+          Mani D&apos;Oro
+        </span>
       </a>
 
       <nav style={{ display: "flex", alignItems: "center", gap: "40px" }}>

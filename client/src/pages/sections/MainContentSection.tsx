@@ -200,7 +200,7 @@ export const MainContentSection = (): JSX.Element => {
                 Commission a singular piece that carries your history, your name, your soul. Our master goldsmiths transform your vision into heirloom-grade artistry.
               </p>
               <a
-                href="/contact"
+                href="/bespoke"
                 data-testid="button-begin-commission"
                 style={{
                   display: "inline-block",
@@ -219,7 +219,7 @@ export const MainContentSection = (): JSX.Element => {
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(254,249,233,0.07)"; e.currentTarget.style.borderColor = "rgba(254,249,233,0.65)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(254,249,233,0.35)"; }}
               >
-                Start Your Commission
+                Explore Bespoke Services
               </a>
             </div>
 

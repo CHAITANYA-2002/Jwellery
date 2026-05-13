@@ -3,7 +3,7 @@ import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
 
 export const ContactPage = (): JSX.Element => {
-  const [form, setForm] = useState({ name: "", email: "", message: "", interest: "general" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", interest: "bespoke commission" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -12,496 +12,301 @@ export const ContactPage = (): JSX.Element => {
     setSubmitted(true);
   };
 
-  const WHATSAPP_NUMBER = "447700900000";
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello%2C%20I%27m%20interested%20in%20a%20Mani%20D%27Oro%20bespoke%20commission.`;
+  const WHATSAPP_NUMBER = "919000000000"; // Updated for Kishangarh, Rajasthan context
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello%2C%20I%27m%20interested%20in%20a%20Mani%20D%27Oro%20bespoke%20commission%20with%20your%20Atelier.`;
 
   return (
-    <div className="w-full min-h-screen" style={{ background: "#1a1c12" }}>
+    <div className="w-full min-h-screen" style={{ background: "#151710" }}>
+      {/* Navigation */}
       <NavbarSection />
 
-      {/* ── FULL-PAGE ATMOSPHERIC BACKGROUND ─────────────── */}
-      <div style={{ paddingTop: "80px", position: "relative", minHeight: "100vh" }}>
-
-        {/* Background: layered dark texture */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "url(/figmaAssets/jeweler-working-on-a-custom-piece.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center 30%",
-            opacity: 0.12,
-          }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse 80% 80% at 60% 40%, rgba(121,89,0,0.08) 0%, transparent 70%), linear-gradient(to bottom, #1a1c12 0%, #1e2116 40%, #1a1c12 100%)",
-          }}
-        />
-
-        <div className="relative mx-auto max-w-[1280px] px-8 py-20">
-
-          {/* ── PAGE HEADER ──────────────────────────────── */}
-          <div className="mb-16">
-            <p
-              style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: "10px",
-                fontWeight: 700,
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                color: "#c9a84c",
-                marginBottom: "16px",
-              }}
-            >
-              Mani D&apos;Oro Atelier
-            </p>
-            <h1
-              style={{
-                fontFamily: "'Noto Serif', Georgia, serif",
-                fontSize: "clamp(52px,6vw,84px)",
-                fontWeight: 400,
-                fontStyle: "italic",
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
-                color: "#fef9e9",
-              }}
-            >
-              Let&apos;s Begin
-              <br />
-              a Dialogue
-            </h1>
-          </div>
-
-          {/* ── TWO-COLUMN LAYOUT ─────────────────────────── */}
-          <div className="grid grid-cols-12 gap-8 items-start">
-
-            {/* LEFT: contact info + WhatsApp */}
-            <div className="col-span-4 flex flex-col gap-8">
-
-              {/* WhatsApp Card */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="link-whatsapp"
-                className="group flex items-center gap-4 p-6 transition-all duration-300"
-                style={{
-                  background: "rgba(37,211,102,0.08)",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                  border: "1px solid rgba(37,211,102,0.2)",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = "rgba(37,211,102,0.15)";
-                  e.currentTarget.style.borderColor = "rgba(37,211,102,0.4)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = "rgba(37,211,102,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(37,211,102,0.2)";
-                }}
-              >
-                <div
-                  className="flex-shrink-0 flex items-center justify-center"
-                  style={{
-                    width: "48px",
-                    height: "48px",
-                    background: "#25d366",
-                    borderRadius: "50%",
-                  }}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontSize: "11px",
-                      fontWeight: 700,
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      color: "#25d366",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    WhatsApp
-                  </p>
-                  <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", color: "rgba(254,249,233,0.65)" }}>
-                    Chat with our atelier directly
-                  </p>
-                </div>
-                <svg
-                  className="ml-auto"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  style={{ opacity: 0.5, transition: "transform 0.2s" }}
-                >
-                  <path d="M3 8H13M9 4L13 8L9 12" stroke="#25d366" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-              </a>
-
-              {/* Contact details — glassmorphism card */}
-              <div
-                style={{
-                  background: "rgba(254,249,233,0.04)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border: "1px solid rgba(254,249,233,0.09)",
-                  padding: "28px",
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: "'Noto Serif', Georgia, serif",
-                    fontSize: "18px",
-                    fontStyle: "italic",
-                    fontWeight: 400,
-                    color: "#fef9e9",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Visit the Atelier
-                </h3>
-                {[
-                  {
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.5A1.5 1.5 0 118 4a1.5 1.5 0 010 3.5z" fill="rgba(201,168,76,0.7)"/>
-                      </svg>
-                    ),
-                    label: "Address",
-                    value: "Via Montenapoleone 8, Milan, Italy",
-                  },
-                  {
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M2 3h12v10H2V3zm0 0l6 5 6-5" stroke="rgba(201,168,76,0.7)" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
-                      </svg>
-                    ),
-                    label: "Email",
-                    value: "atelier@manidoro.com",
-                  },
-                  {
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 2h2.5l1 3-1.5 1.5A9 9 0 009 10l1.5-1.5 3 1V12c0 .5-.5 2-2 2A12 12 0 012 3c0-1.5 1-2 1-2z" stroke="rgba(201,168,76,0.7)" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
-                      </svg>
-                    ),
-                    label: "Phone",
-                    value: "+39 02 7600 0000",
-                  },
-                  {
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="6" stroke="rgba(201,168,76,0.7)" strokeWidth="1.2" fill="none"/>
-                        <path d="M8 4v4l3 2" stroke="rgba(201,168,76,0.7)" strokeWidth="1.2" strokeLinecap="round"/>
-                      </svg>
-                    ),
-                    label: "Hours",
-                    value: "Mon–Sat, 10:00–19:00",
-                  },
-                ].map(({ icon, label, value }) => (
-                  <div key={label} className="flex items-start gap-3 mb-5 last:mb-0">
-                    <div className="mt-0.5 flex-shrink-0">{icon}</div>
-                    <div>
-                      <p
-                        style={{
-                          fontFamily: "'Manrope', sans-serif",
-                          fontSize: "9px",
-                          fontWeight: 700,
-                          letterSpacing: "0.2em",
-                          textTransform: "uppercase",
-                          color: "rgba(201,168,76,0.65)",
-                          marginBottom: "3px",
-                        }}
-                      >
-                        {label}
-                      </p>
-                      <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", color: "rgba(254,249,233,0.6)", lineHeight: 1.5 }}>
-                        {value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Social links */}
-              <div
-                className="flex items-center gap-5 px-6 py-4"
-                style={{
-                  background: "rgba(254,249,233,0.03)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(254,249,233,0.07)",
-                }}
-              >
-                {["Instagram", "Pinterest"].map((s) => (
-                  <a
-                    key={s}
-                    href="#"
-                    data-testid={`link-social-${s.toLowerCase()}`}
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      color: "rgba(254,249,233,0.4)",
-                      textDecoration: "none",
-                      transition: "color 0.2s",
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "rgba(201,168,76,0.9)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(254,249,233,0.4)")}
-                  >
-                    {s}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* RIGHT: contact form — glassmorphism */}
-            <div
-              className="col-span-8 p-10"
-              style={{
-                background: "rgba(254,249,233,0.04)",
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
-                border: "1px solid rgba(254,249,233,0.09)",
-              }}
-            >
-              {submitted ? (
-                <div className="flex flex-col items-center justify-center gap-8 py-16 text-center">
-                  <div
-                    style={{
-                      width: "64px",
-                      height: "64px",
-                      border: "1px solid rgba(201,168,76,0.5)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <svg width="28" height="20" viewBox="0 0 28 20" fill="none">
-                      <path d="M2 10L10 18L26 2" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: "'Noto Serif', Georgia, serif",
-                        fontSize: "28px",
-                        fontStyle: "italic",
-                        fontWeight: 400,
-                        color: "#fef9e9",
-                        marginBottom: "12px",
-                      }}
-                    >
-                      Message Received
-                    </h3>
-                    <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "14px", color: "rgba(254,249,233,0.5)", lineHeight: 1.8 }}>
-                      Our atelier will be in touch within 24 hours.<br />
-                      For urgent inquiries, reach us on WhatsApp.
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    data-testid="button-send-another"
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      color: "#c9a84c",
-                      border: "1px solid rgba(201,168,76,0.35)",
-                      padding: "12px 24px",
-                      background: "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Send Another
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <div className="mb-10">
-                    <h2
-                      style={{
-                        fontFamily: "'Noto Serif', Georgia, serif",
-                        fontSize: "26px",
-                        fontStyle: "italic",
-                        fontWeight: 400,
-                        color: "#fef9e9",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      Send a Message
-                    </h2>
-                    <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "13px", color: "rgba(254,249,233,0.4)", lineHeight: 1.7 }}>
-                      For bespoke commissions, press enquiries, or general correspondence.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-
-                    {/* Interest selector */}
-                    <div>
-                      <label
-                        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.7)", display: "block", marginBottom: "10px" }}
-                      >
-                        Nature of Enquiry
-                      </label>
-                      <div className="flex gap-3 flex-wrap">
-                        {["Bespoke Commission", "General Enquiry", "Press & Media", "Stockist"].map((opt) => (
-                          <button
-                            key={opt}
-                            type="button"
-                            data-testid={`interest-${opt.toLowerCase().replace(/\s+/g, '-')}`}
-                            onClick={() => setForm(f => ({ ...f, interest: opt.toLowerCase() }))}
-                            style={{
-                              fontFamily: "'Manrope', sans-serif",
-                              fontSize: "10px",
-                              fontWeight: 700,
-                              letterSpacing: "0.14em",
-                              textTransform: "uppercase",
-                              padding: "8px 16px",
-                              background: form.interest === opt.toLowerCase()
-                                ? "rgba(201,168,76,0.15)"
-                                : "rgba(254,249,233,0.04)",
-                              border: form.interest === opt.toLowerCase()
-                                ? "1px solid rgba(201,168,76,0.5)"
-                                : "1px solid rgba(254,249,233,0.1)",
-                              color: form.interest === opt.toLowerCase()
-                                ? "#c9a84c"
-                                : "rgba(254,249,233,0.45)",
-                              cursor: "pointer",
-                              transition: "all 0.2s",
-                            }}
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Name + Email row */}
-                    <div className="grid grid-cols-2 gap-4">
-                      {[
-                        { field: "name" as const, label: "Full Name", placeholder: "Your name", type: "text" },
-                        { field: "email" as const, label: "Email", placeholder: "your@email.com", type: "email" },
-                      ].map(({ field, label, placeholder, type }) => (
-                        <div key={field}>
-                          <label
-                            htmlFor={`field-${field}`}
-                            style={{ fontFamily: "'Manrope', sans-serif", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.7)", display: "block", marginBottom: "8px" }}
-                          >
-                            {label}
-                          </label>
-                          <input
-                            id={`field-${field}`}
-                            type={type}
-                            data-testid={`input-${field}`}
-                            value={form[field]}
-                            onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))}
-                            placeholder={placeholder}
-                            required
-                            style={{
-                              width: "100%",
-                              background: "rgba(254,249,233,0.05)",
-                              border: "1px solid rgba(254,249,233,0.1)",
-                              padding: "13px 16px",
-                              fontFamily: "'Manrope', sans-serif",
-                              fontSize: "13px",
-                              color: "#fef9e9",
-                              outline: "none",
-                              transition: "border-color 0.2s",
-                              boxSizing: "border-box",
-                            }}
-                            onFocus={e => (e.currentTarget.style.borderColor = "rgba(201,168,76,0.45)")}
-                            onBlur={e => (e.currentTarget.style.borderColor = "rgba(254,249,233,0.1)")}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Message */}
-                    <div>
-                      <label
-                        htmlFor="field-message"
-                        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "9px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(201,168,76,0.7)", display: "block", marginBottom: "8px" }}
-                      >
-                        Your Message
-                      </label>
-                      <textarea
-                        id="field-message"
-                        data-testid="input-message"
-                        rows={5}
-                        value={form.message}
-                        onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                        placeholder="Tell us about your vision, your story, what you are looking for..."
-                        required
-                        style={{
-                          width: "100%",
-                          background: "rgba(254,249,233,0.05)",
-                          border: "1px solid rgba(254,249,233,0.1)",
-                          padding: "13px 16px",
-                          fontFamily: "'Manrope', sans-serif",
-                          fontSize: "13px",
-                          color: "#fef9e9",
-                          outline: "none",
-                          resize: "none",
-                          transition: "border-color 0.2s",
-                          boxSizing: "border-box",
-                          lineHeight: 1.7,
-                        }}
-                        onFocus={e => (e.currentTarget.style.borderColor = "rgba(201,168,76,0.45)")}
-                        onBlur={e => (e.currentTarget.style.borderColor = "rgba(254,249,233,0.1)")}
-                      />
-                    </div>
-
-                    {/* Submit */}
-                    <div className="flex items-center justify-between pt-2">
-                      <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "10px", color: "rgba(254,249,233,0.25)", letterSpacing: "0.05em" }}>
-                        We respond within 24 hours
-                      </p>
-                      <button
-                        type="submit"
-                        data-testid="button-submit-contact"
-                        style={{
-                          fontFamily: "'Manrope', sans-serif",
-                          fontSize: "10px",
-                          fontWeight: 700,
-                          letterSpacing: "0.22em",
-                          textTransform: "uppercase",
-                          color: "#1d1c12",
-                          background: "#c9a84c",
-                          padding: "16px 36px",
-                          border: "none",
-                          cursor: "pointer",
-                          transition: "background 0.25s",
-                        }}
-                        onMouseEnter={e => (e.currentTarget.style.background = "#b89640")}
-                        onMouseLeave={e => (e.currentTarget.style.background = "#c9a84c")}
-                      >
-                        Send Message
-                      </button>
-                    </div>
-                  </form>
-                </>
-              )}
-            </div>
-          </div>
+      {/* ── LUXURY HERO SECTION ────────────────────────────── */}
+      <section className="relative pt-32 pb-20 md:py-36 overflow-hidden">
+        {/* Cinematic Backdrop */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bespoke/consultation-dark.png"
+            alt="Mani D'Oro consultation atelier"
+            className="w-full h-full object-cover object-center opacity-15"
+            style={{ filter: "grayscale(100%) brightness(0.4)" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#151710] via-transparent to-[#151710]" />
         </div>
 
-        {/* Bottom decorative gold rule before footer */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-20" />
-        <FooterSection />
-      </div>
+        <div className="relative z-10 mx-auto max-w-[1280px] px-8 text-center flex flex-col items-center gap-4">
+          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#c9a84c] font-['Manrope',sans-serif]">
+            Let's Begin a Dialogue
+          </span>
+          <h1
+            className="text-[clamp(40px,5vw,72px)] font-normal text-[#fef9e9] tracking-[-0.02em] leading-none"
+            style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+          >
+            Connect With <span className="italic text-[#c9a84c]">Our Ateliers</span>
+          </h1>
+          <p 
+            className="text-sm md:text-base text-[#fef9e9]/60 max-w-[540px] leading-relaxed font-['Manrope',sans-serif] mt-2"
+          >
+            Whether commissioning a singular heirloom, scheduling an atelier visit, or inquiring about our collection—we welcome your communication.
+          </p>
+        </div>
+      </section>
+
+      {/* ── TWO COLUMN EDITORIAL GRID ──────────────────────── */}
+      <section className="mx-auto max-w-[1280px] px-8 pb-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* LEFT COLUMN: ATELIER CHANNELS & INFORMATION (col-span-5) */}
+          <div className="col-span-1 lg:col-span-5 flex flex-col gap-10">
+            
+            {/* Introductory Statement */}
+            <div className="flex flex-col gap-4">
+              <h3 
+                className="text-xl text-[#fef9e9] font-normal italic"
+                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+              >
+                "The artisan's work is a silent conversation that spans lifetimes."
+              </h3>
+              <p className="text-xs text-[#fef9e9]/50 leading-relaxed font-['Manrope',sans-serif]">
+                We operate from two distinct sanctums: our design office in Milano, and our master craftsmanship foundry in the historical stone-forging city of Kishangarh, Rajasthan.
+              </p>
+            </div>
+
+            {/* WhatsApp Integration */}
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="link-whatsapp"
+              className="group flex items-center gap-5 p-6 transition-all duration-500 border border-[#25d366]/20 bg-[#25d366]/[0.03] hover:bg-[#25d366]/[0.08] hover:border-[#25d366]/40"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="w-12 h-12 rounded-full bg-[#25d366]/20 flex items-center justify-center transition-all group-hover:scale-105">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#25d366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-bold tracking-widest text-[#25d366] uppercase font-['Manrope',sans-serif]">Instant Liaison</span>
+                <span className="text-sm font-normal text-[#fef9e9] mt-0.5">Chat Directly on WhatsApp</span>
+                <span className="text-[11px] text-[#fef9e9]/40 font-['Manrope',sans-serif]">Live correspondence with master jewelers</span>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" strokeWidth="2" className="ml-auto transition-transform group-hover:translate-x-1">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            {/* Atelier Locations Cards */}
+            <div className="flex flex-col gap-6">
+              
+              {/* Milan Design Office */}
+              <div className="p-6 border border-[#c9a84c]/10 bg-[#fef9e9]/[0.02] flex flex-col gap-4">
+                <div className="flex justify-between items-baseline border-b border-[#fef9e9]/10 pb-3">
+                  <h4 className="text-sm font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Milano Atelier</h4>
+                  <span className="text-[9px] tracking-widest text-[#fef9e9]/40 uppercase font-['Manrope',sans-serif]">Design &amp; Consultation</span>
+                </div>
+                <div className="flex flex-col gap-2 text-xs text-[#fef9e9]/70 font-['Manrope',sans-serif] leading-relaxed">
+                  <p>📍 Via Montenapoleone 8, Milan, Italy</p>
+                  <p>✉️ milano@manidoro.com</p>
+                  <p>📞 +39 02 7600 0000</p>
+                  <p>🕒 By Appointment Only (Mon - Sat)</p>
+                </div>
+              </div>
+
+              {/* Kishangarh Heritage Studio */}
+              <div className="p-6 border border-[#c9a84c]/20 bg-[#c9a84c]/[0.03] flex flex-col gap-4">
+                <div className="flex justify-between items-baseline border-b border-[#c9a84c]/20 pb-3">
+                  <h4 className="text-sm font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Kishangarh Foundry</h4>
+                  <span className="text-[9px] tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Craft &amp; Forging</span>
+                </div>
+                <div className="flex flex-col gap-2 text-xs text-[#fef9e9]/70 font-['Manrope',sans-serif] leading-relaxed">
+                  <p>📍 Madanganj Industrial Area, Kishangarh, Rajasthan, India</p>
+                  <p>✉️ kishangarh@manidoro.com</p>
+                  <p>📞 +91 1463 240000</p>
+                  <p>🕒 Production Center &amp; Marble Showroom</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* RIGHT COLUMN: LUXURY COMMISSION FORM (col-span-7) */}
+          <div className="col-span-1 lg:col-span-7 bg-[#fef9e9]/[0.02] border border-[#fef9e9]/10 p-8 md:p-10">
+            {submitted ? (
+              <div className="flex flex-col items-center justify-center gap-6 py-16 text-center animate-fade-in">
+                <div className="w-16 h-16 border border-[#c9a84c]/60 rounded-full flex items-center justify-center bg-[#c9a84c]/5">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-2xl font-normal text-[#fef9e9] italic" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>
+                    Dialogue Commenced
+                  </h3>
+                  <p className="text-xs text-[#fef9e9]/60 max-w-[340px] leading-relaxed font-['Manrope',sans-serif]">
+                    Our concierge is reviewing your request. A specialist from Milano or Kishangarh will respond within 12 hours.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 font-['Manrope',sans-serif] text-[9px] font-bold tracking-[0.2em] uppercase text-[#c9a84c] border border-[#c9a84c]/30 hover:border-[#c9a84c]/80 py-3 px-6 transition-all"
+                >
+                  Submit Another Inquiry
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                
+                <div className="flex flex-col gap-2">
+                  <h2 className="text-2xl font-normal text-[#fef9e9] tracking-tight" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>
+                    Atelier Commission Form
+                  </h2>
+                  <p className="text-xs text-[#fef9e9]/50 font-['Manrope',sans-serif]">
+                    Fill in your details to open correspondence. Our master goldsmiths and design concierges collaborate directly with you on every step.
+                  </p>
+                </div>
+
+                {/* Nature of Enquiry Tabs */}
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">
+                    Inquiry Directive
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {["Bespoke Commission", "Milano Appointment", "Kishangarh Tour", "Press Directive"].map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => setForm(f => ({ ...f, interest: opt.toLowerCase() }))}
+                        className={`py-3 px-2 text-[10px] font-bold tracking-wider uppercase border transition-all text-center font-['Manrope',sans-serif] ${
+                          form.interest === opt.toLowerCase()
+                            ? "bg-[#c9a84c]/10 border-[#c9a84c] text-[#c9a84c]"
+                            : "bg-[#fef9e9]/5 border-transparent text-[#fef9e9]/50 hover:border-[#fef9e9]/20 hover:text-[#fef9e9]/80"
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Form Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="name-input" className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Your Name</label>
+                    <input
+                      id="name-input"
+                      type="text"
+                      placeholder="e.g. Jean Aurelius"
+                      required
+                      value={form.name}
+                      onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                      className="w-full bg-[#fef9e9]/5 border border-[#fef9e9]/10 py-3.5 px-4 font-['Manrope',sans-serif] text-xs text-[#fef9e9] outline-none transition-all focus:border-[#c9a84c]/50"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email-input" className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Electronic Mail</label>
+                    <input
+                      id="email-input"
+                      type="email"
+                      placeholder="e.g. collector@heirloom.com"
+                      required
+                      value={form.email}
+                      onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                      className="w-full bg-[#fef9e9]/5 border border-[#fef9e9]/10 py-3.5 px-4 font-['Manrope',sans-serif] text-xs text-[#fef9e9] outline-none transition-all focus:border-[#c9a84c]/50"
+                    />
+                  </div>
+                </div>
+
+                {/* Message text area */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="message-input" className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">The Narrative or Inquiry</label>
+                  <textarea
+                    id="message-input"
+                    placeholder="Describe your design intent, reference motifs, or custom dimensions you desire..."
+                    rows={5}
+                    required
+                    value={form.message}
+                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                    className="w-full bg-[#fef9e9]/5 border border-[#fef9e9]/10 py-3.5 px-4 font-['Manrope',sans-serif] text-xs text-[#fef9e9] leading-relaxed outline-none resize-none transition-all focus:border-[#c9a84c]/50"
+                  />
+                </div>
+
+                {/* Submit button and privacy note */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-2 border-t border-[#fef9e9]/10 mt-2">
+                  <span className="text-[9px] font-light tracking-wider text-[#fef9e9]/30 uppercase font-['Manrope',sans-serif]">
+                    // Secure, end-to-end luxury correspondence
+                  </span>
+                  <button
+                    type="submit"
+                    className="w-full sm:w-auto font-['Manrope',sans-serif] text-[10px] font-bold tracking-[0.25em] uppercase text-[#151710] bg-[#c9a84c] hover:bg-[#b5953e] py-4 px-10 border-0 transition-colors cursor-pointer"
+                  >
+                    Initiate Connection
+                  </button>
+                </div>
+
+              </form>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── INTERACTIVE KISHANGARH MAP SECTION ──────────────── */}
+      <section className="w-full bg-[#10110c] py-24 border-t border-[#c9a84c]/10">
+        <div className="mx-auto max-w-[1280px] px-8 flex flex-col gap-10">
+          
+          {/* Map Header details */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#fef9e9]/10 pb-10">
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#c9a84c] font-['Manrope',sans-serif]">
+                Heritage Location
+              </span>
+              <h2
+                className="text-3xl md:text-4xl font-normal text-[#fef9e9]"
+                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+              >
+                The Kishangarh Foundry, <br />
+                <span className="italic text-[#c9a84c]">Rajasthan, India</span>
+              </h2>
+            </div>
+            
+            <p className="text-xs text-[#fef9e9]/50 max-w-[420px] leading-relaxed font-['Manrope',sans-serif]">
+              Nestled in Rajasthan’s historical white-marble core, our forging foundry is surrounded by generations of master stone carvers, goldsmiths, and painters. All raw casting takes place here, infusing local architectural symmetry into every golden curve.
+            </p>
+          </div>
+
+          {/* Styled Luxury Dark-Filter Google Map */}
+          <div className="relative w-full aspect-[21/9] min-h-[300px] border border-[#c9a84c]/20 overflow-hidden bg-[#151710]">
+            <iframe
+              src="https://maps.google.com/maps?q=Kishangarh,Rajasthan,India&t=m&z=12&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              title="Kishangarh, Rajasthan, India Location Map"
+              style={{
+                border: 0,
+                filter: "grayscale(1) invert(0.92) sepia(0.35) hue-rotate(22deg) brightness(0.85) contrast(1.15)"
+              }}
+              allowFullScreen={false}
+              loading="lazy"
+            />
+            
+            {/* Elegant compass ornament / overlay details on map */}
+            <div className="absolute bottom-6 left-6 p-4 bg-[#10110c]/90 border border-[#c9a84c]/30 backdrop-blur-md hidden sm:flex flex-col gap-1.5 font-['Manrope',sans-serif]">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] animate-pulse" />
+                <span className="text-[10px] font-bold tracking-widest text-[#fef9e9] uppercase">Mani D'Oro Foundry</span>
+              </div>
+              <span className="text-[9px] text-[#fef9e9]/60 uppercase">Co-ordinates: 26.5724° N, 74.8638° E</span>
+              <span className="text-[9px] text-[#c9a84c] uppercase">Rajasthan Heritage Guild #MT-400</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Footer */}
+      <FooterSection />
     </div>
   );
 };

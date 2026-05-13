@@ -24,6 +24,34 @@ export const FooterSection = (): JSX.Element => {
         >
           {/* Brand column */}
           <div className="flex flex-col gap-5">
+            <a
+              href="/"
+              style={{
+                display: "block",
+                width: "fit-content",
+                textDecoration: "none",
+                transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = "scale(1.06)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              <img
+                src="/logo.png"
+                alt="Mani D'Oro Medallion"
+                style={{
+                  width: "72px",
+                  height: "72px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "1.5px solid rgba(168, 132, 44, 0.45)",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+                }}
+              />
+            </a>
             <span
               style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "20px", fontWeight: 400, letterSpacing: "0.01em", color: "#fef9e9" }}
             >

@@ -8,6 +8,8 @@ import NotFound from "@/pages/not-found";
 import { ManiDOroHome } from "@/pages/ManiDOroHome";
 import { CollectionPage } from "@/pages/CollectionPage";
 import { ContactPage } from "@/pages/ContactPage";
+import { BespokePage } from "@/pages/BespokePage";
+import { ProductPage } from "@/pages/ProductPage";
 
 function Router() {
   return (
@@ -15,6 +17,8 @@ function Router() {
       <Route path="/" component={ManiDOroHome} />
       <Route path="/collection" component={CollectionPage} />
       <Route path="/contact" component={ContactPage} />
+      <Route path="/bespoke" component={BespokePage} />
+      <Route path="/product/:id" component={ProductPage} />
       <Route component={NotFound} />
     </Switch>
   );
