@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
 
@@ -33,7 +33,7 @@ export const ContactPage = (): JSX.Element => {
           <div className="absolute inset-0 bg-gradient-to-b from-[#151710] via-transparent to-[#151710]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-[1280px] px-8 text-center flex flex-col items-center gap-4">
+        <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-8 text-center flex flex-col items-center gap-4">
           <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#c9a84c] font-['Manrope',sans-serif]">
             Let's Begin a Dialogue
           </span>
@@ -52,7 +52,7 @@ export const ContactPage = (): JSX.Element => {
       </section>
 
       {/* ── TWO COLUMN EDITORIAL GRID ──────────────────────── */}
-      <section className="mx-auto max-w-[1280px] px-8 pb-24 relative z-10">
+      <section className="mx-auto max-w-[1280px] px-4 sm:px-8 pb-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* LEFT COLUMN: ATELIER CHANNELS & INFORMATION (col-span-5) */}
@@ -254,7 +254,7 @@ export const ContactPage = (): JSX.Element => {
 
       {/* ── INTERACTIVE KISHANGARH MAP SECTION ──────────────── */}
       <section className="w-full bg-[#10110c] py-24 border-t border-[#c9a84c]/10">
-        <div className="mx-auto max-w-[1280px] px-8 flex flex-col gap-10">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8 flex flex-col gap-10">
           
           {/* Map Header details */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#fef9e9]/10 pb-10">

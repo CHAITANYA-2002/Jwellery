@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
@@ -27,7 +27,7 @@ const DEFAULT_PRODUCTS = [
     id: "gilded-drift-cuff",
     category: "Cuffs & Bangles",
     name: "Gilded Drift Cuff",
-    description: "Molten gold shaped by hand � no two are exactly alike.",
+    description: "Molten gold shaped by hand � no two are exactly alike.",
     price: "$740",
     image: "/figmaAssets2/product-gilded-drift-cuff.png",
     isNew: true,
@@ -420,7 +420,7 @@ export const CollectionPage = (): JSX.Element => {
           className="w-full"
           style={{ background: "#fef9e9", borderBottom: "1px solid rgba(29,28,18,0.09)" }}
         >
-          <div className="mx-auto max-w-[1280px] px-8">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
             {/* Breadcrumb row */}
             <div
               className="flex items-center gap-2 pt-10 pb-8"
@@ -503,7 +503,7 @@ export const CollectionPage = (): JSX.Element => {
           className="w-full sticky top-[80px] z-40"
           style={{ background: "rgba(254,249,233,0.97)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(29,28,18,0.08)" }}
         >
-          <div className="mx-auto max-w-[1280px] px-8">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 sm:py-0 sm:h-14 gap-4 sm:gap-0">
 
               {/* Category filters */}
@@ -602,7 +602,7 @@ export const CollectionPage = (): JSX.Element => {
 
         {/* ── PRODUCT GRID ───────────────────────────────────── */}
         <section className="w-full py-14">
-          <div className="mx-auto max-w-[1280px] px-8">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
 
             {filtered.length === 0 ? (
               <div className="py-32 flex flex-col items-center gap-4">
@@ -714,7 +714,7 @@ export const CollectionPage = (): JSX.Element => {
           className="w-full"
           style={{ background: "#232919" }}
         >
-          <div className="mx-auto max-w-[1280px] px-8">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch" style={{ minHeight: "400px" }}>
 
               {/* Left: text content */}

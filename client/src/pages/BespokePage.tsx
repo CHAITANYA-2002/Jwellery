@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
 
@@ -135,7 +135,7 @@ export const BespokePage = (): JSX.Element => {
 
         {/* Content Overlay */}
         <div className="absolute inset-0 z-10 flex flex-col justify-end pb-20 md:pb-28">
-          <div className="mx-auto max-w-[1280px] w-full px-8 flex flex-col items-start gap-6 md:gap-8 animate-fade-up">
+          <div className="mx-auto max-w-[1280px] w-full px-4 sm:px-8 flex flex-col items-start gap-6 md:gap-8 animate-fade-up">
             
             {/* Section Tag */}
             <span 
@@ -188,7 +188,7 @@ export const BespokePage = (): JSX.Element => {
 
       {/* ── 2. BESPOKE PHILOSOPHY SECTION ─────────────────────── */}
       <section className="w-full py-28 md:py-36 bg-[#E8E0D2] overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-8">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
             
             {/* Left: luxury storytelling copy */}
@@ -257,7 +257,7 @@ export const BespokePage = (): JSX.Element => {
 
       {/* ── 3. CREATION JOURNEY TIMELINE ─────────────────────── */}
       <section id="journey" className="w-full py-28 md:py-36 bg-[#EFE7DA] border-t border-[#E8E0D2]">
-        <div className="mx-auto max-w-[1280px] px-8">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
           
           {/* Section Header */}
           <div className="flex flex-col items-center text-center gap-4 mb-20">
@@ -371,7 +371,7 @@ export const BespokePage = (): JSX.Element => {
 
       {/* ── 4. INTERACTIVE JEWELRY SHOWCASE ───────────────────── */}
       <section className="w-full py-28 md:py-36 bg-[#F3EFE6] border-t border-[#E8E0D2]">
-        <div className="mx-auto max-w-[1280px] px-8">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
           
           {/* Section title */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
@@ -460,7 +460,7 @@ export const BespokePage = (): JSX.Element => {
 
       {/* ── 5. ARTISAN STORY SECTION ─────────────────────────── */}
       <section className="w-full py-28 md:py-36 bg-[#2B2118] text-[#F3EFE6] overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-8">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
             
             {/* Left Column: Portrait */}
@@ -528,7 +528,7 @@ export const BespokePage = (): JSX.Element => {
 
       {/* ── 6. MATERIALS & CRAFTSMANSHIP ─────────────────────── */}
       <section className="w-full py-28 md:py-36 bg-[#E8E0D2] overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-8">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
           
           {/* Header */}
           <div className="flex flex-col gap-4 mb-20 max-w-[650px]">

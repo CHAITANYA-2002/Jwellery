@@ -38,48 +38,73 @@ export const MainContentSection = (): JSX.Element => {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="w-full">
-        <div className="mx-auto max-w-[1280px] px-8">
-          <div className="grid grid-cols-12 min-h-[720px] bg-[#f5f0e4]">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
+          {/*
+            Mobile:  single column — text on top, image below
+            Desktop: 12-col grid — text left (7), image right (5)
+          */}
+          <div className="flex flex-col md:grid md:grid-cols-12 min-h-[auto] md:min-h-[720px] bg-[#f5f0e4]">
+
+            {/* Text column */}
             <div
-              className="col-span-7 flex flex-col justify-center gap-10 px-14 py-20"
-              style={{ borderRight: "1px solid rgba(29,28,18,0.12)" }}
+              className="flex flex-col justify-center gap-7 md:gap-10 px-6 sm:px-10 md:px-14 py-14 md:py-20 col-span-7"
+              style={{ borderRight: undefined }}
             >
-              <div className="flex flex-col leading-none">
-                <h1
-                  className="text-[clamp(72px,8vw,112px)] font-normal text-[#1d1c12] tracking-[-0.04em]"
-                  style={{ fontFamily: "'Noto Serif', Georgia, serif", lineHeight: 1.0 }}
-                >
-                  Gold In
-                </h1>
-                <h1
-                  className="text-[clamp(72px,8vw,112px)] font-normal text-[#795900] italic tracking-[-0.04em]"
-                  style={{ fontFamily: "'Noto Serif', Georgia, serif", lineHeight: 1.0 }}
-                >
-                  Every
-                </h1>
-                <h1
-                  className="text-[clamp(72px,8vw,112px)] font-normal text-[#795900] italic tracking-[-0.04em]"
-                  style={{ fontFamily: "'Noto Serif', Georgia, serif", lineHeight: 1.0 }}
-                >
-                  Hand
-                </h1>
-              </div>
-
-              <p
-                className="text-lg leading-relaxed text-[#5a6b4e] max-w-[380px]"
-                style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 400 }}
+              {/* Right border only visible on md+ */}
+              <div
+                className="flex flex-col justify-center gap-7 md:gap-10"
+                style={{}}
               >
-                Discover the raw elegance of hand-forged jewelry. Each piece is a testament to the artisan&apos;s touch and the gold&apos;s eternal spirit.
-              </p>
+                <div className="flex flex-col leading-none">
+                  <h1
+                    className="font-normal text-[#1d1c12] tracking-[-0.04em]"
+                    style={{
+                      fontFamily: "'Noto Serif', Georgia, serif",
+                      lineHeight: 1.0,
+                      fontSize: "clamp(52px, 10vw, 112px)",
+                    }}
+                  >
+                    Gold In
+                  </h1>
+                  <h1
+                    className="font-normal text-[#795900] italic tracking-[-0.04em]"
+                    style={{
+                      fontFamily: "'Noto Serif', Georgia, serif",
+                      lineHeight: 1.0,
+                      fontSize: "clamp(52px, 10vw, 112px)",
+                    }}
+                  >
+                    Every
+                  </h1>
+                  <h1
+                    className="font-normal text-[#795900] italic tracking-[-0.04em]"
+                    style={{
+                      fontFamily: "'Noto Serif', Georgia, serif",
+                      lineHeight: 1.0,
+                      fontSize: "clamp(52px, 10vw, 112px)",
+                    }}
+                  >
+                    Hand
+                  </h1>
+                </div>
 
-              <div>
-                <a href="/collection" data-testid="button-explore-collection" className="luxury-btn-gold" style={{ textDecoration: "none" }}>
-                  Explore Collection
-                </a>
+                <p
+                  className="text-base sm:text-lg leading-relaxed text-[#5a6b4e] max-w-[380px]"
+                  style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 400 }}
+                >
+                  Discover the raw elegance of hand-forged jewelry. Each piece is a testament to the artisan&apos;s touch and the gold&apos;s eternal spirit.
+                </p>
+
+                <div>
+                  <a href="/collection" data-testid="button-explore-collection" className="luxury-btn-gold" style={{ textDecoration: "none" }}>
+                    Explore Collection
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div className="col-span-5 relative overflow-hidden">
+            {/* Image column */}
+            <div className="col-span-5 relative overflow-hidden" style={{ minHeight: "280px" }}>
               <img
                 src="/figmaAssets2/hero-right.png"
                 alt="Artisanal gold jewelry craftsmanship"
@@ -94,12 +119,15 @@ export const MainContentSection = (): JSX.Element => {
       <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent opacity-40" />
 
       {/* ── NEW ARRIVALS ────────────────────────────────────── */}
-      <section id="collection" className="w-full py-24 bg-[#fef9e9]">
-        <div className="mx-auto max-w-[1280px] px-8">
-          <div className="flex items-baseline justify-between mb-14">
+      <section id="collection" className="w-full py-16 md:py-24 bg-[#fef9e9]">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
+          <div className="flex items-baseline justify-between mb-10 md:mb-14">
             <h2
-              className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
-              style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+              className="font-normal text-[#1d1c12]"
+              style={{
+                fontFamily: "'Noto Serif', Georgia, serif",
+                fontSize: "clamp(28px, 4vw, 48px)",
+              }}
             >
               New Arrivals
             </h2>
@@ -113,7 +141,8 @@ export const MainContentSection = (): JSX.Element => {
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-5">
+          {/* Product grid: 1 col mobile → 2 col sm → 3 col lg */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {products.map((product) => (
               <article
                 key={product.id}
@@ -136,7 +165,8 @@ export const MainContentSection = (): JSX.Element => {
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-5 mt-0">
+          {/* Product labels below grid — visible only on lg+ where there's room */}
+          <div className="hidden lg:grid grid-cols-3 gap-5 mt-0">
             {products.map((product) => (
               <div key={`label-${product.id}`} className="pt-4 pb-1" style={{ borderTop: "1px solid rgba(29,28,18,0.09)" }}>
                 <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#43664b] mb-1" style={{ fontFamily: "'Manrope', sans-serif" }}>{product.category}</p>
@@ -152,12 +182,16 @@ export const MainContentSection = (): JSX.Element => {
 
       {/* ── BESPOKE SERVICES ────────────────────────────────── */}
       <section id="bespoke" className="w-full py-0" style={{ background: "#fef9e9" }}>
-        <div className="mx-auto max-w-[1280px] px-8">
-          <div className="grid grid-cols-2 items-stretch">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
+          {/*
+            Mobile:  stack — dark panel on top, image below
+            Desktop: 2 equal columns side-by-side
+          */}
+          <div className="flex flex-col md:grid md:grid-cols-2 items-stretch">
 
             {/* Left: dark olive panel */}
             <div
-              className="flex flex-col justify-center gap-7 py-16 px-14"
+              className="flex flex-col justify-center gap-6 md:gap-7 py-12 px-8 sm:px-10 md:px-14"
               style={{ background: "#2a2e1a" }}
             >
               <p
@@ -176,7 +210,7 @@ export const MainContentSection = (): JSX.Element => {
               <h2
                 style={{
                   fontFamily: "'Noto Serif', Georgia, serif",
-                  fontSize: "clamp(36px,4.2vw,58px)",
+                  fontSize: "clamp(32px, 4.2vw, 58px)",
                   fontWeight: 400,
                   fontStyle: "italic",
                   lineHeight: 1.1,
@@ -224,7 +258,7 @@ export const MainContentSection = (): JSX.Element => {
             </div>
 
             {/* Right: jeweler photo */}
-            <div className="relative overflow-hidden" style={{ minHeight: "520px" }}>
+            <div className="relative overflow-hidden" style={{ minHeight: "320px" }}>
               <img
                 src="/figmaAssets/jeweler-working-on-a-custom-piece.png"
                 alt="Bespoke jewelry creation"
@@ -240,9 +274,13 @@ export const MainContentSection = (): JSX.Element => {
       </section>
 
       {/* ── FOUNDER / QUOTE ─────────────────────────────────── */}
-      <section id="story" className="w-full py-28" style={{ background: "#fef9e9" }}>
-        <div className="mx-auto max-w-[1280px] px-8">
-          <div className="grid grid-cols-2 gap-20 items-center">
+      <section id="story" className="w-full py-16 md:py-28" style={{ background: "#fef9e9" }}>
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
+          {/*
+            Mobile:  single column — quote first, portrait below
+            Desktop: 2 columns — portrait left, quote right
+          */}
+          <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-10 md:gap-20 items-center">
 
             {/* Left: portrait with frame */}
             <div className="relative" style={{ padding: "16px" }}>
@@ -262,15 +300,19 @@ export const MainContentSection = (): JSX.Element => {
                   src="/figmaAssets2/founder-portrait.png"
                   alt="Alessandra Oro — Founder"
                   className="w-full object-cover object-top"
-                  style={{ height: "580px", filter: "grayscale(100%) contrast(1.08) brightness(0.95)", display: "block" }}
+                  style={{
+                    height: "clamp(280px, 50vw, 580px)",
+                    filter: "grayscale(100%) contrast(1.08) brightness(0.95)",
+                    display: "block",
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(29,28,18,0.2)] to-transparent" />
               </div>
             </div>
 
             {/* Right: quote */}
-            <div className="flex flex-col gap-9">
-              {/* Large decorative 99 */}
+            <div className="flex flex-col gap-7 md:gap-9">
+              {/* Large decorative " */}
               <span
                 style={{
                   fontFamily: "'Noto Serif', Georgia, serif",
@@ -290,7 +332,7 @@ export const MainContentSection = (): JSX.Element => {
               <blockquote
                 style={{
                   fontFamily: "'Noto Serif', Georgia, serif",
-                  fontSize: "clamp(20px,2.4vw,28px)",
+                  fontSize: "clamp(18px, 2.4vw, 28px)",
                   fontWeight: 400,
                   fontStyle: "italic",
                   lineHeight: 1.7,
@@ -334,13 +376,16 @@ export const MainContentSection = (): JSX.Element => {
       </section>
 
       {/* ── THE ARCHIVE ─────────────────────────────────────── */}
-      <section id="archive" className="w-full py-24" style={{ background: "#f5f0e4" }}>
-        <div className="mx-auto max-w-[1280px] px-8">
-          <div className="flex items-baseline justify-between mb-14">
+      <section id="archive" className="w-full py-16 md:py-24" style={{ background: "#f5f0e4" }}>
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8">
+          <div className="flex items-baseline justify-between mb-10 md:mb-14">
             <div className="flex flex-col gap-2">
               <h2
-                className="text-[clamp(32px,4vw,48px)] font-normal text-[#1d1c12]"
-                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+                className="font-normal text-[#1d1c12]"
+                style={{
+                  fontFamily: "'Noto Serif', Georgia, serif",
+                  fontSize: "clamp(28px, 4vw, 48px)",
+                }}
               >
                 The Archive
               </h2>
@@ -353,19 +398,34 @@ export const MainContentSection = (): JSX.Element => {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-4 items-start">
+          {/*
+            Mobile:  2 columns, no stagger offsets
+            Desktop: 4 columns, with stagger offsets restored
+          */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 items-start">
             {archiveItems.map((item) => (
               <div
                 key={item.id}
                 data-testid={`card-archive-${item.id}`}
                 className="group relative overflow-hidden cursor-pointer"
-                style={{ marginTop: item.offset ? "80px" : "0", boxShadow: "0 2px 16px rgba(29,28,18,0.06)" }}
+                style={{
+                  marginTop: item.offset ? "0px" : "0",
+                  boxShadow: "0 2px 16px rgba(29,28,18,0.06)",
+                }}
               >
+                {/* On md+, restore the staggered offset via inline style override */}
+                <style>{`
+                  @media (min-width: 768px) {
+                    [data-testid="card-archive-${item.id}"] {
+                      margin-top: ${item.offset ? "80px" : "0px"};
+                    }
+                  }
+                `}</style>
                 <img
                   src={item.image}
                   alt={`Archive — ${item.year}`}
                   className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  style={{ height: "375px" }}
+                  style={{ height: "clamp(180px, 30vw, 375px)" }}
                 />
                 <div className="absolute inset-0 bg-[rgba(29,28,18,0)] group-hover:bg-[rgba(29,28,18,0.4)] transition-all duration-500 flex items-center justify-center">
                   <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#fef9e9] opacity-0 group-hover:opacity-100 transition-opacity duration-400" style={{ fontFamily: "'Manrope', sans-serif" }}>

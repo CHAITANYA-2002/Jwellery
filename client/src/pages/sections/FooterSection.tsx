@@ -16,14 +16,18 @@ const footerGroups = [
 export const FooterSection = (): JSX.Element => {
   return (
     <footer id="contact" className="w-full" style={{ background: "#1a1c12" }}>
-      <div className="mx-auto max-w-[1280px] px-8 pt-16 pb-0">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-8 pt-12 md:pt-16 pb-0">
 
+        {/*
+          Mobile:  2 columns (brand + first link group), then remaining groups below
+          Tablet+: 4 columns (brand col wider, 3 link cols)
+        */}
         <div
-          className="grid gap-12 pb-14"
-          style={{ gridTemplateColumns: "1.6fr 1fr 1fr 1fr", borderBottom: "1px solid rgba(254,249,233,0.07)" }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pb-10 md:pb-14"
+          style={{ borderBottom: "1px solid rgba(254,249,233,0.07)" }}
         >
-          {/* Brand column */}
-          <div className="flex flex-col gap-5">
+          {/* Brand column — spans full width on mobile, first col on desktop */}
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-5">
             <a
               href="/"
               style={{
@@ -43,8 +47,8 @@ export const FooterSection = (): JSX.Element => {
                 src="/logo.png"
                 alt="Mani D'Oro Medallion"
                 style={{
-                  width: "72px",
-                  height: "72px",
+                  width: "64px",
+                  height: "64px",
                   borderRadius: "50%",
                   objectFit: "cover",
                   border: "1.5px solid rgba(168, 132, 44, 0.45)",
@@ -53,7 +57,7 @@ export const FooterSection = (): JSX.Element => {
               />
             </a>
             <span
-              style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "20px", fontWeight: 400, letterSpacing: "0.01em", color: "#fef9e9" }}
+              style={{ fontFamily: "'Noto Serif', Georgia, serif", fontSize: "18px", fontWeight: 400, letterSpacing: "0.01em", color: "#fef9e9" }}
             >
               Mani D&apos;Oro
             </span>
@@ -116,8 +120,8 @@ export const FooterSection = (): JSX.Element => {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex items-center justify-between py-6">
+        {/* Bottom bar — stacks on mobile, row on sm+ */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-6">
           <p
             style={{
               fontFamily: "'Manrope', sans-serif",
@@ -130,7 +134,7 @@ export const FooterSection = (): JSX.Element => {
           >
             © 2024 Mani D&apos;Oro. Website by hqblocks.in
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-5 sm:gap-6">
             {["Privacy Policy", "Terms of Service"].map((label) => (
               <a
                 key={label}

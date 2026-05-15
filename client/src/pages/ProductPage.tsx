@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+ï»¿import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
@@ -69,7 +69,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
             id: "gilded-drift-cuff",
             category: "Cuffs & Bangles",
             name: "Gilded Drift Cuff",
-            description: "Molten gold shaped by hand — no two are exactly alike.",
+            description: "Molten gold shaped by hand ï¿½ no two are exactly alike.",
             price: "$740",
             image: "/figmaAssets2/product-gilded-drift-cuff.png",
             isNew: true,
@@ -395,7 +395,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
 
       {/* Breadcrumbs */}
       <div className="w-full py-6 bg-[#f8f3e4] border-b border-[#1d1c12]/5">
-        <div className="mx-auto max-w-[1280px] px-8 flex justify-between items-center text-[10px] font-bold tracking-widest uppercase font-['Manrope',sans-serif] text-[#1d1c12]/50">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-8 flex justify-between items-center text-[10px] font-bold tracking-widest uppercase font-['Manrope',sans-serif] text-[#1d1c12]/50">
           <div className="flex items-center gap-2">
             <span className="hover:text-[#c9a84c] cursor-pointer" onClick={() => setLocation("/")}>Home</span>
             <span>/</span>
@@ -408,7 +408,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
       </div>
 
       {/* Main product display section */}
-      <section className="mx-auto max-w-[1280px] px-8 py-16 md:py-24">
+      <section className="mx-auto max-w-[1280px] px-4 sm:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           
           {/* LEFT COLUMN: VISUAL GALLERY (col-span-6) */}
