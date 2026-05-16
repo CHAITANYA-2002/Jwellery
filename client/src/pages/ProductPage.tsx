@@ -1,7 +1,8 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
+import { useCart } from "@/lib/CartContext";
 
 interface Product {
   id: string;
@@ -17,15 +18,22 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
   const [, setLocation] = useLocation();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>("");
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"heritage" | "materials" | "sourcing">("heritage");
   const [inquiryForm, setInquiryForm] = useState({ name: "", email: "", size: "Standard", note: "" });
   const [inquirySubmitted, setInquirySubmitted] = useState(false);
+  const [cartSize, setCartSize] = useState("Standard");
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { addItem } = useCart();
 
   useEffect(() => {
     if (product) {
-      setSelectedImage(product.image);
+      const gallery = getGalleryImages(product);
+      setSelectedImage(gallery[0] || product.image);
+      setSelectedImageIndex(0);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   // Load product from API, with static client fallback
@@ -386,6 +394,21 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
     ];
   };
 
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: selectedImage || product.image,
+      category: product.category,
+      size: cartSize,
+    });
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
+
   return (
     <div className="w-full min-h-screen bg-[#fef9e9]">
       <NavbarSection />
@@ -414,39 +437,144 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
           {/* LEFT COLUMN: VISUAL GALLERY (col-span-6) */}
           <div className="col-span-1 lg:col-span-6 flex flex-col gap-6">
             
-            {/* Primary Large Image Frame */}
-            <div className="relative border border-[#1d1c12]/10 bg-[#fef9e9]/50 aspect-[4/5] overflow-hidden group">
-              <img
-                src={selectedImage || product.image}
-                alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                style={{ filter: "brightness(0.97) contrast(1.01)" }}
-              />
-              
-              {/* Corner accent lines */}
-              <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-[#c9a84c]/50" />
-              <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-[#c9a84c]/50" />
-              <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-[#c9a84c]/50" />
-              <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-[#c9a84c]/50" />
-            </div>
+            {/* Primary Large Image Frame + Arrow Navigation */}
+            {(() => {
+              const galleryImages = getGalleryImages(product);
+              const canPrev = selectedImageIndex > 0;
+              const canNext = selectedImageIndex < galleryImages.length - 1;
+              const navBtn = (dir: "prev" | "next") => ({
+                position: "absolute" as const,
+                top: "50%",
+                transform: "translateY(-50%)",
+                [dir === "prev" ? "left" : "right"]: "12px",
+                zIndex: 10,
+                background: "rgba(254,249,233,0.88)",
+                border: "1px solid rgba(29,28,18,0.12)",
+                width: "40px",
+                height: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: dir === "prev" ? (canPrev ? "pointer" : "default") : (canNext ? "pointer" : "default"),
+                opacity: dir === "prev" ? (canPrev ? 1 : 0.3) : (canNext ? 1 : 0.3),
+                transition: "all 0.2s",
+                backdropFilter: "blur(4px)",
+              });
+              return (
+                <>
+                  <div className="relative border border-[#1d1c12]/10 bg-[#fef9e9]/50 aspect-[4/5] overflow-hidden group">
+                    <img
+                      src={selectedImage || product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover transition-all duration-700"
+                      style={{ filter: "brightness(0.97) contrast(1.01)" }}
+                    />
 
-            {/* Interactive Thumbnail Gallery Grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
-              {getGalleryImages(product).map((img: string, idx: number) => (
-                <div 
-                  key={idx}
-                  onClick={() => setSelectedImage(img)}
-                  className={`aspect-square bg-[#fef9e9]/80 border overflow-hidden cursor-pointer group relative transition-all ${
-                    (selectedImage || product.image) === img 
-                      ? 'border-[#c9a84c] ring-2 ring-[#c9a84c]/30' 
-                      : 'border-[#1d1c12]/10 opacity-75 hover:opacity-100'
-                  }`}
-                >
-                  <img src={img} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" alt={`Detail ${idx + 1}`} />
-                  <div className="absolute inset-0 bg-[#c9a84c]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-              ))}
-            </div>
+                    {/* Corner accent lines */}
+                    <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-[#c9a84c]/50" />
+                    <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-[#c9a84c]/50" />
+                    <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-[#c9a84c]/50" />
+                    <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-[#c9a84c]/50" />
+
+                    {/* Image counter */}
+                    {galleryImages.length > 1 && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: "16px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          display: "flex",
+                          gap: "6px",
+                          alignItems: "center",
+                        }}
+                      >
+                        {galleryImages.map((_: string, di: number) => (
+                          <button
+                            key={di}
+                            onClick={() => {
+                              setSelectedImageIndex(di);
+                              setSelectedImage(galleryImages[di]);
+                            }}
+                            style={{
+                              width: di === selectedImageIndex ? "20px" : "6px",
+                              height: "6px",
+                              background: di === selectedImageIndex ? "#c9a84c" : "rgba(201,168,76,0.4)",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: 0,
+                              borderRadius: "3px",
+                              transition: "all 0.3s",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Prev arrow */}
+                    {galleryImages.length > 1 && (
+                      <button
+                        aria-label="Previous image"
+                        onClick={() => {
+                          if (!canPrev) return;
+                          const ni = selectedImageIndex - 1;
+                          setSelectedImageIndex(ni);
+                          setSelectedImage(galleryImages[ni]);
+                        }}
+                        style={navBtn("prev")}
+                        onMouseEnter={(e) => { if (canPrev) { e.currentTarget.style.background = "rgba(254,249,233,1)"; e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)"; } }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(254,249,233,0.88)"; e.currentTarget.style.borderColor = "rgba(29,28,18,0.12)"; }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#1d1c12" strokeWidth="1.5">
+                          <polyline points="9,2 4,7 9,12" />
+                        </svg>
+                      </button>
+                    )}
+
+                    {/* Next arrow */}
+                    {galleryImages.length > 1 && (
+                      <button
+                        aria-label="Next image"
+                        onClick={() => {
+                          if (!canNext) return;
+                          const ni = selectedImageIndex + 1;
+                          setSelectedImageIndex(ni);
+                          setSelectedImage(galleryImages[ni]);
+                        }}
+                        style={navBtn("next")}
+                        onMouseEnter={(e) => { if (canNext) { e.currentTarget.style.background = "rgba(254,249,233,1)"; e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)"; } }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(254,249,233,0.88)"; e.currentTarget.style.borderColor = "rgba(29,28,18,0.12)"; }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#1d1c12" strokeWidth="1.5">
+                          <polyline points="5,2 10,7 5,12" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Interactive Thumbnail Gallery Grid */}
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                    {galleryImages.map((img: string, idx: number) => (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setSelectedImage(img);
+                          setSelectedImageIndex(idx);
+                        }}
+                        className={`aspect-square bg-[#fef9e9]/80 border overflow-hidden cursor-pointer group relative transition-all ${
+                          selectedImageIndex === idx
+                            ? 'border-[#c9a84c] ring-2 ring-[#c9a84c]/30'
+                            : 'border-[#1d1c12]/10 opacity-75 hover:opacity-100'
+                        }`}
+                      >
+                        <img src={img} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" alt={`Detail ${idx + 1}`} />
+                        <div className="absolute inset-0 bg-[#c9a84c]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              );
+            })()}
 
           </div>
 
@@ -532,6 +660,144 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
                   </ul>
                 )}
               </div>
+            </div>
+
+            {/* ── ADD TO CART PANEL ─────────────────────────── */}
+            <div
+              style={{
+                border: "1px solid rgba(201,168,76,0.3)",
+                background: "linear-gradient(135deg, #fef9e9, #f8f3e4)",
+                padding: "24px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <span
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(29,28,18,0.5)",
+                  }}
+                >
+                  Reserve This Piece
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Noto Serif', Georgia, serif",
+                    fontSize: "20px",
+                    color: "#795900",
+                  }}
+                >
+                  {product.price}
+                </span>
+              </div>
+
+              {/* Size selector */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label
+                  htmlFor="cart-size"
+                  style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "9px",
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(29,28,18,0.5)",
+                  }}
+                >
+                  Select Size
+                </label>
+                <select
+                  id="cart-size"
+                  value={cartSize}
+                  onChange={(e) => setCartSize(e.target.value)}
+                  style={{
+                    width: "100%",
+                    background: "#fef9e9",
+                    border: "1px solid rgba(29,28,18,0.12)",
+                    padding: "10px 12px",
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "12px",
+                    color: "#1d1c12",
+                    outline: "none",
+                    cursor: "pointer",
+                    appearance: "none",
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%231d1c12' stroke-width='1.2' fill='none'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 12px center",
+                    paddingRight: "32px",
+                  }}
+                >
+                  <option value="Small">Small (5–6 US Ring / 15cm wrist)</option>
+                  <option value="Standard">Standard (7 US Ring / 17cm wrist)</option>
+                  <option value="Large">Large (8–9 US Ring / 19cm wrist)</option>
+                  <option value="Custom">Custom Sizing — specify in notes</option>
+                </select>
+              </div>
+
+              {/* Add to cart button */}
+              <button
+                onClick={handleAddToCart}
+                style={{
+                  width: "100%",
+                  background: addedToCart ? "#4a7c59" : "#795900",
+                  color: "#fef9e9",
+                  border: "none",
+                  padding: "16px",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  transition: "background 0.4s, transform 0.15s",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+                onMouseEnter={(e) => {
+                  if (!addedToCart) e.currentTarget.style.background = "#634900";
+                }}
+                onMouseLeave={(e) => {
+                  if (!addedToCart) e.currentTarget.style.background = "#795900";
+                }}
+              >
+                {addedToCart ? (
+                  <>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Added to Atelier
+                  </>
+                ) : (
+                  <>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <path d="M16 10a4 4 0 01-8 0" />
+                    </svg>
+                    Reserve This Piece
+                  </>
+                )}
+              </button>
+
+              <p
+                style={{
+                  fontFamily: "'Manrope', sans-serif",
+                  fontSize: "9px",
+                  color: "rgba(29,28,18,0.4)",
+                  textAlign: "center",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                Handcrafted to order · 4–6 weeks · Free worldwide shipping
+              </p>
             </div>
 
             {/* ATELIER COMMISSION / INQUIRY FORM (Tied to Bespoke Concept) */}

@@ -10,6 +10,8 @@ import { CollectionPage } from "@/pages/CollectionPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { BespokePage } from "@/pages/BespokePage";
 import { ProductPage } from "@/pages/ProductPage";
+import { CartProvider } from "@/lib/CartContext";
+import { CartDrawer } from "@/components/CartDrawer";
 
 function AppRoutes() {
   return (
@@ -29,10 +31,13 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router base={base}>
-          <AppRoutes />
-        </Router>
+        <CartProvider>
+          <Toaster />
+          <CartDrawer />
+          <Router base={base}>
+            <AppRoutes />
+          </Router>
+        </CartProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
