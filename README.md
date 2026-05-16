@@ -51,7 +51,7 @@ The project is a **full-stack TypeScript monorepo** with:
 
 | Platform | URL |
 |---|---|
-| GitHub Pages | `https://<your-username>.github.io/Jwellery/` |
+| GitHub Pages | `https://mdoro.netlify.app/` |
 | Netlify | Configured via `netlify.toml` |
 | Local Dev | `http://localhost:5000` |
 
