@@ -740,52 +740,100 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
                 </select>
               </div>
 
-              {/* Add to cart button */}
-              <button
-                onClick={handleAddToCart}
-                style={{
-                  width: "100%",
-                  background: addedToCart ? "#4a7c59" : "#795900",
-                  color: "#fef9e9",
-                  border: "none",
-                  padding: "16px",
-                  fontFamily: "'Manrope', sans-serif",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  transition: "background 0.4s, transform 0.15s",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-                onMouseEnter={(e) => {
-                  if (!addedToCart) e.currentTarget.style.background = "#634900";
-                }}
-                onMouseLeave={(e) => {
-                  if (!addedToCart) e.currentTarget.style.background = "#795900";
-                }}
-              >
-                {addedToCart ? (
-                  <>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Added to Atelier
-                  </>
-                ) : (
-                  <>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-                      <line x1="3" y1="6" x2="21" y2="6" />
-                      <path d="M16 10a4 4 0 01-8 0" />
-                    </svg>
-                    Reserve This Piece
-                  </>
-                )}
-              </button>
+              {/* Button row: Reserve + WhatsApp */}
+              <div style={{ display: "flex", gap: "10px" }}>
+                {/* Add to cart button */}
+                <button
+                  onClick={handleAddToCart}
+                  style={{
+                    flex: 1,
+                    background: addedToCart ? "#4a7c59" : "#795900",
+                    color: "#fef9e9",
+                    border: "none",
+                    padding: "16px 12px",
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    transition: "background 0.4s",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!addedToCart) e.currentTarget.style.background = "#634900";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!addedToCart) e.currentTarget.style.background = addedToCart ? "#4a7c59" : "#795900";
+                  }}
+                >
+                  {addedToCart ? (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      Added
+                    </>
+                  ) : (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 01-8 0" />
+                      </svg>
+                      Reserve
+                    </>
+                  )}
+                </button>
+
+                {/* WhatsApp button */}
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `Hi! I'm interested in the *${product.name}* (${product.category}) — ${product.price}\nSize: ${cartSize}\n\nCould you please share more details?\n\n🔗 ${window.location.href}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Enquire on WhatsApp"
+                  title="Enquire on WhatsApp"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    padding: "16px 18px",
+                    background: "#25D366",
+                    color: "#fff",
+                    border: "none",
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    transition: "background 0.2s, transform 0.15s",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#1ebe57";
+                    e.currentTarget.style.transform = "translateY(-1px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "#25D366";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  {/* WhatsApp logo SVG */}
+                  <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
+                    <path d="M16 0C7.163 0 0 7.163 0 16c0 2.825.736 5.476 2.027 7.782L0 32l8.418-2.004A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 01-6.777-1.854l-.487-.29-5.003 1.192 1.212-4.878-.317-.5A13.26 13.26 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.878c-.398-.2-2.358-1.163-2.723-1.295-.365-.133-.63-.2-.896.2-.265.397-1.03 1.295-1.262 1.56-.232.265-.465.298-.863.1-.398-.2-1.68-.619-3.2-1.974-1.183-1.054-1.98-2.355-2.213-2.752-.232-.398-.025-.613.175-.81.18-.178.398-.465.597-.697.2-.232.265-.398.398-.664.133-.265.066-.497-.033-.697-.1-.2-.896-2.16-1.228-2.958-.323-.778-.65-.673-.896-.685-.232-.01-.497-.013-.763-.013s-.697.1-1.062.497c-.365.398-1.394 1.362-1.394 3.322s1.427 3.853 1.626 4.118c.2.265 2.808 4.285 6.803 6.01.952.41 1.694.655 2.273.838.954.304 1.823.261 2.51.158.766-.115 2.358-.963 2.69-1.893.332-.93.332-1.727.232-1.893-.1-.166-.365-.265-.763-.465z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+              </div>
 
               <p
                 style={{
