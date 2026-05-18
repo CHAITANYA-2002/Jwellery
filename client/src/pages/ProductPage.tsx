@@ -30,7 +30,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
-  const [isMagnified, setIsMagnified] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
 
   useEffect(() => {
     if (product) {
@@ -984,31 +984,52 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
       <FooterSection />
       {/* Zoom Modal Lightbox */}
       {isZoomModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black flex flex-col">
-          <div className="absolute top-4 right-4 z-10">
+        <div className="fixed inset-0 z-50 bg-[#1d1c12] flex flex-col">
+          {/* Header */}
+          <div className="absolute top-4 right-4 z-20">
             <button 
-              onClick={() => { setIsZoomModalOpen(false); setIsMagnified(false); }}
+              onClick={() => { setIsZoomModalOpen(false); setZoomLevel(1); }}
               className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur-md transition-colors"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
           </div>
           
-          <div 
-            className="flex-1 w-full h-full overflow-auto flex items-center justify-center relative"
-            onClick={() => setIsMagnified(!isMagnified)}
-          >
-            {/* Guide text */}
-            {!isMagnified && (
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/50 text-white text-[10px] font-bold tracking-widest uppercase px-4 py-2 rounded-full pointer-events-none backdrop-blur-md">
-                Tap to Zoom
-              </div>
-            )}
-            <img 
-              src={selectedImage || product.image} 
-              alt={product.name} 
-              className={`transition-transform duration-300 ${isMagnified ? "min-w-[200vw] min-h-[150vh] object-cover cursor-zoom-out" : "max-w-full max-h-full object-contain cursor-zoom-in"}`}
+          {/* Scrollable image container */}
+          <div className="flex-1 w-full h-full overflow-auto flex items-center justify-center relative">
+            <div 
+              style={{ 
+                width: `${zoomLevel * 100}%`, 
+                height: `${zoomLevel * 100}%`, 
+                minWidth: '100%', 
+                minHeight: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                transition: 'all 0.1s ease-out'
+              }}
+            >
+              <img 
+                src={selectedImage || product.image} 
+                alt={product.name} 
+                className="max-w-full max-h-full object-contain pointer-events-none"
+              />
+            </div>
+          </div>
+
+          {/* Zoom Controls Overlay */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[80%] max-w-sm bg-[#1d1c12]/80 backdrop-blur-md rounded-full px-6 py-4 flex items-center gap-4 z-20 border border-white/10">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <input 
+              type="range" 
+              min="1" 
+              max="4" 
+              step="0.1" 
+              value={zoomLevel}
+              onChange={(e) => setZoomLevel(parseFloat(e.target.value))}
+              className="w-full accent-[#c9a84c] cursor-pointer"
             />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
           </div>
         </div>
       )}
