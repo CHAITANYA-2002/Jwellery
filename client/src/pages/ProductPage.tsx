@@ -27,6 +27,9 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
   const [addedToCart, setAddedToCart] = useState(false);
   const { addItem } = useCart();
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
   useEffect(() => {
     if (product) {
       const gallery = getGalleryImages(product);
@@ -462,7 +465,28 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
               });
               return (
                 <>
-                  <div className="relative border border-[#1d1c12]/10 bg-[#fef9e9]/50 aspect-[4/5] overflow-hidden group">
+                  <div 
+                    className="relative border border-[#1d1c12]/10 bg-[#fef9e9]/50 aspect-[4/5] overflow-hidden group cursor-pointer"
+                    onTouchStart={(e) => {
+                      setTouchEnd(null);
+                      setTouchStart(e.targetTouches[0].clientX);
+                    }}
+                    onTouchMove={(e) => setTouchEnd(e.targetTouches[0].clientX)}
+                    onTouchEnd={() => {
+                      if (!touchStart || !touchEnd) return;
+                      const distance = touchStart - touchEnd;
+                      const isLeftSwipe = distance > 50;
+                      const isRightSwipe = distance < -50;
+                      
+                      if (isLeftSwipe && canNext) {
+                        setSelectedImageIndex(selectedImageIndex + 1);
+                        setSelectedImage(galleryImages[selectedImageIndex + 1]);
+                      } else if (isRightSwipe && canPrev) {
+                        setSelectedImageIndex(selectedImageIndex - 1);
+                        setSelectedImage(galleryImages[selectedImageIndex - 1]);
+                      }
+                    }}
+                  >
                     <img
                       src={selectedImage || product.image}
                       alt={product.name}
