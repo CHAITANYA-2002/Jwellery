@@ -58,7 +58,7 @@ export function CartDrawer() {
                 lineHeight: 1,
               }}
             >
-              Your Atelier
+              Your Cart
             </span>
             <span
               style={{
@@ -71,8 +71,8 @@ export function CartDrawer() {
               }}
             >
               {items.length === 0
-                ? "No pieces selected"
-                : `${items.reduce((s, i) => s + i.quantity, 0)} piece${items.reduce((s, i) => s + i.quantity, 0) > 1 ? "s" : ""} reserved`}
+                ? "No items"
+                : `${items.reduce((s, i) => s + i.quantity, 0)} item${items.reduce((s, i) => s + i.quantity, 0) > 1 ? "s" : ""}`}
             </span>
           </div>
           <button
@@ -147,7 +147,7 @@ export function CartDrawer() {
                     color: "#1d1c12",
                   }}
                 >
-                  Nothing reserved yet
+                  Your cart is empty
                 </p>
                 <p
                   style={{
@@ -157,7 +157,7 @@ export function CartDrawer() {
                     lineHeight: 1.6,
                   }}
                 >
-                  Explore our collection and reserve a handcrafted piece.
+                  Explore our collection and add a piece to your cart.
                 </p>
               </div>
               <button
@@ -441,7 +441,7 @@ export function CartDrawer() {
                 onMouseEnter={(e) => (e.currentTarget.style.background = "#634900")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "#795900")}
               >
-                Commission Request
+                Checkout
               </button>
               <button
                 onClick={clearCart}
