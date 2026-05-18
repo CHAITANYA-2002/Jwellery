@@ -1,6 +1,7 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { NavbarSection } from "./sections/NavbarSection";
 import { FooterSection } from "./sections/FooterSection";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const ContactPage = (): JSX.Element => {
   const [form, setForm] = useState({ name: "", email: "", message: "", interest: "bespoke commission" });
@@ -12,301 +13,266 @@ export const ContactPage = (): JSX.Element => {
     setSubmitted(true);
   };
 
-  const WHATSAPP_NUMBER = "919000000000"; // Updated for Kishangarh, Rajasthan context
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello%2C%20I%27m%20interested%20in%20a%20Mani%20D%27Oro%20bespoke%20commission%20with%20your%20Atelier.`;
+  const WHATSAPP_NUMBER = "919000000000";
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello%2C%20I%27m%20interested%20in%20a%20Mani%20D%27Oro%20bespoke%20commission.`;
 
   return (
-    <div className="w-full min-h-screen" style={{ background: "#151710" }}>
-      {/* Navigation */}
+    <div className="w-full min-h-screen bg-[#fcfaf2] text-[#1a1614]">
       <NavbarSection />
 
-      {/* ── LUXURY HERO SECTION ────────────────────────────── */}
-      <section className="relative pt-32 pb-20 md:py-36 overflow-hidden">
-        {/* Cinematic Backdrop */}
+      {/* ── CINEMATIC HERO (WARM EDITORIAL) ────────────────── */}
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[#1a1614]/5 z-10" />
           <img
             src="/bespoke/consultation-dark.png"
-            alt="Mani D'Oro consultation atelier"
-            className="w-full h-full object-cover object-center opacity-15"
-            style={{ filter: "grayscale(100%) brightness(0.4)" }}
+            alt="Atelier"
+            className="w-full h-full object-cover grayscale opacity-20 scale-105 animate-subtle-zoom"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#151710] via-transparent to-[#151710]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#fcfaf2] via-transparent to-[#fcfaf2] z-20" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-8 text-center flex flex-col items-center gap-4">
-          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#c9a84c] font-['Manrope',sans-serif]">
-            Let's Begin a Dialogue
-          </span>
-          <h1
-            className="text-[clamp(40px,5vw,72px)] font-normal text-[#fef9e9] tracking-[-0.02em] leading-none"
-            style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
+        <div className="relative z-30 text-center px-4">
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-[10px] font-bold tracking-[0.6em] uppercase text-[#b39359] font-['Manrope',sans-serif] block mb-8"
           >
-            Connect With <span className="italic text-[#c9a84c]">Our Ateliers</span>
-          </h1>
-          <p 
-            className="text-sm md:text-base text-[#fef9e9]/60 max-w-[540px] leading-relaxed font-['Manrope',sans-serif] mt-2"
+            The Conversation
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-[clamp(56px,10vw,110px)] font-normal leading-[0.9] mb-10 text-[#1a1614]"
+            style={{ fontFamily: "'Noto Serif', serif" }}
           >
-            Whether commissioning a singular heirloom, scheduling an atelier visit, or inquiring about our collection—we welcome your communication.
-          </p>
+            Connect with <br />
+            <span className="italic text-[#b39359]">the Artisans</span>
+          </motion.h1>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="w-px h-28 bg-gradient-to-b from-[#b39359] to-transparent mx-auto"
+          />
         </div>
       </section>
 
-      {/* ── TWO COLUMN EDITORIAL GRID ──────────────────────── */}
-      <section className="mx-auto max-w-[1280px] px-4 sm:px-8 pb-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      {/* ── MAIN CONTENT (WARM LAYOUT) ─────────────────────── */}
+      <section className="mx-auto max-w-[1400px] px-8 py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start">
           
-          {/* LEFT COLUMN: ATELIER CHANNELS & INFORMATION (col-span-5) */}
-          <div className="col-span-1 lg:col-span-5 flex flex-col gap-10">
-            
-            {/* Introductory Statement */}
-            <div className="flex flex-col gap-4">
-              <h3 
-                className="text-xl text-[#fef9e9] font-normal italic"
-                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-              >
-                "The artisan's work is a silent conversation that spans lifetimes."
-              </h3>
-              <p className="text-xs text-[#fef9e9]/50 leading-relaxed font-['Manrope',sans-serif]">
-                We operate from two distinct sanctums: our design office in Milano, and our master craftsmanship foundry in the historical stone-forging city of Kishangarh, Rajasthan.
+          {/* LEFT: INFORMATION & HERITAGE */}
+          <div className="flex flex-col gap-20">
+            <div className="max-w-md relative">
+              <div className="absolute -left-12 top-0 w-px h-full bg-[#b39359]/20 hidden xl:block" />
+              <h2 className="text-4xl font-normal italic mb-8 leading-tight text-[#1a1614]" style={{ fontFamily: "'Noto Serif', serif" }}>
+                "Every artifact is a shared vision between jeweler and collector."
+              </h2>
+              <p className="text-sm text-[#1a1614]/60 leading-relaxed font-['Manrope',sans-serif]">
+                Mani D’Oro remains a family-led atelier. We operate from the historical marble corridors of Kishangarh and the design heart of Milano. We welcome your inquiries on custom commissions, heritage repairs, or atelier visits.
               </p>
             </div>
 
-            {/* WhatsApp Integration */}
-            <a
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
+              <div className="flex flex-col gap-6">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[#b39359] uppercase font-['Manrope',sans-serif]">Milano Atelier</span>
+                <div className="text-[13px] text-[#1a1614]/80 leading-relaxed space-y-2 font-['Manrope',sans-serif]">
+                  <p className="font-bold text-[#1a1614]">Via Montenapoleone 8</p>
+                  <p>Design & Creative Office</p>
+                  <p className="opacity-60">milano@manidoro.com</p>
+                  <p className="opacity-60">+39 02 7600 0000</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[#b39359] uppercase font-['Manrope',sans-serif]">Rajasthan Foundry</span>
+                <div className="text-[13px] text-[#1a1614]/80 leading-relaxed space-y-2 font-['Manrope',sans-serif]">
+                  <p className="font-bold text-[#1a1614]">Kishangarh, India</p>
+                  <p>Craft & Stone Forging Center</p>
+                  <p className="opacity-60">rajasthan@manidoro.com</p>
+                  <p className="opacity-60">+91 1463 240000</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Premium WhatsApp Button */}
+            <a 
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              data-testid="link-whatsapp"
-              className="group flex items-center gap-5 p-6 transition-all duration-500 border border-[#25d366]/20 bg-[#25d366]/[0.03] hover:bg-[#25d366]/[0.08] hover:border-[#25d366]/40"
-              style={{ textDecoration: "none" }}
+              className="group inline-flex items-center gap-6 text-[#1a1614] no-underline transition-all"
             >
-              <div className="w-12 h-12 rounded-full bg-[#25d366]/20 flex items-center justify-center transition-all group-hover:scale-105">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#25d366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="w-14 h-14 rounded-full border border-[#b39359]/30 flex items-center justify-center group-hover:bg-[#b39359]/5 transition-all duration-500">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b39359" strokeWidth="1">
                   <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] font-bold tracking-widest text-[#25d366] uppercase font-['Manrope',sans-serif]">Instant Liaison</span>
-                <span className="text-sm font-normal text-[#fef9e9] mt-0.5">Chat Directly on WhatsApp</span>
-                <span className="text-[11px] text-[#fef9e9]/40 font-['Manrope',sans-serif]">Live correspondence with master jewelers</span>
+                <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#b39359]">Direct Correspondence</span>
+                <span className="text-base font-normal italic group-hover:text-[#b39359] transition-colors" style={{ fontFamily: "'Noto Serif', serif" }}>WhatsApp the Master Goldsmith</span>
               </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#25d366" strokeWidth="2" className="ml-auto transition-transform group-hover:translate-x-1">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
             </a>
-
-            {/* Atelier Locations Cards */}
-            <div className="flex flex-col gap-6">
-              
-              {/* Milan Design Office */}
-              <div className="p-6 border border-[#c9a84c]/10 bg-[#fef9e9]/[0.02] flex flex-col gap-4">
-                <div className="flex justify-between items-baseline border-b border-[#fef9e9]/10 pb-3">
-                  <h4 className="text-sm font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Milano Atelier</h4>
-                  <span className="text-[9px] tracking-widest text-[#fef9e9]/40 uppercase font-['Manrope',sans-serif]">Design &amp; Consultation</span>
-                </div>
-                <div className="flex flex-col gap-2 text-xs text-[#fef9e9]/70 font-['Manrope',sans-serif] leading-relaxed">
-                  <p>📍 Via Montenapoleone 8, Milan, Italy</p>
-                  <p>✉️ milano@manidoro.com</p>
-                  <p>📞 +39 02 7600 0000</p>
-                  <p>🕒 By Appointment Only (Mon - Sat)</p>
-                </div>
-              </div>
-
-              {/* Kishangarh Heritage Studio */}
-              <div className="p-6 border border-[#c9a84c]/20 bg-[#c9a84c]/[0.03] flex flex-col gap-4">
-                <div className="flex justify-between items-baseline border-b border-[#c9a84c]/20 pb-3">
-                  <h4 className="text-sm font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Kishangarh Foundry</h4>
-                  <span className="text-[9px] tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Craft &amp; Forging</span>
-                </div>
-                <div className="flex flex-col gap-2 text-xs text-[#fef9e9]/70 font-['Manrope',sans-serif] leading-relaxed">
-                  <p>📍 Madanganj Industrial Area, Kishangarh, Rajasthan, India</p>
-                  <p>✉️ kishangarh@manidoro.com</p>
-                  <p>📞 +91 1463 240000</p>
-                  <p>🕒 Production Center &amp; Marble Showroom</p>
-                </div>
-              </div>
-
-            </div>
-
           </div>
 
-          {/* RIGHT COLUMN: LUXURY COMMISSION FORM (col-span-7) */}
-          <div className="col-span-1 lg:col-span-7 bg-[#fef9e9]/[0.02] border border-[#fef9e9]/10 p-8 md:p-10">
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center gap-6 py-16 text-center animate-fade-in">
-                <div className="w-16 h-16 border border-[#c9a84c]/60 rounded-full flex items-center justify-center bg-[#c9a84c]/5">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-2xl font-normal text-[#fef9e9] italic" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>
-                    Dialogue Commenced
-                  </h3>
-                  <p className="text-xs text-[#fef9e9]/60 max-w-[340px] leading-relaxed font-['Manrope',sans-serif]">
-                    Our concierge is reviewing your request. A specialist from Milano or Kishangarh will respond within 12 hours.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-4 font-['Manrope',sans-serif] text-[9px] font-bold tracking-[0.2em] uppercase text-[#c9a84c] border border-[#c9a84c]/30 hover:border-[#c9a84c]/80 py-3 px-6 transition-all"
+          {/* RIGHT: ELEGANT FORM (WARM IVORY) */}
+          <div className="relative p-12 bg-[#f5f0e1]/40 border border-[#b39359]/10 backdrop-blur-sm shadow-[0_20px_50px_rgba(179,147,89,0.05)]">
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-center flex flex-col items-center justify-center h-full min-h-[550px]"
                 >
-                  Submit Another Inquiry
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                
-                <div className="flex flex-col gap-2">
-                  <h2 className="text-2xl font-normal text-[#fef9e9] tracking-tight" style={{ fontFamily: "'Noto Serif', Georgia, serif" }}>
-                    Atelier Commission Form
-                  </h2>
-                  <p className="text-xs text-[#fef9e9]/50 font-['Manrope',sans-serif]">
-                    Fill in your details to open correspondence. Our master goldsmiths and design concierges collaborate directly with you on every step.
+                  <div className="w-24 h-24 border border-[#b39359]/30 rounded-full flex items-center justify-center mb-10">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#b39359" strokeWidth="1">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h3 className="text-4xl font-normal italic mb-4 text-[#1a1614]" style={{ fontFamily: "'Noto Serif', serif" }}>Dialogue Initiated.</h3>
+                  <p className="text-sm text-[#1a1614]/50 max-w-xs mb-12 leading-relaxed">
+                    Our concierge is reviewing your request. Expect a handwritten electronic response within 12 hours.
                   </p>
-                </div>
-
-                {/* Nature of Enquiry Tabs */}
-                <div className="flex flex-col gap-2.5">
-                  <span className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">
-                    Inquiry Directive
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {["Bespoke Commission", "Milano Appointment", "Kishangarh Tour", "Press Directive"].map((opt) => (
-                      <button
-                        key={opt}
-                        type="button"
-                        onClick={() => setForm(f => ({ ...f, interest: opt.toLowerCase() }))}
-                        className={`py-3 px-2 text-[10px] font-bold tracking-wider uppercase border transition-all text-center font-['Manrope',sans-serif] ${
-                          form.interest === opt.toLowerCase()
-                            ? "bg-[#c9a84c]/10 border-[#c9a84c] text-[#c9a84c]"
-                            : "bg-[#fef9e9]/5 border-transparent text-[#fef9e9]/50 hover:border-[#fef9e9]/20 hover:text-[#fef9e9]/80"
-                        }`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
+                  <button 
+                    onClick={() => setSubmitted(false)}
+                    className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#b39359] border-b border-[#b39359]/20 hover:border-[#b39359] pb-1 transition-all"
+                  >
+                    Return to Form
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form 
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-12"
+                >
+                  <div className="flex flex-col gap-3">
+                    <h3 className="text-3xl font-normal text-[#1a1614]" style={{ fontFamily: "'Noto Serif', serif" }}>Atelier Commission</h3>
+                    <p className="text-xs text-[#1a1614]/40 font-['Manrope',sans-serif]">Please describe the nature of your inquiry in detail.</p>
                   </div>
-                </div>
 
-                {/* Form Fields */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="name-input" className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Your Name</label>
-                    <input
-                      id="name-input"
-                      type="text"
-                      placeholder="e.g. Jean Aurelius"
-                      required
-                      value={form.name}
-                      onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                      className="w-full bg-[#fef9e9]/5 border border-[#fef9e9]/10 py-3.5 px-4 font-['Manrope',sans-serif] text-xs text-[#fef9e9] outline-none transition-all focus:border-[#c9a84c]/50"
-                    />
+                  <div className="space-y-10">
+                    <div className="flex flex-col gap-4 relative group">
+                      <label className="text-[10px] font-bold tracking-[0.2em] text-[#b39359] uppercase">Full Name</label>
+                      <input 
+                        type="text" 
+                        required
+                        className="bg-transparent border-b border-[#1a1614]/10 py-4 text-sm focus:border-[#b39359] outline-none transition-all placeholder:text-[#1a1614]/15"
+                        placeholder="Jean Aurelius"
+                        value={form.name}
+                        onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-4 relative group">
+                      <label className="text-[10px] font-bold tracking-[0.2em] text-[#b39359] uppercase">Electronic Mail</label>
+                      <input 
+                        type="email" 
+                        required
+                        className="bg-transparent border-b border-[#1a1614]/10 py-4 text-sm focus:border-[#b39359] outline-none transition-all placeholder:text-[#1a1614]/15"
+                        placeholder="curator@heirloom.com"
+                        value={form.email}
+                        onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-6">
+                      <label className="text-[10px] font-bold tracking-[0.2em] text-[#b39359] uppercase">Enquiry Directive</label>
+                      <div className="flex flex-wrap gap-3">
+                        {["Bespoke", "Heritage", "Catalogue", "Tour"].map(opt => (
+                          <button 
+                            key={opt}
+                            type="button"
+                            onClick={() => setForm(f => ({ ...f, interest: opt.toLowerCase() }))}
+                            className={`text-[10px] font-bold tracking-[0.2em] uppercase px-8 py-3 transition-all duration-500 ${
+                              form.interest === opt.toLowerCase() 
+                              ? "bg-[#b39359] text-[#fcfaf2]" 
+                              : "bg-[#1a1614]/5 text-[#1a1614]/40 hover:bg-[#1a1614]/10"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                      <label className="text-[10px] font-bold tracking-[0.2em] text-[#b39359] uppercase">Design Narrative</label>
+                      <textarea 
+                        required
+                        rows={5}
+                        className="bg-transparent border-b border-[#1a1614]/10 py-4 text-sm focus:border-[#b39359] outline-none transition-all resize-none placeholder:text-[#1a1614]/15 leading-relaxed"
+                        placeholder="Describe your design intent, heirloom references, or custom gemstone requests..."
+                        value={form.message}
+                        onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                      />
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email-input" className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">Electronic Mail</label>
-                    <input
-                      id="email-input"
-                      type="email"
-                      placeholder="e.g. collector@heirloom.com"
-                      required
-                      value={form.email}
-                      onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                      className="w-full bg-[#fef9e9]/5 border border-[#fef9e9]/10 py-3.5 px-4 font-['Manrope',sans-serif] text-xs text-[#fef9e9] outline-none transition-all focus:border-[#c9a84c]/50"
-                    />
-                  </div>
-                </div>
 
-                {/* Message text area */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="message-input" className="text-[9px] font-bold tracking-widest text-[#c9a84c] uppercase font-['Manrope',sans-serif]">The Narrative or Inquiry</label>
-                  <textarea
-                    id="message-input"
-                    placeholder="Describe your design intent, reference motifs, or custom dimensions you desire..."
-                    rows={5}
-                    required
-                    value={form.message}
-                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                    className="w-full bg-[#fef9e9]/5 border border-[#fef9e9]/10 py-3.5 px-4 font-['Manrope',sans-serif] text-xs text-[#fef9e9] leading-relaxed outline-none resize-none transition-all focus:border-[#c9a84c]/50"
-                  />
-                </div>
-
-                {/* Submit button and privacy note */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-2 border-t border-[#fef9e9]/10 mt-2">
-                  <span className="text-[9px] font-light tracking-wider text-[#fef9e9]/30 uppercase font-['Manrope',sans-serif]">
-                    // Secure, end-to-end luxury correspondence
-                  </span>
-                  <button
+                  <button 
                     type="submit"
-                    className="w-full sm:w-auto font-['Manrope',sans-serif] text-[10px] font-bold tracking-[0.25em] uppercase text-[#151710] bg-[#c9a84c] hover:bg-[#b5953e] py-4 px-10 border-0 transition-colors cursor-pointer"
+                    className="w-full bg-[#1a1614] text-[#fcfaf2] py-6 text-[10px] font-bold tracking-[0.4em] uppercase hover:bg-[#332d2a] transition-all duration-500 shadow-xl"
                   >
                     Initiate Connection
                   </button>
-                </div>
-
-              </form>
-            )}
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
-
         </div>
       </section>
 
-      {/* ── INTERACTIVE KISHANGARH MAP SECTION ──────────────── */}
-      <section className="w-full bg-[#10110c] py-24 border-t border-[#c9a84c]/10">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-8 flex flex-col gap-10">
-          
-          {/* Map Header details */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#fef9e9]/10 pb-10">
-            <div className="flex flex-col gap-3">
-              <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#c9a84c] font-['Manrope',sans-serif]">
-                Heritage Location
-              </span>
-              <h2
-                className="text-3xl md:text-4xl font-normal text-[#fef9e9]"
-                style={{ fontFamily: "'Noto Serif', Georgia, serif" }}
-              >
-                The Kishangarh Foundry, <br />
-                <span className="italic text-[#c9a84c]">Rajasthan, India</span>
-              </h2>
-            </div>
-            
-            <p className="text-xs text-[#fef9e9]/50 max-w-[420px] leading-relaxed font-['Manrope',sans-serif]">
-              Nestled in Rajasthan’s historical white-marble core, our forging foundry is surrounded by generations of master stone carvers, goldsmiths, and painters. All raw casting takes place here, infusing local architectural symmetry into every golden curve.
+      {/* ── ATMOSPHERIC MAP ────────────────────────────────── */}
+      <section className="bg-[#f5f0e1] py-32 border-t border-[#b39359]/10">
+        <div className="mx-auto max-w-[1400px] px-8">
+          <div className="flex flex-col items-center text-center gap-8 mb-20">
+            <span className="text-[10px] font-bold tracking-[0.5em] uppercase text-[#b39359]">The Heritage Core</span>
+            <h2 className="text-5xl font-normal leading-tight text-[#1a1614]" style={{ fontFamily: "'Noto Serif', serif" }}>
+              Kishangarh <span className="italic text-[#b39359]">Rajasthan</span>
+            </h2>
+            <p className="text-sm text-[#1a1614]/50 max-w-lg leading-relaxed font-['Manrope',sans-serif]">
+              In the heart of Rajasthan's white-marble quarries, our artisans forge gold and stone in a tradition that predates modern machinery.
             </p>
           </div>
 
-          {/* Styled Luxury Dark-Filter Google Map */}
-          <div className="relative w-full aspect-[21/9] min-h-[300px] border border-[#c9a84c]/20 overflow-hidden bg-[#151710]">
+          <div className="relative w-full aspect-[21/8] border border-[#b39359]/20 overflow-hidden shadow-2xl group">
             <iframe
               src="https://maps.google.com/maps?q=Kishangarh,Rajasthan,India&t=m&z=12&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
-              title="Kishangarh, Rajasthan, India Location Map"
-              style={{
-                border: 0,
-                filter: "grayscale(1) invert(0.92) sepia(0.35) hue-rotate(22deg) brightness(0.85) contrast(1.15)"
-              }}
-              allowFullScreen={false}
+              style={{ border: 0, filter: "sepia(0.2) contrast(1.1) brightness(0.95)" }}
               loading="lazy"
             />
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#f5f0e1] via-transparent to-[#f5f0e1] opacity-60" />
             
-            {/* Elegant compass ornament / overlay details on map */}
-            <div className="absolute bottom-6 left-6 p-4 bg-[#10110c]/90 border border-[#c9a84c]/30 backdrop-blur-md hidden sm:flex flex-col gap-1.5 font-['Manrope',sans-serif]">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] animate-pulse" />
-                <span className="text-[10px] font-bold tracking-widest text-[#fef9e9] uppercase">Mani D'Oro Foundry</span>
+            {/* Elegant compass mark */}
+            <div className="absolute bottom-10 left-10 p-6 bg-[#fcfaf2]/90 backdrop-blur-md border border-[#b39359]/20 hidden md:flex flex-col gap-2">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-[#b39359]" />
+                <span className="text-[10px] font-bold tracking-widest uppercase text-[#1a1614]">Foundry Coordinates</span>
               </div>
-              <span className="text-[9px] text-[#fef9e9]/60 uppercase">Co-ordinates: 26.5724° N, 74.8638° E</span>
-              <span className="text-[9px] text-[#c9a84c] uppercase">Rajasthan Heritage Guild #MT-400</span>
+              <span className="text-[9px] text-[#1a1614]/40 font-['Manrope',sans-serif]">26.5724° N, 74.8638° E // THE MARBLE HUB</span>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Footer */}
       <FooterSection />
+
+      <style>{`
+        @keyframes subtle-zoom {
+          from { transform: scale(1); }
+          to { transform: scale(1.08); }
+        }
+        .animate-subtle-zoom {
+          animation: subtle-zoom 25s ease-in-out infinite alternate;
+        }
+      `}</style>
     </div>
   );
 };

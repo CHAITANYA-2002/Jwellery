@@ -612,7 +612,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
             <div className="flex flex-col gap-4 border-t border-[#1d1c12]/10 pt-6">
               <div className="flex gap-6 border-b border-[#1d1c12]/5 pb-2">
                 {[
-                  { value: "heritage", label: "Heritage Details" },
+                  { value: "heritage", label: "Design Legacy" },
                   { value: "materials", label: "Spec Materials" },
                   { value: "sourcing", label: "Ethical Sourcing" }
                 ].map((tab) => (
@@ -684,7 +684,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
                     color: "rgba(29,28,18,0.5)",
                   }}
                 >
-                  Reserve This Piece
+                  Add to Cart
                 </span>
                 <span
                   style={{
@@ -784,7 +784,7 @@ export const ProductPage = ({ params }: { params: { id: string } }): JSX.Element
                         <line x1="3" y1="6" x2="21" y2="6" />
                         <path d="M16 10a4 4 0 01-8 0" />
                       </svg>
-                      Reserve
+                      Add to Cart
                     </>
                   )}
                 </button>
